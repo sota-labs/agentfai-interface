@@ -1,0 +1,204 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@font-face {
+  font-family: 'Mona-Sans';
+  src: local('Mona-Sans'),
+    url('../assets/fonts/Mona-Sans-Light.ttf') format('truetype');
+  font-weight: 300;
+}
+
+@font-face {
+  font-family: 'Mona-Sans';
+  src: local('Mona-Sans'),
+    url('../assets/fonts/Mona-Sans-Regular.ttf') format('truetype');
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'Mona-Sans';
+  src: local('Mona-Sans'),
+    url('../assets/fonts/Mona-Sans-Medium.ttf') format('truetype');
+  font-weight: 500;
+}
+
+@font-face {
+  font-family: 'Mona-Sans';
+  src: local('Mona-Sans'),
+    url('../assets/fonts/Mona-Sans-SemiBold.ttf') format('truetype');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'Mona-Sans';
+  src: local('Mona-Sans'),
+    url('../assets/fonts/Mona-Sans-Bold.ttf') format('truetype');
+  font-weight: 700;
+}
+
+* {
+  font-family: 'Mona-Sans', sans-serif;
+  font-weight: 500;
+}
+
+:root {
+  --background: #08090c;
+  --foreground: #ffffff;
+  color: #08090c;
+  font-size: 14px;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: sans-serif;
+  font-weight: 500;
+}
+
+th {
+  @apply px-[8px] py-[6px] text-[12px] font-medium text-left;
+}
+
+td {
+  @apply px-[8px] py-[10px];
+}
+
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.customer-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.customer-scroll::-webkit-scrollbar {
+  width: 2px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.customer-scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.tooltip-marker .rc-tooltip-inner {
+  padding: 0;
+  border-radius: 4px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(
+      0deg,
+      rgba(255, 255, 255, 0.05) 0%,
+      rgba(255, 255, 255, 0.05) 100%
+    ),
+    #08090c;
+  backdrop-filter: blur(7.5px);
+}
+
+.rc-tooltip-placement-top,
+.rc-tooltip-placement-left,
+.rc-tooltip-placement-right,
+.rc-tooltip-placement-bottom {
+  padding: 5px !important;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+.hide-scroll::-webkit-scrollbar {
+  display: none;
+}
+
+.customer-scroll::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 4px;
+}
+
+.customer-scroll::-webkit-scrollbar {
+  width: 2px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.customer-scroll::-webkit-scrollbar-thumb {
+  border-radius: 4px;
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+.heading-sm-medium-16 {
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 24px;
+}
+
+.action-md-semibold-14 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 18px;
+}
+
+.body-xs-medium-10 {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.body-sm-medium-12 {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 18px;
+}
+
+.body-sm-regular-12 {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 18px;
+}
+
+.action-sm-medium-12 {
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 16px;
+}
+
+.body-md-medium-14 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.body-md-regular-14 {
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.body-xs-regular-10 {
+  font-size: 10px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 16px;
+}
+
+.heading-md-medium-18 {
+  font-size: 18px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 120%;
+}
+
+.grecaptcha-badge {
+  visibility: hidden !important;
+}

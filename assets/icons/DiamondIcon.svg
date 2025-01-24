@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="25" height="20" viewBox="0 0 25 20" fill="none">
+  <mask id="mask0_1019_38029" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0" width="25" height="20">
+    <path d="M0.741155 8.47097C-0.174703 7.51425 -0.250613 6.03069 0.562811 4.98548L3.31958 1.44318C3.82535 0.793288 4.60276 0.413208 5.42627 0.413208H19.6178C20.4478 0.413208 21.2305 0.799238 21.7357 1.45771L24.4484 4.99329C25.2488 6.03643 25.1704 7.50702 24.2637 8.45918L14.4559 18.7587C13.4057 19.8615 11.6473 19.8638 10.5943 18.7638L0.741155 8.47097Z" fill="white"/>
+  </mask>
+  <g mask="url(#mask0_1019_38029)">
+    <path d="M-0.853516 6.80526L4.12104 0.413208H20.9342L25.8386 6.80526L12.5276 20.7835L-0.853516 6.80526Z" fill="url(#paint0_linear_1019_38029)"/>
+    <path d="M-0.853516 6.80383L5.30673 8.83805L12.5276 20.782L-0.853516 6.80383Z" fill="black" fill-opacity="0.1"/>
+    <path d="M25.8055 6.80383L19.5427 8.83805L12.5283 20.782L25.8055 6.80383Z" fill="black" fill-opacity="0.1"/>
+    <g style="mix-blend-mode:overlay">
+      <path d="M12.4252 1.80993L4.06641 0.409302L5.30688 8.83838H12.3901H12.4604H19.5422L20.7827 0.409302L12.4252 1.80993Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light">
+      <path d="M4.06641 0.409302L12.5278 3.21899L20.9344 0.412111L4.06641 0.409302Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:overlay">
+      <path d="M12.424 1.80969L5.30566 8.83814H19.541L12.424 1.80969Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light">
+      <path d="M12.5266 3.2179L5.30566 8.83728H19.541L12.5266 3.2179Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light">
+      <path d="M5.30673 8.83838L-0.853516 6.80416L4.06625 0.409302H5.30673V8.83838Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light">
+      <path d="M19.541 8.83838L25.8403 6.80416L20.9206 0.409302H19.6801L19.541 8.83838Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light" opacity="0.5">
+      <path d="M5.30566 8.83899L12.4914 20.7648L19.541 8.83899H5.30566Z" fill="white"/>
+    </g>
+    <g style="mix-blend-mode:soft-light" opacity="0.3" filter="url(#filter0_i_1019_38029)">
+      <path d="M5.30566 8.83899L12.4914 20.7648L19.541 8.83899H5.30566Z" fill="black"/>
+    </g>
+  </g>
+  <defs>
+    <filter id="filter0_i_1019_38029" x="5.30566" y="4.83899" width="14.2353" height="15.9258" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feFlood flood-opacity="0" result="BackgroundImageFix"/>
+      <feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+      <feColorMatrix in="SourceAlpha" type="matrix" values="0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 127 0" result="hardAlpha"/>
+      <feOffset dy="-4"/>
+      <feGaussianBlur stdDeviation="15"/>
+      <feComposite in2="hardAlpha" operator="arithmetic" k2="-1" k3="1"/>
+      <feColorMatrix type="matrix" values="0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 1 0"/>
+      <feBlend mode="normal" in2="shape" result="effect1_innerShadow_1019_38029"/>
+    </filter>
+    <linearGradient id="paint0_linear_1019_38029" x1="12.4925" y1="0.413208" x2="12.4925" y2="20.7835" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#94F2FF"/>
+      <stop offset="0.401042" stop-color="#003B95"/>
+      <stop offset="1" stop-color="#00D1FF"/>
+    </linearGradient>
+  </defs>
+</svg>
