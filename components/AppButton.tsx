@@ -10,35 +10,26 @@ interface IProps
   children: ReactNode;
   className?: string;
   isLoading?: boolean;
-  buttonType?:
-    | 'contained-brand'
-    | 'outlined-brand'
-    | 'outlined-grey'
-    | 'contained-grey'
-    | 'contained-brand-900'
-    | 'contained-blue';
+  buttonType?: 'primary' | 'outline';
 }
 
 export const AppButton = ({
   children,
   className = '',
-  buttonType = 'contained-brand',
+  buttonType = 'outline',
   isLoading,
   disabled,
   ...restProps
 }: IProps) => {
   const mapClassName = {
-    'contained-brand': 'bg-brand-500 text-black-900',
-    'contained-brand-900': 'bg-brand-900 text-brand-500',
-    'outlined-brand': 'bg-white-50 text-brand-500 border border-brand-800',
-    'contained-grey': 'bg-white-100',
-    'outlined-grey': 'bg-white-50 text-white-1000 border border-white-100',
-    'contained-blue': 'bg-[#1DA1F2] text-white-1000 border border-white-100 ',
+    primary: 'bg-[#a0faa0] text-gray-950',
+    outline:
+      'border border-solid border-[#a0faa0]/75 text-[#fff] hover:bg-[#a0faa0]/25 transition-colors duration-300',
   };
   return (
     <button
       className={clsx(
-        'px-4 py-2 text-[14px] flex items-center justify-center font-medium rounded-lg transition-colors hover:opacity-90 disabled:opacity-50 disabled:cursor-not-allowed',
+        'py-1 px-2 text-[16px] leading-[24px] rounded-md w-full cursor-pointer',
         mapClassName[buttonType],
         className,
       )}

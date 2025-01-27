@@ -69,6 +69,10 @@ import WarningOrangeIcon from './WarningOrangeIcon.svg';
 import XIcon from './XIcon.svg';
 import XLogoBlack from './XLogoBlack.svg';
 import XLogoWhite from './XLogoWhite.svg';
+import OpenTabIcon from './OpenTabIcon.svg';
+import MenuDotIcon from './MenuDotIcon.svg';
+import DocumentIcon from './DocumentIcon.svg';
+import MobileIcon from './MobileIcon.svg';
 
 export {
   AUMIcon,
@@ -142,4 +146,8 @@ export {
   XIcon,
   XLogoBlack,
   XLogoWhite,
+  OpenTabIcon,
+  MenuDotIcon,
+  DocumentIcon,
+  MobileIcon,
 };
