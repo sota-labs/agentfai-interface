@@ -36,3 +36,7 @@ export const SI = [
 export const LIMIT_NEW_LISTING = 8;
 export const DECIMAL_FUNDRAISE_GOAL = 4;
 export const MULTIPLY_FUNDRAISE_GOAL = 1.1;
+
+export enum EPathName {
+  HOME = '/home',
+}

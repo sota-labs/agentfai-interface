@@ -2,6 +2,7 @@ import { Layout } from '@/components/layout';
 import '@mysten/dapp-kit/dist/index.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
 import { ToastContainer } from 'react-toastify';
@@ -29,6 +30,12 @@ export const metadata: Metadata = {
     icon: '/logo/logo-favicon.png',
   },
 };
+const varRoboto = Roboto({
+  weight: ['400', '500', '700'],
+  subsets: ['latin'],
+  display: 'swap',
+  variable: '--font-roboto',
+});
 
 export default function RootLayout({
   children,
@@ -37,18 +44,23 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body>
+      <body className={varRoboto.variable}>
         <ToastContainer
-          autoClose={2000}
+          autoClose={3000}
           position="top-right"
-          icon={false}
           pauseOnHover
+          icon={false}
           closeButton={false}
+          progressClassName="hidden"
           hideProgressBar
           toastStyle={{
             position: 'relative',
             overflow: 'visible',
+            height: '100%',
+            marginBottom: '0px',
+            padding: '8px',
           }}
+          theme="dark"
         />
         <Layout>{children}</Layout>
       </body>
