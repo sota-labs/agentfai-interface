@@ -1,13 +1,13 @@
 'use client';
 
-import { useGoogleCallback } from "@/hooks/useGoogleCallback";
-import { useLogin } from "@/hooks/useLogin";
-import { useEffect, useState } from "react";
-import { Storage } from "@/libs/storage";
-import { toastError } from "@/libs/toast";
+import { useGoogleCallback } from '@/hooks/useGoogleCallback';
+import { useLogin } from '@/hooks/useLogin';
+import React, { useEffect, useState } from 'react';
+import { Storage } from '@/libs/storage';
+import { toastError } from '@/libs/toast';
 import { Oval } from 'react-loader-spinner';
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/libs/zustand/auth";
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 export default function LandingPage() {
   const router = useRouter();
@@ -22,17 +22,15 @@ export default function LandingPage() {
 
   useEffect(() => {
     if (idToken && accessToken) {
-      onLogin(idToken, accessToken, onLoginSuccess).catch(
-        (error) => {
-          console.error('[onLogin] Error: ', error.message, error);
-          if (error?.message.includes('length')) {
-            toastError('Please login again');
-          } else {
-            toastError(error.message || 'Something wrong');
-          }
-          router.push('/');
-        },
-      );
+      onLogin(idToken, accessToken, onLoginSuccess).catch((error) => {
+        console.error('[onLogin] Error: ', error.message, error);
+        if (error?.message.includes('length')) {
+          toastError('Please login again');
+        } else {
+          toastError(error.message || 'Something wrong');
+        }
+        router.push('/');
+      });
     }
   }, [idToken, accessToken]);
 
@@ -45,10 +43,7 @@ export default function LandingPage() {
       });
       return redirectUrlAfterLogin();
     } catch (err: any) {
-      console.error(
-        '[onLoginSuccess] Error: ',
-        err.message,
-      );
+      console.error('[onLoginSuccess] Error: ', err.message);
       throw err;
     }
   };
@@ -108,22 +103,36 @@ export default function LandingPage() {
           <a href="#" className="hover:opacity-80 transition-opacity">
             Docs
           </a>
-          <button className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md" onClick={login}>
+          <button
+            className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
+            onClick={login}
+          >
             Get Started
           </button>
         </div>
       </nav>
 
-      { isOpenSidebar && (
+      <>
+        {isOpenSidebar && (
+          <div
+            className="fixed inset-0 bg-black-100/40 backdrop-blur-sm z-40"
+            onClick={toggleSidebar}
+          ></div>
+        )}
         <div
-          id="mobile-menu"
-          className="md:hidden absolute top-0 w-full h-screen h-screen bg-black-900"
+          className={`w-[320px] bg-[#09090B] top-0 text-neutral-200 flex flex-col px-3 absolute h-screen transform transition-transform duration-300 z-50 sidebar ${
+            isOpenSidebar ? 'translate-x-0' : '-translate-x-full'
+          }`}
         >
-          <div className="p-4 border-b border-gray-800" onClick={() => toggleSidebar()}>
-            <button
-              className="ml-auto block"
-              data-drawer-dismiss="mobile-menu"
-            >
+          <div
+            className="py-3 flex justify-between border-b border-gray-800"
+            onClick={() => toggleSidebar()}
+          >
+            <div className="flex items-center gap-2">
+              <span className="font-medium">Agentfai</span>
+            </div>
+
+            <button className="ml-auto block" data-drawer-dismiss="mobile-menu">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-6 w-6"
@@ -140,19 +149,22 @@ export default function LandingPage() {
               </svg>
             </button>
           </div>
-          <div className="flex flex-col p-4 gap-4 h-full">
+          <div className="flex flex-col gap-4 h-full">
             <a
               href="#"
-            className="hover:bg-gray-800 p-2 rounded-md transition-colors"
-          >
-            Docs
-          </a>
-          <button className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md" onClick={login}>
+              className="hover:bg-gray-800 py-3 rounded-md transition-colors"
+            >
+              Docs
+            </a>
+            <button
+              className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
+              onClick={login}
+            >
               Get Started
             </button>
           </div>
         </div>
-      )}
+      </>
 
       <main className="flex flex-col md:flex-row justify-between items-center px-4 md:px-20 pt-16 md:pt-32 max-w-7xl mx-auto gap-8">
         <div className="space-y-4 text-center md:text-left">
@@ -163,7 +175,10 @@ export default function LandingPage() {
           <p className="text-gray-400 text-base md:text-lg">
             I power the Agent Engine to help you turn intent into action.
           </p>
-          <button className="bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto" onClick={login}>
+          <button
+            className="bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
+            onClick={login}
+          >
             Get Started
           </button>
         </div>
@@ -172,7 +187,7 @@ export default function LandingPage() {
           <div className="absolute inset-0 bg-gradient-to-br from-teal-400 via-blue-500 to-orange-500 rounded-full animate-spin-slow blur-xl opacity-50" />
           <div
             className="absolute inset-0 bg-gradient-to-br from-teal-400 via-blue-500 to-orange-500 rounded-full animate-spin-slow"
-            style={{ animationDelay: "-5s" }}
+            style={{ animationDelay: '-5s' }}
           />
         </div>
       </main>
