@@ -10,19 +10,19 @@ interface IMessagePropsWithTitle {
   title?: string;
 }
 
-export const successMsg = (message: string, hash?: string) => {
+export const toastSuccess = (message: string, hash?: string) => {
   toast(<SuccessMessage message={message} hash={hash} />, {
     type: 'success',
   });
 };
 
-export const errorMsg = (message: string) => {
+export const toastError = (message: string) => {
   toast(<ErrorMessage message={message} />, {
     type: 'error',
   });
 };
 
-export const MsgWithTitle = (
+export const toastErrorWithTitle = (
   title?: string,
   message?: string,
   time?: number,

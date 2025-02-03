@@ -5,7 +5,7 @@ import { v4 as uuidv4 } from 'uuid';
 import config from "@/config";
 // import retry from 'async-retry';
 
-const setAuthorizationToRequest = (token: string) => {
+export const setAuthorizationToRequest = (token: string) => {
   axios.defaults.headers.common['Authorization'] = `Bearer ${token}`;
 };
 
@@ -19,7 +19,7 @@ export default class BaseRequest {
   }
 
   getUrlPrefix() {
-    return config.apiUrl;
+    return config.authApiUrl;
   }
 
   async buildCustomHeaders() {

@@ -2,7 +2,7 @@
 import { CloseIcon, DocumentIcon, MobileIcon } from '@/assets/icons';
 import { AppButton } from '@/components/AppButton';
 import { EPathName } from '@/constants/pathName';
-import { successMsg } from '@/libs/toast';
+import { toastSuccess } from '@/libs/toast';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -117,7 +117,7 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
-          <AppButton onClick={() => successMsg('test')}>Chan</AppButton>
+          <AppButton onClick={() => toastSuccess('test')}>Chan</AppButton>
         </div>
       </aside>
     </>

@@ -3,31 +3,27 @@ import prod from './prod.json';
 
 export interface Config {
   appRaidenXUrl: string;
-  apiRaidenXUrl: string;
-  apiUrl: string;
-  recaptchaSiteKey: string;
-  endpoints: {
-    ws: string;
-    wsRaidenX: string;
-  };
-  explorerUrl: string;
+  appApiUrl: string;
+  authApiUrl: string;
+  rpcUrl: string;
+  zkProofUrl: string;
+  suiEpochTime: number;
+  googleClientId: string;
+  appUrl: string;
+  googleCallbackUrl: string;
   network: string;
-  tokenAddress: string;
-  dao: {
-    packageId: string;
-    packageIdCurrent: string;
-    daoConfigObjectId: string;
-  };
-  staking: {
-    packageId: string;
-    packageIdCurrent: string;
-    metadataObjectId: string;
-    launchpadObjectId: string;
-    tokenAddress: string;
-  };
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
+let appUrl = process.env.NEXT_PUBLIC_APP_URL;
+if (typeof window !== "undefined") {
+  appUrl = window.location.origin;
+}
+const googleCallbackUrl = `${appUrl}/google/callback`;
+
+if (appUrl) {
+  console.log('AppUrl: ' + appUrl);
+}
 
 interface EnvConfig {
   prod: Config;
@@ -35,6 +31,12 @@ interface EnvConfig {
 }
 
 const configs: EnvConfig = { dev, prod } as EnvConfig;
-const config: Config = configs[envConfig as keyof typeof configs];
+let config: Config = configs[envConfig as keyof typeof configs];
+
+config = {
+  ...config,
+  appUrl: appUrl || '',
+  googleCallbackUrl: googleCallbackUrl,
+};
 
 export default config;

@@ -1,7 +1,7 @@
-import ExampleRequest from "./ExampleRequest";
+import AuthRequest from "./AuthRequest";
 
 const requestMap = {
-  ExampleRequest,
+  AuthRequest,
 };
 
 const instances = {} as any;

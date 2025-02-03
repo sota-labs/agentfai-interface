@@ -1,11 +1,17 @@
 'use client';
 import Sidebar from '@/components/layout/Sidebar';
 import { useCommonStore } from '@/libs/zustand/store';
-import { ReactNode } from 'react';
+import { setAuthorizationToRequest } from '@/services/BaseRequest';
+import { ReactNode, useEffect } from 'react';
 import { IoIosMenu } from 'react-icons/io';
 
-export const Layout = ({ children }: { children: ReactNode }) => {
+export const Layout = ({ children, authorization }: { children: ReactNode, authorization?: string }) => {
   const { toggleSidebar } = useCommonStore();
+  useEffect(() => {
+    if (authorization) {
+      setAuthorizationToRequest(authorization);
+    }
+  }, [authorization]);
   return (
     <div className="w-full h-full bg-[#18181A] text-primary-50 flex md:flex-row flex-col">
       <Sidebar />

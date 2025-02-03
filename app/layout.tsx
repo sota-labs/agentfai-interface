@@ -1,4 +1,3 @@
-import { Layout } from '@/components/layout';
 import '@mysten/dapp-kit/dist/index.css';
 import { GoogleAnalytics } from '@next/third-parties/google';
 import { Metadata } from 'next';
@@ -62,7 +61,7 @@ export default function RootLayout({
           }}
           theme="dark"
         />
-        <Layout>{children}</Layout>
+        {children}
       </body>
       <GoogleAnalytics gaId="G-E8VWZLW24D" />
     </html>

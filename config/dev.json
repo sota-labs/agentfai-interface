@@ -1,3 +1,10 @@
 {
-  "appRaidenXUrl": "https://raidenx.io"
+  "appRaidenXUrl": "https://raidenx.io",
+  "appApiUrl": "http://localhost:3000",
+  "authApiUrl": "https://dev-api-event.scpay.jp",
+  "rpcUrl": "https://fullnode.testnet.sui.io",
+  "zkProofUrl": "https://zklogin-prover-sui.sotalabs.io/v1",
+  "suiEpochTime": 2,
+  "network": "testnet",
+  "googleClientId": "442577374557-v64e7rde0sendll8gld44fmi86shclhf.apps.googleusercontent.com"
 }
