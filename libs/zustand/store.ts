@@ -22,7 +22,7 @@ export const useCommonStore = create<ICommonState>()(
         (state) => ({ isOpenSidebar: !state.isOpenSidebar }),
         false,
         'common/toggleSidebar',
-      ),
+    ),
     setIsSendMessage: (isSendMessage: boolean) => {
       set(() => ({ isSendMessage }), false, 'common/setIsSendMessage');
     },
