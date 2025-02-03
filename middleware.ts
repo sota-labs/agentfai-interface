@@ -18,5 +18,5 @@ export function middleware(request: NextRequest) {
 
 // This config ensures that the middleware only applies to the `/home` route
 export const config = {
-  matcher: '/((?!api/|_next/|static/|public/|login|register|image|favicon.ico).*)'
+  matcher: '/((?!api/|_next/|static/|public/|google/callback|login|register|logo/|image|favicon.ico).*)'
 };

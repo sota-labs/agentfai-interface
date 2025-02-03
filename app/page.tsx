@@ -1,60 +1,12 @@
 'use client';
 
-import { useGoogleCallback } from '@/hooks/useGoogleCallback';
 import { useLogin } from '@/hooks/useLogin';
-import React, { useEffect, useState } from 'react';
-import { Storage } from '@/libs/storage';
-import { toastError } from '@/libs/toast';
+import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/libs/zustand/auth';
 
 export default function LandingPage() {
-  const router = useRouter();
-  const { isLoading, login, onLogin, setRedirectUri } = useLogin();
-  const { idToken, accessToken, redirectUri } = useGoogleCallback();
+  const { isLoading, login, redirectUri } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-  const { setAccountData } = useAuthStore();
-
-  useEffect(() => {
-    setRedirectUri(Storage.getRedirectAfterLogin() || '/home');
-  }, []);
-
-  useEffect(() => {
-    if (idToken && accessToken) {
-      onLogin(idToken, accessToken, onLoginSuccess).catch((error) => {
-        console.error('[onLogin] Error: ', error.message, error);
-        if (error?.message.includes('length')) {
-          toastError('Please login again');
-        } else {
-          toastError(error.message || 'Something wrong');
-        }
-        router.push('/');
-      });
-    }
-  }, [idToken, accessToken]);
-
-  const onLoginSuccess = async (zkUser: any) => {
-    try {
-      setAccountData({
-        ...zkUser,
-        connected: true,
-        jwt: zkUser.jwt,
-      });
-      return redirectUrlAfterLogin();
-    } catch (err: any) {
-      console.error('[onLoginSuccess] Error: ', err.message);
-      throw err;
-    }
-  };
-
-  const redirectUrlAfterLogin = async () => {
-    Storage.resetRedirectAfterLogin();
-    if (redirectUri) {
-      return router.push(redirectUri);
-    }
-    return router.push('/home');
-  };
 
   const toggleSidebar = () => {
     setIsOpenSidebar(!isOpenSidebar);

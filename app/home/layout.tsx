@@ -8,7 +8,6 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   const authorization = cookies().get('Authorization')?.value || '';
-  console.log('authorization', authorization);
   return (
     <Layout authorization={authorization}>{children}</Layout>
   );

@@ -5,7 +5,7 @@ import { getZkLoginUrl, handleZkLoginByGoogle } from '@/libs/zklogin/auth';
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  const [redirectUri, setRedirectUri] = useState<string>('/');
+  const [redirectUri, setRedirectUri] = useState<string>('/home');
   const [callbackUri, setCallBackUri] = useState<string>(
     config.googleCallbackUrl,
   );
@@ -13,6 +13,7 @@ export const useLogin = () => {
   const login = async () => {
     try {
       const url = await getZkLoginUrl(callbackUri, redirectUri);
+      console.log('zkLoginUrl', url);
       window.location.replace(url);
     } catch (e) {
       console.log(e);
@@ -44,6 +45,7 @@ export const useLogin = () => {
     login,
     onLogin,
     isLoading,
+    redirectUri,
     setIsLoading,
     setRedirectUri,
     setCallBackUri,
