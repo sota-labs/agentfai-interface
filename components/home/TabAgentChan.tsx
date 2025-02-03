@@ -2,16 +2,14 @@
 import { DefaultImage } from '@/assets/images';
 import { MenuDotIcon } from '@/assets/icons';
 import AppFallbackImage from '@/components/AppFallbackImage';
-import AppInput from '@/components/AppInput';
 import { AppPopover } from '@/components/AppPopover';
 import QuestionAnswerView from '@/components/QuestionAnswerView';
 import { exampleAnswer } from '@/constants/exampleAnswer';
-import { useCommonStore } from '@/libs/zustand/store';
 import { FormEvent, useState } from 'react';
+import ChatInput from './ChatInput';
 
 const TabAgentChan = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
-  const { isSendMessage } = useCommonStore();
 
   const [chatBot, setChatBot] = useState<
     { question: string; answer: string }[]
@@ -74,43 +72,11 @@ const TabAgentChan = () => {
             <QuestionAnswerView askAndAnswer={askAndAnswer} key={index} />
           ))}
         </div>
-        <form
-          onSubmit={handleSubmit}
-          className="bg-[#272729] bottom-0 left-0 rounded-[8px] w-full p-[16px] space-y-1 max-desktop:p-[16px] relative"
-        >
-          <AppInput
-            type="text"
-            placeholder="Message"
-            className="text-xs"
-            rootClassName="border-none w-[calc(100%-32px)] p-0"
-            value={inputValue}
-            onChange={(e) => setInputValue(e.target.value)}
-          />
-          <div className="flex justify-end">
-            <button
-              className="w-[32px] h-[32px] rounded-[8px] bg-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/75 transition-colors duration-300 disabled:cursor-not-allowed"
-              disabled={inputValue.length === 0 || isSendMessage}
-              type="submit"
-            >
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-              >
-                <path
-                  stroke="#0cad0f"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeMiterlimit="10"
-                  strokeWidth="1.5"
-                  d="M18.07 9.57L12 3.5 5.93 9.57M12 20.5V3.67"
-                ></path>
-              </svg>
-            </button>
-          </div>
-        </form>
+        <ChatInput 
+          inputValue={inputValue}
+          setInputValue={setInputValue}
+          handleSubmit={handleSubmit}
+        />
         <div className="flex gap-2 px-2 customer-scroll overflow-x-auto pb-2">
           {[
             'Tokens',
