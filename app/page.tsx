@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 
 export default function LandingPage() {
-  const { isLoading, login, redirectUri } = useLogin();
+  const { isLoading, login } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   const toggleSidebar = () => {
