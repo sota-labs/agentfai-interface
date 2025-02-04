@@ -3,6 +3,7 @@ import { devtools } from 'zustand/middleware';
 import { ZKProof, zkUser } from '@/libs/zklogin/type';
 import { Storage } from '@/libs/storage';
 import { setAuthorizationToRequest } from '@/services/BaseRequest';
+
 type TAuthState = Partial<zkUser> & {
   connected?: boolean;
   setAccountData: (payload: TAuthState) => void;
@@ -10,7 +11,11 @@ type TAuthState = Partial<zkUser> & {
   logout: () => void;
 };
 
-const initialState = {};
+const { connected } = Storage.getZkpData();
+
+const initialState = {
+  connected,
+};
 
 export const useAuthStore = create<TAuthState>()(
   devtools((set) => ({
@@ -22,7 +27,7 @@ export const useAuthStore = create<TAuthState>()(
           const clonedState = { ...newState };
           Storage.setZkpData(clonedState);
           setAuthorizationToRequest(clonedState.accessToken || '');
-          
+
           return clonedState;
         },
         true,
@@ -32,11 +37,15 @@ export const useAuthStore = create<TAuthState>()(
       set((state) => ({ ...state, zkProof }), true, 'auth/setZkProof');
     },
     logout: () => {
-      set(() => {
-        Storage.logout();
-        setAuthorizationToRequest('');
-        return {}
-      }, false, 'auth/logout');
+      set(
+        () => {
+          Storage.logout();
+          setAuthorizationToRequest('');
+          return {};
+        },
+        false,
+        'auth/logout',
+      );
     },
   })),
 );
