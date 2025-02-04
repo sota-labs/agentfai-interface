@@ -5,9 +5,7 @@ import {
   DocumentIcon,
   MobileIcon,
 } from '@/assets/icons';
-import { AppButton } from '@/components/AppButton';
 import { EPathName } from '@/constants/pathName';
-import { toastSuccess } from '@/libs/toast';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -19,6 +17,7 @@ import { HiWallet } from 'react-icons/hi2';
 import { HiOutlineRefresh, HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
+import AccountMenu from './AccountMenu';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -270,7 +269,8 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
-          <AppButton onClick={() => toastSuccess('test')}>Chan</AppButton>
+
+          <AccountMenu />
         </div>
       </aside>
     </>
