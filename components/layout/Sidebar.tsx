@@ -29,6 +29,14 @@ const Sidebar = () => {
   const [isModalOpen, setModalOpen] = useState(false);
 
   const toggleModal = () => setModalOpen(!isModalOpen);
+
+  const accountMenuItems = [
+    { icon: RiAccountCircleFill, label: 'Account' },
+    { icon: AiOutlineTeam, label: 'Team' },
+    { icon: FaInbox, label: 'Inbox' },
+    { icon: CiGift, label: 'Gift' },
+  ];
+
   const menuTopSidebar = [
     {
       icon: (
@@ -194,40 +202,37 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
-          <div className="text-neutral-500 text-sm relative">
-            <AppButton onClick={toggleModal}>Account</AppButton>
+
+          <div className="mt-auto text-neutral-500 text-sm space-y-6 relative">
+            <AppButton
+              onClick={(e) => {
+                e.stopPropagation();
+                toggleModal();
+              }}
+              className={`${isModalOpen ? 'bg-[#a0faa0]' : ''} mt-2`}
+            >
+              Account
+            </AppButton>
             {isModalOpen && (
-              <div className="absolute bottom-full mx-auto mb-2 right-0 bg-[#1E1E1E] p-3 rounded-lg w-full shadow-lg border border-white-100">
+              <div
+                className="absolute bottom-full right-0 bg-[#1E1E1E] p-3 rounded-lg w-full shadow-lg border border-white-100"
+                onClick={(e) => e.stopPropagation()}
+              >
                 <div className="space-y-2">
-                  <div className="flex items-center">
-                    <RiAccountCircleFill />
-                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
-                      Account
+                  {accountMenuItems.map(({ icon: Icon, label }) => (
+                    <div
+                      key={label}
+                      className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
+                    >
+                      <Icon className="mr-2" />
+                      {label}
                     </div>
-                  </div>
-                  <div className="flex items-center">
-                    <AiOutlineTeam />
-                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
-                      Team
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <FaInbox />
-                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
-                      Inbox
-                    </div>
-                  </div>
-                  <div className="flex items-center border-b border-white-100">
-                    <CiGift />
-                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
-                      Gift
-                    </div>
-                  </div>
-                  <div className="flex items-center">
-                    <IoIosLogOut />
-                    <div className="p-1 hover:bg-white-100 rounded text-white-1000 w-full">
-                      Logout
-                    </div>
+                  ))}
+                  <div className=" border-b border-white-100"></div>
+
+                  <div className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100">
+                    <IoIosLogOut className="mr-2" />
+                    Logout
                   </div>
                 </div>
               </div>
