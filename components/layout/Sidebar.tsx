@@ -219,17 +219,17 @@ const Sidebar = () => {
           <div className="mt-4 p-[8px]">
             <h3 className="text-neutral-500 text-xs">Recent Threads</h3>
             <ul className="mt-2 flex flex-col gap-2">
-              <li className="text-primary-50">
+              <li className="text-white-700 hover:text-white-1000">
                 <Link href={`${EPathName.THREADS}/fgdfgfg`}>
                   Thread from 1/2
                 </Link>
               </li>
-              <li className="text-primary-50">
+              <li className="text-white-700 hover:text-white-1000">
                 <Link href={`${EPathName.THREADS}/fgdfgfg`}>
                   Thread from 2/2
                 </Link>
               </li>
-              <li className="text-primary-50">
+              <li className="text-white-700 hover:text-white-1000">
                 <Link href={`${EPathName.THREADS}/fgdfgfg`}>
                   Thread from 3/2
                 </Link>
