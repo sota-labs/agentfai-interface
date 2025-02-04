@@ -19,9 +19,9 @@ const initialState = {
 export const useUserWallet = create<TWalletState>()(
   devtools((set) => ({
     ...initialState,
-    setActiveWalletData: (payload: UserWallet[]) =>
+    setActiveWalletData: (payload: UserWallet) =>
       set(
-        (state) => ({ ...state, userWallets: payload }),
+        (state) => ({ ...state, activeWallet: payload }),
         true,
         'wallet/setActiveWalletData',
       ),

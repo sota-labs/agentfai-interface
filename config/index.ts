@@ -11,12 +11,12 @@ export interface Config {
   googleClientId: string;
   appUrl: string;
   googleCallbackUrl: string;
-  network: string;
+  network: 'testnet' | 'mainnet';
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
 let appUrl = process.env.NEXT_PUBLIC_APP_URL;
-if (typeof window !== "undefined") {
+if (typeof window !== 'undefined') {
   appUrl = window.location.origin;
 }
 const googleCallbackUrl = `${appUrl}/google/callback`;

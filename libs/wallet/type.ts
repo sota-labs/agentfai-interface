@@ -1,9 +1,12 @@
-export type CoinBalance = {
-  balance: string;
-  type: string;
-};
-
 export type UserWallet = {
   address: string;
-  coinBalances: CoinBalance[];
+  coinBalances: TCoinMetadata[];
+};
+
+export type TCoinMetadata = {
+  type: string;
+  decimal: number;
+  name: string;
+  symbol: string;
+  balance: string;
 };

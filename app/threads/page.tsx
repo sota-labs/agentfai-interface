@@ -23,7 +23,7 @@ export default function ChatAndWallet() {
   return (
     <div>
       <div className="grid grid-cols-3 gap-[32px] max-desktop:grid-cols-1">
-        <div className="max-w-[718px] col-span-2 h-[calc(100vh-80px)] max-desktop:max-w-full max-desktop:col-span-1 max-desktop:h-[calc(100vh-64px)]">
+        <div className="max-w-[718px] xl:max-w-full col-span-2 h-[calc(100vh-80px)] max-desktop:max-w-full max-desktop:col-span-1 max-desktop:h-[calc(100vh-64px)]">
           <div className="relative flex flex-col gap-2 bg-[#18181A] h-full">
             <p className="text-[24px] leading-[32px] font-semibold text-white-0">
               Thread from {moment().format('MM/DD')}

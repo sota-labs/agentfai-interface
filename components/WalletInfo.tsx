@@ -1,21 +1,19 @@
 'use client';
 import React, { useState, useEffect } from 'react';
-import { LogoSui } from '@/assets/images';
 import {
   ArrowDownIcon,
   CopyIcon,
-  DefaultAvatar,
   MenuDotIcon,
   OpenTabIcon,
 } from '@/assets/icons';
-import AppFallbackImage from '@/components/AppFallbackImage';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
-import { ConnectButton } from '@mysten/dapp-kit';
+import { ConnectButton, useDisconnectWallet } from '@mysten/dapp-kit';
 import { useUserWallet } from '@/libs/zustand/wallet';
 import { fetchCoinsBalance } from '@/utils/sui';
 import { useCurrentAccount, useSuiClient } from '@mysten/dapp-kit';
 import { truncateMiddleText } from '@/utils/helper';
+import { TokenImages } from '@/assets/images/token';
 
 const WalletInfo = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
@@ -25,10 +23,12 @@ const WalletInfo = () => {
     useUserWallet();
   const suiClient = useSuiClient();
   const account = useCurrentAccount();
+  const { mutate: disconnect } = useDisconnectWallet();
 
   const getBalances = async (activeWalletAddress: string) => {
     try {
       const balances = await fetchCoinsBalance(suiClient, activeWalletAddress);
+
       setActiveWalletData({
         address: activeWalletAddress,
         coinBalances: balances,
@@ -79,54 +79,44 @@ const WalletInfo = () => {
             </div>
           </div>
         ) : (
-          <ConnectButton
-            style={{
-              background: '#C6FE00',
-              color: '#08090C',
-              padding: '8px',
-              fontSize: '12px',
-              borderRadius: '6px',
-            }}
-          />
-        )}
-
-        <div className="flex items-center gap-[8px]">
-          <div className="px-[6px] py-[2px] bg-[#27272a] flex items-center gap-[6px] rounded-[6px]">
-            <span className="text-[16px] font-semibold leading-[24px]">
-              0.00
-            </span>
-            <AppFallbackImage
-              src={LogoSui}
-              alt="solana"
-              width={24}
-              height={24}
-              className="rounded-full my-[8px]"
-              fallbackSrc={DefaultAvatar}
+          <div className="flex justify-center">
+            <ConnectButton
+              style={{
+                background: '#C6FE00',
+                color: '#08090C',
+                padding: '8px',
+                fontSize: '12px',
+                borderRadius: '6px',
+              }}
             />
           </div>
-          <AppPopover
-            isOpen={isPopoverMenu}
-            onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
-            onClose={() => setIsPopoverMenu(false)}
-            trigger={
-              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
-                <MenuDotIcon />
-              </div>
-            }
-            position="left"
-            content={
-              <>
-                <p className="cursor-pointer py-[6px] px-[24px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all">
-                  Revoke
-                </p>
-                <p className="cursor-pointer py-[6px] px-[24px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all">
-                  Export
-                </p>
-              </>
-            }
-            customClassWrapper="min-w-[256px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
-          />
-        </div>
+        )}
+        {account && (
+          <div className="flex items-center gap-[8px]">
+            <AppPopover
+              isOpen={isPopoverMenu}
+              onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
+              onClose={() => setIsPopoverMenu(false)}
+              trigger={
+                <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+                  <MenuDotIcon />
+                </div>
+              }
+              position="left"
+              content={
+                <>
+                  <p
+                    className="cursor-pointer py-[6px] px-[18px] text-[12px] leading-[18px] text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all"
+                    onClick={() => disconnect()}
+                  >
+                    Disconnect
+                  </p>
+                </>
+              }
+              customClassWrapper="min-w-[256px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
+            />
+          </div>
+        )}
       </div>
       <div className="pt-[16px] space-y-[16px]">
         <AppPopover
@@ -147,9 +137,9 @@ const WalletInfo = () => {
               <p className="cursor-pointer py-[6px] px-[12px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all">
                 Tokens
               </p>
-              <p className="cursor-pointer py-[6px] px-[12px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all">
+              {/* <p className="cursor-pointer py-[6px] px-[12px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all">
                 NFTs
-              </p>
+              </p> */}
             </>
           }
           customClassWrapper="min-w-[110px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
@@ -158,10 +148,11 @@ const WalletInfo = () => {
           <CardToken
             key={'token ' + index}
             token={{
-              image: '',
-              title: 'Ethereum',
-              tokenName: 'ETH',
-              priceToken: '0.37',
+              image: TokenImages[item?.name?.toLocaleLowerCase()],
+              symbol: item.symbol,
+              tokenName: item.name,
+              tokenBalance: item.balance,
+              decimal: item.decimal,
               priceUSDT: '0.37',
             }}
           />
