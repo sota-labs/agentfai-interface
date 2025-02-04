@@ -2,16 +2,26 @@
 import Sidebar from '@/components/layout/Sidebar';
 import { useCommonStore } from '@/libs/zustand/store';
 import { setAuthorizationToRequest } from '@/services/BaseRequest';
+import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 import { IoIosMenu } from 'react-icons/io';
 
 export const Layout = ({ children, authorization }: { children: ReactNode, authorization?: string }) => {
+  const pathname = usePathname();
   const { toggleSidebar } = useCommonStore();
   useEffect(() => {
     if (authorization) {
       setAuthorizationToRequest(authorization);
     }
   }, [authorization]);
+
+  console.log('pathname', pathname);
+
+  const isHideSidebar = ['/', '/google/callback'].includes(pathname);
+  if (isHideSidebar) {
+    return <>{children}</>;
+  }
+
   return (
     <div className="w-full h-full bg-[#18181A] text-primary-50 flex md:flex-row flex-col">
       <Sidebar />

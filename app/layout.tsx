@@ -7,6 +7,8 @@ import React from 'react';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
+import { cookies } from 'next/headers';
+import { Layout } from '@/components/layout';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://suidaos.com'),
@@ -41,6 +43,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const authorization = cookies().get('Authorization')?.value || '';
   return (
     <html lang="en">
       <body className={varRoboto.variable}>
@@ -61,7 +64,7 @@ export default function RootLayout({
           }}
           theme="dark"
         />
-        {children}
+        <Layout authorization={authorization}>{children}</Layout>
       </body>
       <GoogleAnalytics gaId="G-E8VWZLW24D" />
     </html>
