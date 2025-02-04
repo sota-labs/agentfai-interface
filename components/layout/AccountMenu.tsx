@@ -5,10 +5,12 @@ import { FaInbox } from 'react-icons/fa';
 import { CiGift } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 import { AppButton } from '../AppButton';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
+  const { logout } = useAuthStore();
 
   const toggleModal = () => setModalOpen(!isModalOpen);
 
@@ -64,7 +66,10 @@ const AccountMenu = () => {
             ))}
             <div className=" border-b border-white-100"></div>
 
-            <div className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100">
+            <div
+              onClick={() => logout()}
+              className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
+            >
               <IoIosLogOut className="mr-2" />
               Logout
             </div>

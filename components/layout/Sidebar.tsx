@@ -38,18 +38,18 @@ const Sidebar = () => {
       label: 'Griffain',
       href: EPathName.HOME,
     },
-    {
-      icon: (
-        <div className="text-[#a1a1aa] group-hover:text-white-0">
-          <MdOutlineAlternateEmail
-            size={16}
-            className="text-[#a1a1aa] group-hover:text-white-0"
-          />
-        </div>
-      ),
-      label: 'Store',
-      href: '#',
-    },
+    // {
+    //   icon: (
+    //     <div className="text-[#a1a1aa] group-hover:text-white-0">
+    //       <MdOutlineAlternateEmail
+    //         size={16}
+    //         className="text-[#a1a1aa] group-hover:text-white-0"
+    //       />
+    //     </div>
+    //   ),
+    //   label: 'Store',
+    //   href: '#',
+    // },
   ];
   const menuSidebar = [
     {
@@ -64,18 +64,18 @@ const Sidebar = () => {
       label: 'Wallet',
       href: EPathName.WALLET,
     },
-    {
-      icon: (
-        <div className="text-[#a1a1aa] group-hover:text-white-0">
-          <HiOutlineRefresh
-            size={16}
-            className="text-[#a1a1aa] group-hover:text-white-0"
-          />
-        </div>
-      ),
-      label: 'Tasks',
-      href: EPathName.TASKS,
-    },
+    // {
+    //   icon: (
+    //     <div className="text-[#a1a1aa] group-hover:text-white-0">
+    //       <HiOutlineRefresh
+    //         size={16}
+    //         className="text-[#a1a1aa] group-hover:text-white-0"
+    //       />
+    //     </div>
+    //   ),
+    //   label: 'Tasks',
+    //   href: EPathName.TASKS,
+    // },
     {
       icon: (
         <div className="text-[#a1a1aa] group-hover:text-white-0">
