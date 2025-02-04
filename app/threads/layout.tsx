@@ -2,7 +2,7 @@
 import { Layout } from '@/components/layout';
 import { cookies } from 'next/headers';
 
-export default function HomeLayout({
+export default function ThreadsLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
