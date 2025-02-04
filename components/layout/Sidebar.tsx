@@ -1,22 +1,34 @@
 'use client';
-import { CloseIcon, DefaultAvatar, DocumentIcon, MobileIcon } from '@/assets/icons';
+import {
+  CloseIcon,
+  DefaultAvatar,
+  DocumentIcon,
+  MobileIcon,
+} from '@/assets/icons';
 import { AppButton } from '@/components/AppButton';
 import { EPathName } from '@/constants/pathName';
-import { toastSuccess } from '@/libs/toast';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useState } from 'react';
 
 import { BiSolidEdit } from 'react-icons/bi';
 import { GoClockFill } from 'react-icons/go';
 import { MdContactSupport, MdHome } from 'react-icons/md';
 import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
+import { RiAccountCircleFill } from 'react-icons/ri';
+import { AiOutlineTeam } from 'react-icons/ai';
+import { FaInbox } from 'react-icons/fa';
+import { CiGift } from 'react-icons/ci';
+import { IoIosLogOut } from 'react-icons/io';
 
 const Sidebar = () => {
   const pathname = usePathname();
   const { isOpenSidebar, toggleSidebar } = useCommonStore();
+  const [isModalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => setModalOpen(!isModalOpen);
   const menuTopSidebar = [
     {
       icon: (
@@ -109,12 +121,18 @@ const Sidebar = () => {
               <Link
                 key={item.label}
                 href={item.href}
-                className={`${item.href === pathname ? 'border--2 border-[#959597] text-blue-400' : 'text-[#a1a1aa]'} flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group : '`}
+                className={`${
+                  item.href === pathname
+                    ? 'border--2 border-[#959597] text-blue-400'
+                    : 'text-[#a1a1aa]'
+                } flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group : '`}
               >
                 {item.icon}
                 <span
                   className={`${
-                    item.href === pathname ? 'border--2 border-[#959597] text-blue-400' : 'text-[#a1a1aa]'
+                    item.href === pathname
+                      ? 'border--2 border-[#959597] text-blue-400'
+                      : 'text-[#a1a1aa]'
                   } group-hover:text-white-0`}
                 >
                   {item.label}
@@ -125,7 +143,7 @@ const Sidebar = () => {
           <div>
             <h3 className="text-neutral-500 text-xs p-[8px]">Agents</h3>
             <div className="mt-2 flex flex-col gap-2">
-              {agents.map((item) =>
+              {agents.map((item) => (
                 <Link
                   key={item.label}
                   href={item.href}
@@ -140,7 +158,7 @@ const Sidebar = () => {
                     {item.label}
                   </span>
                 </Link>
-              )}
+              ))}
             </div>
           </div>
 
@@ -150,7 +168,6 @@ const Sidebar = () => {
               <li className="text-primary-50">Tokens</li>
             </ul>
           </div>
-
         </div>
         <div className="mt-auto text-neutral-500 text-sm space-y-6">
           <div>
@@ -177,7 +194,45 @@ const Sidebar = () => {
               </span>
             </div>
           </div>
-          <AppButton onClick={() => toastSuccess('test')}>Chan</AppButton>
+          <div className="text-neutral-500 text-sm relative">
+            <AppButton onClick={toggleModal}>Account</AppButton>
+            {isModalOpen && (
+              <div className="absolute bottom-full mx-auto mb-2 right-0 bg-[#1E1E1E] p-3 rounded-lg w-full shadow-lg border border-white-100">
+                <div className="space-y-2">
+                  <div className="flex items-center">
+                    <RiAccountCircleFill />
+                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
+                      Account
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <AiOutlineTeam />
+                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
+                      Team
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <FaInbox />
+                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
+                      Inbox
+                    </div>
+                  </div>
+                  <div className="flex items-center border-b border-white-100">
+                    <CiGift />
+                    <div className="p-1 hover:bg-white-100 text-white-1000 rounded w-full">
+                      Gift
+                    </div>
+                  </div>
+                  <div className="flex items-center">
+                    <IoIosLogOut />
+                    <div className="p-1 hover:bg-white-100 rounded text-white-1000 w-full">
+                      Logout
+                    </div>
+                  </div>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </aside>
     </>
