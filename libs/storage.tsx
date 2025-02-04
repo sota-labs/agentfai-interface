@@ -22,6 +22,9 @@ export class Storage {
   }
 
   static getStorageKey() {
+    if (typeof window === "undefined") {
+      return '';
+    }
     if (!Storage.userSub) {
       for (let i = 0; i < sessionStorage.length; i++) {
         const key = sessionStorage.key(i);
@@ -42,12 +45,18 @@ export class Storage {
   }
 
   static resetStorage() {
+    if (typeof window === "undefined") {
+      return;
+    }
     sessionStorage.removeItem(Storage.getStorageKey());
     sessionStorage.removeItem(Storage.getGuestKey());
     Storage.userSub = null;
   }
 
   static getStorage(): StorageInterface {
+    if (typeof window === "undefined") {
+      return {};
+    }
     const preferencesString = sessionStorage.getItem(
       Storage.getStorageKey(),
     );
@@ -65,6 +74,9 @@ export class Storage {
   }
 
   static getGuestStorage(): StorageInterface {
+    if (typeof window === "undefined") {
+      return {};
+    }
     const preferencesString = sessionStorage.getItem(Storage.getGuestKey());
     const preferences = JSON.parse(preferencesString || '{}');
     return {
@@ -74,19 +86,31 @@ export class Storage {
   }
 
   static setStorage(type: string, value: StorageInterface) {
+    if (typeof window === "undefined") {
+      return;
+    }
     sessionStorage.setItem(type, JSON.stringify(value));
   }
 
   static setGuestStorage(type: string, value: StorageInterface) {
+    if (typeof window === "undefined") {
+      return;
+    }
     sessionStorage.setItem(type, JSON.stringify(value));
   }
 
   static init() {
+    if (typeof window === "undefined") {
+      return;
+    }
     const preferences = Storage.getStorage();
     Storage.setStorage(Storage.getStorageKey(), preferences);
   }
 
   static updateReference(userSub: string) {
+    if (typeof window === "undefined") {
+      return;
+    }
     const preferences = Storage.getStorage();
     Storage.userSub = userSub;
 
@@ -124,7 +148,7 @@ export class Storage {
 
   static getZkpData() {
     const { zkpData } = Storage.getStorage();
-    return zkpData;
+    return zkpData || {};
   }
 
   static setZkLoginForGuest(zkLogin: any) {
@@ -134,7 +158,7 @@ export class Storage {
   }
 
   static removeZkLoginForGuest() {
-    sessionStorage.removeItem(Storage.getGuestKey());
+    window && window.sessionStorage.removeItem(Storage.getGuestKey());
   }
 
   static getZkLoginForGuest() {
