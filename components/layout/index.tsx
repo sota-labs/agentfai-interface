@@ -15,8 +15,6 @@ export const Layout = ({ children, authorization }: { children: ReactNode, autho
     }
   }, [authorization]);
 
-  console.log('pathname', pathname);
-
   const isHideSidebar = ['/', '/google/callback'].includes(pathname);
   if (isHideSidebar) {
     return <>{children}</>;
