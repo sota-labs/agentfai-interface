@@ -6,7 +6,7 @@ import { CiGift } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 import { AppButton } from '../AppButton';
 
-const Account = () => {
+const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
 
@@ -75,4 +75,4 @@ const Account = () => {
   );
 };
 
-export default Account;
+export default AccountMenu;

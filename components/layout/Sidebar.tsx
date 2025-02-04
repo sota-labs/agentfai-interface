@@ -17,7 +17,7 @@ import { HiWallet } from 'react-icons/hi2';
 import { HiOutlineRefresh, HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
-import Account from './Account';
+import AccountMenu from './AccountMenu';
 
 const Sidebar = () => {
   const pathname = usePathname();
@@ -270,7 +270,7 @@ const Sidebar = () => {
             </div>
           </div>
 
-          <Account></Account>
+          <AccountMenu />
         </div>
       </aside>
     </>
