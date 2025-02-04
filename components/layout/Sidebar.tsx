@@ -10,7 +10,7 @@ import { EPathName } from '@/constants/pathName';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 import { BiSolidEdit } from 'react-icons/bi';
 import { GoClockFill } from 'react-icons/go';
@@ -27,8 +27,26 @@ const Sidebar = () => {
   const pathname = usePathname();
   const { isOpenSidebar, toggleSidebar } = useCommonStore();
   const [isModalOpen, setModalOpen] = useState(false);
+  const modalRef = useRef<HTMLDivElement>(null);
 
   const toggleModal = () => setModalOpen(!isModalOpen);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        modalRef.current &&
+        !modalRef.current.contains(event.target as Node)
+      ) {
+        setModalOpen(false);
+      }
+    };
+    if (isModalOpen) {
+      document.addEventListener('mousedown', handleClickOutside);
+    }
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, [isModalOpen]);
 
   const accountMenuItems = [
     { icon: RiAccountCircleFill, label: 'Account' },
@@ -209,12 +227,13 @@ const Sidebar = () => {
                 e.stopPropagation();
                 toggleModal();
               }}
-              className={`${isModalOpen ? 'bg-[#a0faa0]' : ''} mt-2`}
+              className={`${isModalOpen ? 'bg-[#a0faa0]/25' : ''} mt-2`}
             >
               Account
             </AppButton>
             {isModalOpen && (
               <div
+                ref={modalRef}
                 className="absolute bottom-full right-0 bg-[#1E1E1E] p-3 rounded-lg w-full shadow-lg border border-white-100"
                 onClick={(e) => e.stopPropagation()}
               >
