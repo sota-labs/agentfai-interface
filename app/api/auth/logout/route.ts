@@ -3,7 +3,7 @@ import { cookies } from 'next/headers';
 
 export async function POST() {
   try {
-    cookies().set('Authorization', undefined, {
+    cookies().set('Authorization', '', {
       httpOnly: true,
     });
 
