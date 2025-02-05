@@ -1,3 +1,6 @@
+import config from '@/config';
+import { SUI_VISION_URL_CONFIGS } from '@/constants';
+
 export const truncateMiddleText = (
   text: string,
   ellipsis = '...',
@@ -9,4 +12,8 @@ export const truncateMiddleText = (
   }
 
   return text;
+};
+
+export const getSuiVisionExplore = (account: string) => {
+  return `${SUI_VISION_URL_CONFIGS[config.network]}/account/${account}`;
 };

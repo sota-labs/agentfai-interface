@@ -15,7 +15,7 @@ const { connected, zkAddress } = Storage.getZkpData();
 
 const initialState = {
   connected,
-  zkAddress,
+  zkAddress: zkAddress || '',
 };
 
 export const useAuthStore = create<TAuthState>()(

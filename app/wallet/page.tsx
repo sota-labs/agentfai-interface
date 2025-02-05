@@ -9,15 +9,13 @@ import {
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { useDisconnectWallet } from '@mysten/dapp-kit';
-import { truncateMiddleText } from '@/utils/helper';
+import { getSuiVisionExplore, truncateMiddleText } from '@/utils/helper';
 import { TokenImages } from '@/assets/images/token';
 import { Sui } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { useWalletBalances } from '@/hooks/useBalance';
 import { useAuthStore } from '@/libs/zustand/auth';
 import CopyButton from '@/components/CopyButton';
-import { SUI_VISION_URL_CONFIGS } from '@/constants';
-import config from '@/config';
 
 const Wallet = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
@@ -43,16 +41,11 @@ const Wallet = () => {
             <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
               <CopyButton text={clientZkAddress || ''} />
             </div>
-            <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
-              <a
-                href={`${
-                  SUI_VISION_URL_CONFIGS[config.network]
-                }/account/${clientZkAddress}`}
-                target="_blank"
-              >
+            <a href={getSuiVisionExplore(clientZkAddress)} target="_blank">
+              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
                 <OpenTabIcon />
-              </a>
-            </div>
+              </div>
+            </a>
           </div>
           <div className="flex">
             <div className="px-[6px] py-[2px] bg-[#27272a] flex items-center gap-[6px] rounded-[6px]">

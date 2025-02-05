@@ -1,5 +1,6 @@
 'use client';
 import { CopyCheckedIcon, CopyIcon } from '@/assets/icons';
+import { toastSuccess } from '@/libs/toast';
 import { useState } from 'react';
 
 export default function CopyButton({ text }: { text: string }) {
@@ -10,6 +11,7 @@ export default function CopyButton({ text }: { text: string }) {
       await navigator.clipboard.writeText(text);
       setCopied(true);
       setTimeout(() => setCopied(false), 1000);
+      toastSuccess('Copy address successfully!');
     } catch (err) {
       console.error('Failed to copy:', err);
     }
