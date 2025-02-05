@@ -1,12 +1,22 @@
 import React from 'react';
-import { FaArrowLeftLong, FaArrowRight } from 'react-icons/fa6';
+import {
+  FaArrowLeftLong,
+  FaArrowRight,
+  FaArrowDownLong,
+} from 'react-icons/fa6';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
 
 const Threads = () => {
   return (
-    <div id="webcrumbs">
-      <div className="w-auto bg-neutral-900 min-h-[600px] p-6 font-sans text-sm text-neutral-300">
+    <div>
+      <div className="w-auto min-h-[600px] p-6 text-neutral-300">
+        <div className="flex justify-end">
+          <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors cursor-pointer">
+            Create At <FaArrowDownLong className="text-[#a0faa0]" />
+          </div>
+        </div>
         <div className="w-full">
-          <table className="w-full border-separate border-spacing-y-2">
+          <table className="w-full">
             <thead>
               <tr className="text-neutral-500">
                 <th className="text-left py-2">Title</th>
@@ -18,66 +28,43 @@ const Threads = () => {
               </tr>
             </thead>
             <tbody>
-              {/** First Row */}
-              <tr className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-200">
-                <td className="p-3 rounded-l-lg">
-                  <div className="flex items-center gap-2">
-                    <img
-                      src="https://webcrumbs.cloud/placeholder"
-                      className="w-5 h-5 rounded"
-                      alt="Deepseek"
-                    />
-                    <span>Deepseek</span>
-                  </div>
+              <tr className="hover:bg-white-50 transition-all duration-200 ">
+                <td className="p-2.5 border-b border-white-50">
+                  <div className="flex items-center gap-2">Token</div>
                 </td>
-                <td className="p-3">Deepseek</td>
-                <td className="p-3">
-                  <div className="flex items-center gap-1">
-                    <span className="material-symbols-outlined text-green-500">
-                      chat_bubble
-                    </span>
-                    <span>5</span>
-                  </div>
+                <td className="p-2.5 border-b border-white-50">Chan</td>
+                <td className="p-2.5 border-b border-white-50">
+                  <div className="flex items-center gap-1">1</div>
                 </td>
-                <td className="p-3 text-neutral-400">02/03/2025 15:45</td>
-                <td className="p-3 text-neutral-400">02/03/2025 15:35</td>
-                <td className="p-3 rounded-r-lg">
+                <td className="p-2.5 border-b border-white-50 text-neutral-400">
+                  02/03/2025 15:34
+                </td>
+                <td className="p-2.5 border-b border-white-50 text-neutral-400">
+                  02/03/2025 15:34
+                </td>
+                <td className="p-2.5 border-b border-white-50">
                   <button className="text-neutral-400 hover:text-neutral-200 transition-colors">
-                    <div className="flex flex-col gap-0.5">
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                    </div>
+                    <HiOutlineDotsVertical className="text-[#a0faa0]"/>
                   </button>
                 </td>
               </tr>
-
-              {/** Second Row */}
-              <tr className="bg-neutral-800 hover:bg-neutral-700 transition-all duration-200">
-                <td className="p-3 rounded-l-lg">
-                  <div className="flex items-center gap-2">
-                    <span className="material-symbols-outlined">close</span>
-                    <span>X</span>
-                  </div>
+              <tr className="hover:bg-white-50 transition-all duration-200 ">
+                <td className="p-2.5.5 border-b border-white-50">
+                  <div className="flex items-center gap-2">Token</div>
                 </td>
-                <td className="p-3">X</td>
-                <td className="p-3">
-                  <div className="flex items-center gap-1">
-                    <span className="material-symbols-outlined text-green-500">
-                      chat_bubble
-                    </span>
-                    <span>1</span>
-                  </div>
+                <td className="p-2.5 border-b border-white-50">Chan</td>
+                <td className="p-2.5 border-b border-white-50">
+                  <div className="flex items-center gap-1">1</div>
                 </td>
-                <td className="p-3 text-neutral-400">02/03/2025 15:34</td>
-                <td className="p-3 text-neutral-400">02/03/2025 15:34</td>
-                <td className="p-3 rounded-r-lg">
+                <td className="p-2.5 border-b border-white-50 text-neutral-400">
+                  02/03/2025 15:34
+                </td>
+                <td className="p-2.5 border-b border-white-50 text-neutral-400">
+                  02/03/2025 15:34
+                </td>
+                <td className="p-2.5 border-b border-white-50">
                   <button className="text-neutral-400 hover:text-neutral-200 transition-colors">
-                    <div className="flex flex-col gap-0.5">
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                      <div className="w-1 h-1 bg-green-500 rounded-full"></div>
-                    </div>
+                    <HiOutlineDotsVertical className="text-[#a0faa0]"/>
                   </button>
                 </td>
               </tr>
@@ -86,16 +73,16 @@ const Threads = () => {
 
           <div className="flex justify-between mt-4 text-neutral-500">
             <div className="flex items-center gap-1">
-              <FaArrowLeftLong />
+              <FaArrowLeftLong className="text-[#a0faa0]" />
               <div className="hover:text-neutral-300 transition-colors cursor-pointer">
                 Previous
               </div>
             </div>
-            <div className="flex gap-2">
-              <span className="px-3 py-1 bg-neutral-700 text-neutral-300 rounded">
+            <div className="flex gap-1">
+              <span className="px-2.5 py-1 bg-white-50 hover:bg-white-50 text-neutral-300 rounded">
                 1
               </span>
-              <span className="px-3 py-1 hover:bg-neutral-700 rounded cursor-pointer">
+              <span className="px-2.5 py-1 hover:bg-white-50 rounded cursor-pointer">
                 2
               </span>
             </div>
@@ -103,7 +90,7 @@ const Threads = () => {
               <div className="hover:text-neutral-300 transition-colors cursor-pointer">
                 Next
               </div>
-              <FaArrowRight />
+              <FaArrowRight className="text-[#a0faa0]" />
             </div>
           </div>
         </div>
