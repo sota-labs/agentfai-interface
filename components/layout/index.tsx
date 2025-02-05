@@ -21,8 +21,6 @@ export const Layout = ({
     }
   }, [authorization]);
 
-  console.log('pathname', pathname);
-
   const isHideSidebar = ['/', '/google/callback'].includes(pathname);
   if (isHideSidebar) {
     return <>{children}</>;

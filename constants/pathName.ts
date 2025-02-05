@@ -1,4 +1,7 @@
 export enum EPathName {
-  CHAN = '/chan',
   HOME = '/home',
+  HISTORY = '/history',
+  WALLET = '/wallet',
+  TASKS = '/tasks',
+  THREADS = '/threads',
 }
