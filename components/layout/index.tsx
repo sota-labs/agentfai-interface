@@ -5,17 +5,31 @@ import { setAuthorizationToRequest } from '@/services/BaseRequest';
 import { usePathname } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 import { IoIosMenu } from 'react-icons/io';
+import { useRouter } from 'next/navigation';
 
-export const Layout = ({ children, authorization }: { children: ReactNode, authorization?: string }) => {
+export const Layout = ({
+  children,
+  authorization,
+}: {
+  children: ReactNode;
+  authorization?: string;
+}) => {
   const pathname = usePathname();
   const { toggleSidebar } = useCommonStore();
+  const router = useRouter();
+  const isHideSidebar = ['/', '/google/callback'].includes(pathname);
+
   useEffect(() => {
-    if (authorization) {
+    if (!!authorization) {
       setAuthorizationToRequest(authorization);
+      return;
+    }
+
+    if (!authorization && !isHideSidebar) {
+      router.push('/');
     }
   }, [authorization]);
 
-  const isHideSidebar = ['/', '/google/callback'].includes(pathname);
   if (isHideSidebar) {
     return <>{children}</>;
   }
