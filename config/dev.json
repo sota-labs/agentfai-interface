@@ -8,5 +8,6 @@
   "suiEpochTime": 2,
   "network": "testnet",
   "googleClientId": "744708243047-vli6hrf5ra17k6oevgjikg9puln90voc.apps.googleusercontent.com",
-  "raidenxClientId": "5340fc02-7be5-485f-90d0-32cdbd87733e"
+  "raidenXClientId": "5340fc02-7be5-485f-90d0-32cdbd87733e",
+  "raidenXAgentId": 1
 }

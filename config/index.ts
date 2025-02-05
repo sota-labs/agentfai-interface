@@ -3,6 +3,7 @@ import prod from './prod.json';
 
 export interface Config {
   appRaidenXUrl: string;
+  appRaidenXApiUrl: string;
   appApiUrl: string;
   authApiUrl: string;
   rpcUrl: string;
@@ -11,11 +12,10 @@ export interface Config {
   googleClientId: string;
   appUrl?: string;
   googleCallbackUrl?: string;
-  raidenxCallbackUrl?: string;
+  raidenXCallbackUrl?: string;
   network: 'testnet' | 'mainnet';
-  raidenxClientId: string;
+  raidenXClientId: string;
   agentScopes?: string;
-  appRaidenXApiUrl: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
@@ -24,7 +24,7 @@ if (typeof window !== 'undefined') {
   appUrl = window.location.origin;
 }
 const googleCallbackUrl = `${appUrl}/google/callback`;
-const raidenxCallbackUrl = `${appUrl}/raidenx/callback`;
+const raidenXCallbackUrl = `${appUrl}/raidenx/callback`;
 
 if (appUrl) {
   console.log('AppUrl: ' + appUrl);
@@ -46,7 +46,7 @@ config = {
   ...config,
   appUrl: appUrl || '',
   googleCallbackUrl,
-  raidenxCallbackUrl,
+  raidenXCallbackUrl,
   agentScopes,
 };
 

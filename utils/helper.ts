@@ -19,5 +19,5 @@ export const getSuiVisionExplore = (account: string) => {
 };
 
 export const getRaindexAuthorizeUrl = () => {
-  return `${config.appRaidenXUrl}/authorize?redirect_uri=${config.raidenxCallbackUrl}&client_id=${config.raidenxClientId}&scope=${config.agentScopes}`;
+  return `${config.appRaidenXUrl}/authorize?redirect_uri=${config.raidenXCallbackUrl}&client_id=${config.raidenXClientId}&scope=${config.agentScopes}`;
 };
