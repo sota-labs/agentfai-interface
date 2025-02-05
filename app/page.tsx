@@ -3,10 +3,22 @@
 import { useLogin } from '@/hooks/useLogin';
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
+import { useAuthStore } from '@/libs/zustand/auth';
+import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const { isLoading, login } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+  const { connected } = useAuthStore();
+  const router = useRouter();
+
+  const onLogin = () => {
+    if (connected) {
+      router.push('/home');
+      return;
+    }
+    login().then();
+  };
 
   const toggleSidebar = () => {
     setIsOpenSidebar(!isOpenSidebar);
@@ -57,7 +69,7 @@ export default function LandingPage() {
           </a>
           <button
             className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
-            onClick={login}
+            onClick={onLogin}
           >
             Get Started
           </button>
@@ -110,7 +122,7 @@ export default function LandingPage() {
             </a>
             <button
               className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
-              onClick={login}
+              onClick={onLogin}
             >
               Get Started
             </button>
@@ -129,7 +141,7 @@ export default function LandingPage() {
           </p>
           <button
             className="bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
-            onClick={login}
+            onClick={onLogin}
           >
             Get Started
           </button>

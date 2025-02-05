@@ -41,7 +41,7 @@ export const useAuthStore = create<TAuthState>()(
         () => {
           Storage.logout();
           setAuthorizationToRequest('');
-          return {};
+          return { connected: false };
         },
         false,
         'auth/logout',
