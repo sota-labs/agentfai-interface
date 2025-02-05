@@ -1,12 +1,12 @@
 import { useEffect } from 'react';
 import { useUserWallet } from '@/libs/zustand/wallet';
 import { fetchCoinBalances } from '@/utils/sui';
-import { useCurrentAccount } from '@mysten/dapp-kit';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 export const useWalletBalances = () => {
   const { activeWallet, userAddresses, setUserAddresses, setActiveWalletData } =
     useUserWallet();
-  const account = useCurrentAccount();
+  const { zkAddress } = useAuthStore();
 
   const getBalances = async (activeWalletAddress: string) => {
     try {
@@ -32,12 +32,12 @@ export const useWalletBalances = () => {
   }, [userAddresses]);
 
   useEffect(() => {
-    if (!account?.address) return;
+    if (!zkAddress) return;
 
-    if (userAddresses.includes(account.address.toLowerCase())) return;
+    if (userAddresses.includes(zkAddress.toLowerCase())) return;
 
-    setUserAddresses(account.address);
-  }, [account]);
+    setUserAddresses(zkAddress);
+  }, [zkAddress]);
 
   return { activeWallet, getBalances };
 };

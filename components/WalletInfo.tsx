@@ -3,20 +3,19 @@ import React, { useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
-import { ConnectButton } from '@mysten/dapp-kit';
-import { useCurrentAccount } from '@mysten/dapp-kit';
 import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
 import { useWalletBalances } from '@/hooks/useBalance';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 const WalletInfo = () => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
   const { activeWallet } = useWalletBalances();
-  const account = useCurrentAccount();
+  const { zkAddress } = useAuthStore();
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
-      {account ? (
+      {zkAddress && (
         <>
           <div className="flex items-center justify-between pb-[16px] border-b border-[#3f3f46] border-solid">
             <p className="text-[16px] leading-[32px] font-semibold text-white-0">
@@ -68,18 +67,6 @@ const WalletInfo = () => {
             ))}
           </div>
         </>
-      ) : (
-        <div className="flex justify-center">
-          <ConnectButton
-            style={{
-              background: '#a0faa0',
-              color: '#08090C',
-              padding: '8px',
-              fontSize: '12px',
-              borderRadius: '6px',
-            }}
-          />
-        </div>
       )}
     </div>
   );

@@ -11,10 +11,11 @@ type TAuthState = Partial<zkUser> & {
   logout: () => void;
 };
 
-const { connected } = Storage.getZkpData();
+const { connected, zkAddress } = Storage.getZkpData();
 
 const initialState = {
   connected,
+  zkAddress,
 };
 
 export const useAuthStore = create<TAuthState>()(

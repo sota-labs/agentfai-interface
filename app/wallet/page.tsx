@@ -16,6 +16,7 @@ import { TokenImages } from '@/assets/images/token';
 import { Sui } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { useWalletBalances } from '@/hooks/useBalance';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 const WalletInfo = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
@@ -23,16 +24,16 @@ const WalletInfo = () => {
   const { mutate: disconnect } = useDisconnectWallet();
 
   const { activeWallet } = useWalletBalances();
-  const account = useCurrentAccount();
+  const { zkAddress } = useAuthStore();
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
       <div className="flex items-center justify-between pb-[16px] border-b border-[#3f3f46] border-solid">
-        {account ? (
+        {zkAddress && (
           <>
             <div className="flex items-center gap-1 space-x-[4px]">
               <span className="text-neutral-400">
-                {truncateMiddleText(account.address)}
+                {truncateMiddleText(zkAddress ?? '')}
               </span>
               <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
                 <CopyIcon />
@@ -81,18 +82,6 @@ const WalletInfo = () => {
               </div>
             </div>
           </>
-        ) : (
-          <div className="flex justify-center">
-            <ConnectButton
-              style={{
-                background: '#C6FE00',
-                color: '#08090C',
-                padding: '8px',
-                fontSize: '12px',
-                borderRadius: '6px',
-              }}
-            />
-          </div>
         )}
       </div>
       <div className="pt-[16px] space-y-[16px]">
