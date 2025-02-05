@@ -217,7 +217,7 @@ const Sidebar = () => {
           <div className="mt-4 p-[8px]">
             <h3 className="text-neutral-500 text-xs">Recent Threads</h3>
             <ul className="mt-2 flex flex-col gap-2">
-              {threads.map((thread, index) => {
+              {threads?.map((thread, index) => {
                 return (
                   <li
                     key={index}
