@@ -20,7 +20,7 @@ export default function ChatAndWallet() {
     e.preventDefault();
     if (inputValue.length === 0) return;
     const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-      agentId: '1',
+      agentId: '1', //TODO: Need get agentId
       question: inputValue,
       threadId,
     });
@@ -44,6 +44,8 @@ export default function ChatAndWallet() {
     if (!threadId) return;
     getThread().then();
   }, [threadId]);
+
+  if (!thread) return <></>;
 
   return (
     <div>
