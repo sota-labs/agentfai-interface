@@ -1,6 +1,6 @@
 import { DefaultImage } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
-import { covertMistToDec } from '@/utils/format';
+import { formatNumberWithComa } from '@/utils/format';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
 
 interface Props {
@@ -31,17 +31,17 @@ const CardToken = ({ token }: Props) => {
             {token.symbol}
           </p>
           <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
-            {covertMistToDec(token.tokenBalance, token.decimal)}{' '}
+            {formatNumberWithComa(token.tokenBalance, token.decimal)}{' '}
             {token.tokenName}
           </p>
         </div>
       </div>
       <div className="space-y-[6px]">
         <p className="text-[E7E7E9] text-[14px] leading-[20px] font-medium">
-          {covertMistToDec(token.tokenBalance, token.decimal)}
+          {formatNumberWithComa(token.tokenBalance, token.decimal)}
         </p>
         <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
-          {covertMistToDec(token.tokenBalance, token.decimal)}
+          {formatNumberWithComa(token.tokenBalance, token.decimal)}
         </p>
       </div>
     </div>

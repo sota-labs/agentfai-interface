@@ -8,8 +8,6 @@ import config from '@/config';
 const queryClient = new QueryClient();
 
 const networks = {
-  localnet: { url: getFullnodeUrl('localnet') },
-  devnet: { url: getFullnodeUrl('devnet') },
   testnet: { url: getFullnodeUrl('testnet') },
   mainnet: { url: getFullnodeUrl('mainnet') },
 };

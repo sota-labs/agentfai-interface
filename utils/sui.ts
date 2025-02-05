@@ -1,17 +1,15 @@
 import config from '@/config';
 import { WHITE_LIST_COINS } from '@/constants/coinWhitelist';
 import { TCoinMetadata } from '@/libs/wallet/type';
-import { SuiClient } from '@mysten/sui/client';
-import BigNumber from 'bignumber.js';
 import { sortBy } from 'lodash';
+import { client, covertMistToDec } from './format';
 
-export const fetchCoinsBalance = async (
-  suiProvider: SuiClient,
+export const fetchCoinBalances = async (
   address: string,
 ): Promise<TCoinMetadata[]> => {
   try {
     if (!address) return [];
-    const balances = await suiProvider.getAllBalances({
+    const balances = await client.getAllBalances({
       owner: address,
     });
 
@@ -25,7 +23,7 @@ export const fetchCoinsBalance = async (
       if (coinInWl) {
         balancesFormatted.push({
           ...coinInWl,
-          balance: BigNumber(item.totalBalance).toFixed(),
+          balance: covertMistToDec(item.totalBalance, coinInWl.decimal),
         });
       }
     });
