@@ -1,7 +1,9 @@
-import AuthRequest from "./AuthRequest";
+import AuthRequest from './AuthRequest';
+import ThreadRequest from './ThreadRequest';
 
 const requestMap = {
   AuthRequest,
+  ThreadRequest,
 };
 
 const instances = {} as any;

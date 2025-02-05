@@ -1,4 +1,5 @@
 'use client';
+
 import {
   CloseIcon,
   DefaultAvatar,
@@ -9,7 +10,7 @@ import { EPathName } from '@/constants/pathName';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 
 import { GoClockFill } from 'react-icons/go';
 import { MdContactSupport } from 'react-icons/md';
@@ -18,8 +19,12 @@ import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
 import AccountMenu from './AccountMenu';
+import rf from '@/services/RequestFactory';
+import { TThread } from '@/types';
 
 const Sidebar = () => {
+  const [threads, setThreads] = useState<TThread[]>([]);
+  const [totalThread, setTotalThread] = useState<number>(0);
   const pathname = usePathname();
   const { isOpenSidebar, toggleSidebar } = useCommonStore();
 
@@ -38,18 +43,6 @@ const Sidebar = () => {
       label: 'Griffain',
       href: EPathName.HOME,
     },
-    // {
-    //   icon: (
-    //     <div className="text-[#a1a1aa] group-hover:text-white-0">
-    //       <MdOutlineAlternateEmail
-    //         size={16}
-    //         className="text-[#a1a1aa] group-hover:text-white-0"
-    //       />
-    //     </div>
-    //   ),
-    //   label: 'Store',
-    //   href: '#',
-    // },
   ];
   const menuSidebar = [
     {
@@ -64,18 +57,6 @@ const Sidebar = () => {
       label: 'Wallet',
       href: EPathName.WALLET,
     },
-    // {
-    //   icon: (
-    //     <div className="text-[#a1a1aa] group-hover:text-white-0">
-    //       <HiOutlineRefresh
-    //         size={16}
-    //         className="text-[#a1a1aa] group-hover:text-white-0"
-    //       />
-    //     </div>
-    //   ),
-    //   label: 'Tasks',
-    //   href: EPathName.TASKS,
-    // },
     {
       icon: (
         <div className="text-[#a1a1aa] group-hover:text-white-0">
@@ -124,6 +105,23 @@ const Sidebar = () => {
       href: '#',
     },
   ];
+
+  const getRecentThreads = async () => {
+    try {
+      const res = await rf.getRequest('ThreadRequest').getThreads({
+        page: 1,
+        limit: 3,
+      });
+      setThreads(res?.docs);
+      setTotalThread(res?.totalDocs);
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
+  useEffect(() => {
+    getRecentThreads().then();
+  }, []);
 
   return (
     <>
@@ -219,29 +217,28 @@ const Sidebar = () => {
           <div className="mt-4 p-[8px]">
             <h3 className="text-neutral-500 text-xs">Recent Threads</h3>
             <ul className="mt-2 flex flex-col gap-2">
-              <li className="text-white-700 hover:text-white-1000">
-                <Link href={`${EPathName.THREADS}/fgdfgfg`}>
-                  Thread from 1/2
-                </Link>
-              </li>
-              <li className="text-white-700 hover:text-white-1000">
-                <Link href={`${EPathName.THREADS}/fgdfgfg`}>
-                  Thread from 2/2
-                </Link>
-              </li>
-              <li className="text-white-700 hover:text-white-1000">
-                <Link href={`${EPathName.THREADS}/fgdfgfg`}>
-                  Thread from 3/2
-                </Link>
-              </li>
+              {threads.map((thread, index) => {
+                return (
+                  <li
+                    key={index}
+                    className="text-white-700 hover:text-white-1000"
+                  >
+                    <Link href={`${EPathName.THREADS}/${thread.id}`}>
+                      {thread.name}
+                    </Link>
+                  </li>
+                );
+              })}
             </ul>
-            <Link
-              href={EPathName.THREADS}
-              className="flex gap-2 mt-2 items-center"
-            >
-              <HiOutlineDotsHorizontal size={20} />
-              <div className="text-xs">View More</div>
-            </Link>
+            {totalThread > 3 && (
+              <Link
+                href={EPathName.THREADS}
+                className="flex gap-2 mt-2 items-center"
+              >
+                <HiOutlineDotsHorizontal size={20} />
+                <div className="text-xs">View More</div>
+              </Link>
+            )}
           </div>
         </div>
         <div className="mt-auto text-neutral-500 text-sm space-y-6">
