@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import config from '@/config';
 import { getZkLoginUrl, handleZkLoginByGoogle } from '@/libs/zklogin/auth';
-import { useRouter } from 'next/navigation';
-import { useAuthStore } from '@/libs/zustand/auth';
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -10,15 +8,8 @@ export const useLogin = () => {
   const [callbackUri, setCallBackUri] = useState<string>(
     config.googleCallbackUrl,
   );
-  const router = useRouter();
-  const { connected } = useAuthStore();
 
   const login = async () => {
-    if (connected) {
-      router.push('/home');
-      return;
-    }
-
     try {
       const url = await getZkLoginUrl(callbackUri, redirectUri);
       console.log('zkLoginUrl', url);

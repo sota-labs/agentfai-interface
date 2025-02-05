@@ -12,9 +12,9 @@ import { usePathname } from 'next/navigation';
 import React from 'react';
 
 import { GoClockFill } from 'react-icons/go';
-import { MdContactSupport, MdOutlineAlternateEmail } from 'react-icons/md';
+import { MdContactSupport } from 'react-icons/md';
 import { HiWallet } from 'react-icons/hi2';
-import { HiOutlineRefresh, HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
 import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
 import AccountMenu from './AccountMenu';
