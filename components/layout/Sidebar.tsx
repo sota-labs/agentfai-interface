@@ -21,6 +21,7 @@ import { Chan } from '@/assets/images';
 import AccountMenu from './AccountMenu';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
+import { formatUnixTimestamp } from '@/utils/format';
 
 const Sidebar = () => {
   const [threads, setThreads] = useState<TThread[]>([]);
@@ -224,7 +225,8 @@ const Sidebar = () => {
                     className="text-white-700 hover:text-white-1000"
                   >
                     <Link href={`${EPathName.THREADS}/${thread.id}`}>
-                      {thread.name}
+                      Thread from{' '}
+                      {formatUnixTimestamp(thread?.createdAt * 1000, 'DD/MM')}
                     </Link>
                   </li>
                 );

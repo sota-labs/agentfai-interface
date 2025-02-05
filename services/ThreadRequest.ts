@@ -10,4 +10,9 @@ export default class ThreadRequest extends BaseRootRequest {
     const url = `/api/v1/thread`;
     return this.get(url, params);
   }
+
+  getThread(threadId: any) {
+    const url = `/api/v1/thread/${threadId}`;
+    return this.get(url, { id: threadId });
+  }
 }
