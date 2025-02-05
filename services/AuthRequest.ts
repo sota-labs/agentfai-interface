@@ -13,4 +13,9 @@ export default class AuthRequest extends BaseRootRequest {
     const url = `/api/auth/login`;
     return this.post(url, { idToken: idToken });
   }
+
+  logout() {
+    const url = `/api/auth/logout`;
+    return this.post(url);
+  }
 }

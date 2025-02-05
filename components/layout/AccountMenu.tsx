@@ -5,12 +5,25 @@ import { FaInbox } from 'react-icons/fa';
 import { CiGift } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 import { AppButton } from '../AppButton';
+import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
+import { useRouter } from 'next/navigation';
 
 const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
   const modalRef = useRef<HTMLDivElement>(null);
   const { logout } = useAuthStore();
+  const router = useRouter();
+
+  const onLogout = async () => {
+    try {
+      await rf.getRequest('AuthRequest').logout();
+      logout();
+      router.push('/');
+    } catch (e: any) {
+      console.error(e);
+    }
+  };
 
   const toggleModal = () => setModalOpen(!isModalOpen);
 
@@ -67,7 +80,7 @@ const AccountMenu = () => {
             <div className=" border-b border-white-100"></div>
 
             <div
-              onClick={() => logout()}
+              onClick={onLogout}
               className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
             >
               <IoIosLogOut className="mr-2" />
