@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import {
   ArrowDownIcon,
   CopyIcon,
@@ -10,60 +10,20 @@ import {
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { ConnectButton, useDisconnectWallet } from '@mysten/dapp-kit';
-import { useUserWallet } from '@/libs/zustand/wallet';
-import { fetchCoinBalances } from '@/utils/sui';
 import { useCurrentAccount } from '@mysten/dapp-kit';
 import { truncateMiddleText } from '@/utils/helper';
 import { TokenImages } from '@/assets/images/token';
 import { Sui } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
+import { useWalletBalances } from '@/hooks/useBalance';
 
 const WalletInfo = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
   const [isPopoverToken, setIsPopoverToken] = useState(false);
-
-  const { activeWallet, userAddresses, setUserAddresses, setActiveWalletData } =
-    useUserWallet();
-  const account = useCurrentAccount();
   const { mutate: disconnect } = useDisconnectWallet();
 
-  const getBalances = async (activeWalletAddress: string) => {
-    try {
-      const balances = await fetchCoinBalances(activeWalletAddress);
-
-      setActiveWalletData({
-        address: activeWalletAddress,
-        coinBalances: balances,
-      });
-    } catch (err) {
-      console.log(`fetch coins balance of address ${activeWallet} error`, err);
-    }
-  };
-
-  useEffect(() => {
-    if (!userAddresses.length) {
-      return;
-    }
-
-    getBalances(userAddresses[0]);
-    const getBalanceInterval = setInterval(() => {
-      getBalances(userAddresses[0]);
-    }, 15000);
-
-    return () => clearInterval(getBalanceInterval);
-  }, [userAddresses]);
-
-  useEffect(() => {
-    if (!account?.address) {
-      return;
-    }
-
-    if (userAddresses.includes(account.address.toLocaleLowerCase())) {
-      return;
-    }
-
-    setUserAddresses(account.address);
-  }, [account]);
+  const { activeWallet } = useWalletBalances();
+  const account = useCurrentAccount();
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">

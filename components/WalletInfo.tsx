@@ -1,58 +1,18 @@
 'use client';
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { ConnectButton } from '@mysten/dapp-kit';
-import { useUserWallet } from '@/libs/zustand/wallet';
-import { fetchCoinBalances } from '@/utils/sui';
 import { useCurrentAccount } from '@mysten/dapp-kit';
 import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
+import { useWalletBalances } from '@/hooks/useBalance';
 
 const WalletInfo = () => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
-  const { activeWallet, userAddresses, setUserAddresses, setActiveWalletData } =
-    useUserWallet();
+  const { activeWallet } = useWalletBalances();
   const account = useCurrentAccount();
-
-  const getBalances = async (activeWalletAddress: string) => {
-    try {
-      const balances = await fetchCoinBalances(activeWalletAddress);
-
-      setActiveWalletData({
-        address: activeWalletAddress,
-        coinBalances: balances,
-      });
-    } catch (err) {
-      console.log(`fetch coins balance of address ${activeWallet} error`, err);
-    }
-  };
-
-  useEffect(() => {
-    if (!userAddresses.length) {
-      return;
-    }
-
-    getBalances(userAddresses[0]);
-    const getBalanceInterval = setInterval(() => {
-      getBalances(userAddresses[0]);
-    }, 15000);
-
-    return () => clearInterval(getBalanceInterval);
-  }, [userAddresses]);
-
-  useEffect(() => {
-    if (!account?.address) {
-      return;
-    }
-
-    if (userAddresses.includes(account.address.toLocaleLowerCase())) {
-      return;
-    }
-
-    setUserAddresses(account.address);
-  }, [account]);
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
