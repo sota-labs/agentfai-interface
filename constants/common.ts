@@ -40,3 +40,8 @@ export const MULTIPLY_FUNDRAISE_GOAL = 1.1;
 export enum EPathName {
   CHAN = '/chan',
 }
+
+export const SUI_VISION_URL_CONFIGS = {
+  mainnet: 'https://suivision.xyz',
+  testnet: 'https://testnet.suivision.xyz/',
+};
