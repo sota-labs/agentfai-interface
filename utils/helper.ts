@@ -17,3 +17,7 @@ export const truncateMiddleText = (
 export const getSuiVisionExplore = (account: string) => {
   return `${SUI_VISION_URL_CONFIGS[config.network]}/account/${account}`;
 };
+
+export const getRaindexAuthorizeUrl = () => {
+  return `${config.appRaidenXUrl}/authorize?redirect_uri=${config.raidenxCallbackUrl}&client_id=${config.raidenxClientId}&scope=${config.agentScopes}`;
+};
