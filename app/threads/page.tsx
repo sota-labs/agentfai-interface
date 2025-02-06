@@ -7,10 +7,16 @@ import { AppDataTableBase } from '@/components';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
+import { useRouter } from 'next/navigation';
 
 const ThreadItem = ({ thread }: { thread: TThread }) => {
+  const router = useRouter();
+
   return (
-    <tr className="hover:bg-white-50 transition-all duration-200 ">
+    <tr
+      onClick={() => router.push(`/threads/${thread.id}`)}
+      className="hover:bg-white-50 transition-all duration-200 cursor-pointer"
+    >
       <td className="p-2.5 border-b border-white-50">
         <div className="flex items-center gap-2">--</div>
       </td>
