@@ -16,6 +16,7 @@ export interface Config {
   network: 'testnet' | 'mainnet';
   raidenXClientId: string;
   agentScopes?: string;
+  raidenXAgentId: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
