@@ -7,6 +7,9 @@ import { TMessage, TThread } from '@/types';
 import rf from '@/services/RequestFactory';
 import { useParams } from 'next/navigation';
 import { formatUnixTimestamp } from '@/utils/format';
+import config from '@/config';
+import { Storage } from '@/libs/storage';
+import { parseSSEMessage } from '@/utils/helper';
 
 export default function ChatAndWallet() {
   const [thread, setThread] = useState<TThread>();
@@ -25,11 +28,61 @@ export default function ChatAndWallet() {
       question: inputValue,
       threadId,
     });
+
+    await getStreamMessage(dataMessage.id);
+
     setChatBot((prev) => [
       ...prev,
-      { question: inputValue, answer: dataMessage?.answer },
+      {
+        question: inputValue,
+        answer: '',
+      },
     ]);
     setInputValue('');
+  };
+
+  const getStreamMessage = async (messageId: string) => {
+    try {
+      const { accessToken } = Storage.getZkpData();
+      const response = await fetch(
+        `${config.authApiUrl}/api/v1/message/sse/${messageId}`,
+        {
+          headers: {
+            'Content-Type': 'text/event-stream',
+            Authorization: `Bearer ${accessToken}`,
+          },
+        },
+      );
+
+      if (!response.ok || !response.body) {
+        throw response.statusText;
+      }
+
+      // Here we start prepping for the streaming response
+      const reader = response.body.getReader();
+      const decoder = new TextDecoder();
+      const loopRunner = true;
+      const currentChat = chatBot[chatBot.length - 1];
+
+      while (loopRunner) {
+        const { value, done } = await reader.read();
+        if (done) {
+          break;
+        }
+        const decodedChunk = decoder.decode(value, { stream: true });
+        const answerDecoded = parseSSEMessage(decodedChunk);
+
+        if (answerDecoded.data?.content) {
+          currentChat.answer += answerDecoded.data?.content;
+        }
+      }
+
+      if (currentChat.answer) {
+        setChatBot((prev) => [...prev, currentChat]);
+      }
+    } catch (error) {
+      console.log('getStreamMessage error', error);
+    }
   };
 
   const getThread = async () => {
@@ -79,7 +132,7 @@ export default function ChatAndWallet() {
                 <QuestionAnswerView
                   askAndAnswer={askAndAnswer}
                   key={index}
-                  isTyping
+                  isTyping={index == chatBot.length - 1}
                 />
               ))}
             </div>
