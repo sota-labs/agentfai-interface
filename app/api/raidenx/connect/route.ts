@@ -5,7 +5,7 @@ import { cookies } from 'next/headers';
 
 const RAIDENX_OATH_URL = config.appRaidenXApiUrl;
 const AUTH_API_URL = config.authApiUrl;
-const RAIDENX_CALLBACK_URL = `${AUTH_API_URL}/raidenx/callback`;
+const RAIDENX_CALLBACK_URL = `${process.env.NEXT_PUBLIC_APP_URL}/raidenx/callback`;
 
 export async function POST(request: Request) {
   try {
