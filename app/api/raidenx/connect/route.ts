@@ -40,7 +40,10 @@ const getRaidenXAccessToken = async (code: string) => {
       clientId: RAIDENX_CLIENT_ID,
       clientSecret: RAIDENX_CLIENT_SECRET_KEY,
     });
-    console.log('getRaidenXAccessToken success');
+    console.log('getRaidenXAccessToken success', {
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken,
+    });
     const { accessToken, refreshToken } = data;
 
     return {
@@ -59,6 +62,13 @@ const connectToRaidenXAgent = async (
 ) => {
   try {
     const appAccessToken = cookies().get('Authorization')?.value;
+    console.log('connectToRaidenXAgent', {
+      accessToken,
+      refreshToken,
+      clientId: RAIDENX_CLIENT_ID,
+      clientSecret: RAIDENX_CLIENT_SECRET_KEY,
+      appAccessToken: appAccessToken,
+    });
     await axios.post(
       `${AUTH_API_URL}/api/v1/agent/connect`,
       {

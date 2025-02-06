@@ -1,6 +1,7 @@
 {
   "appRaidenXUrl": "https://raidenx.io",
   "appRaidenXApiUrl": "https://api-oauth2.dextrade.bot/api/v1",
+  "appUrl": "https://agentfai.vercel.app",
   "appApiUrl": "https://agentfai.vercel.app",
   "authApiUrl": "https://api-agentfai.dextrade.bot",
   "rpcUrl": "https://fullnode.mainnet.sui.io",

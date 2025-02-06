@@ -4,6 +4,7 @@ import prod from './prod.json';
 export interface Config {
   appRaidenXUrl: string;
   appRaidenXApiUrl: string;
+  appUrl: string;
   appApiUrl: string;
   authApiUrl: string;
   rpcUrl: string;
@@ -13,24 +14,12 @@ export interface Config {
   network: string;
   raidenXClientId: string;
   raidenXAgentId: string;
-  appUrl?: string;
   googleCallbackUrl: string;
   raidenXCallbackUrl: string;
   explorerUrl: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
-let appUrl = process.env.NEXT_PUBLIC_APP_URL;
-if (typeof window !== 'undefined') {
-  appUrl = window.location.origin;
-}
-const googleCallbackUrl = `${appUrl}/google/callback`;
-const raidenXCallbackUrl = `${appUrl}/raidenx/callback`;
-
-if (appUrl) {
-  console.log('AppUrl: ' + appUrl);
-}
-
 interface EnvConfig {
   prod: Config;
   dev: Config;
@@ -39,9 +28,13 @@ interface EnvConfig {
 const configs: EnvConfig = { dev, prod } as EnvConfig;
 let config: Config = configs[envConfig as keyof typeof configs];
 
+const googleCallbackUrl = `${config.appUrl}/google/callback`;
+const raidenXCallbackUrl = `${config.appUrl}/raidenx/callback`;
+
+console.log('AppUrl: ' + config.appUrl);
+
 config = {
   ...config,
-  appUrl: appUrl || '',
   googleCallbackUrl,
   raidenXCallbackUrl,
 };
