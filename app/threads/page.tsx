@@ -2,23 +2,20 @@
 
 import React, { useState } from 'react';
 import { FaArrowDownLong } from 'react-icons/fa6';
+import { HiOutlineDotsVertical } from 'react-icons/hi';
 import { AppDataTableBase } from '@/components';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
+import { useRouter } from 'next/navigation';
 import { MenuDotIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import { toastSuccess } from '@/libs/toast';
 
-const ThreadItem = ({
-  thread,
-  onDelete,
-}: {
-  thread: TThread;
-  onDelete: (id: string) => void;
-}) => {
+const ThreadItem = ({ thread }: { thread: TThread }) => {
+  const router = useRouter();
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
 
   const deleteThread = async () => {
@@ -30,9 +27,11 @@ const ThreadItem = ({
       console.error(e);
     }
   };
-
   return (
-    <tr className="hover:bg-white-50 transition-all duration-200 ">
+    <tr
+      onClick={() => router.push(`/threads/${thread.id}`)}
+      className="hover:bg-white-50 transition-all duration-200 cursor-pointer"
+    >
       <td className="p-2.5 border-b border-white-50">
         <div className="flex items-center gap-2">--</div>
       </td>
@@ -74,7 +73,6 @@ const ThreadItem = ({
 };
 
 const Threads = () => {
-  const [threads, setThreads] = useState<TThread[]>([]);
   const getThreads = async (payload: any) => {
     try {
       const res = await rf.getRequest('ThreadRequest').getThreads(payload);
@@ -86,21 +84,12 @@ const Threads = () => {
       console.error(e);
     }
   };
-  const handleDeleteThread = (id: string) => {
-    setThreads((prev) => prev.filter((thread) => thread.id !== id));
-  };
 
   const _renderContent = (data: TThread[]) => {
     return (
       <tbody>
         {data.map((item: TThread, index: number) => {
-          return (
-            <ThreadItem
-              thread={item}
-              key={index}
-              onDelete={handleDeleteThread}
-            />
-          );
+          return <ThreadItem thread={item} key={index} />;
         })}
       </tbody>
     );
@@ -125,7 +114,7 @@ const Threads = () => {
     <div>
       <div className="w-auto min-h-[600px] p-6 text-neutral-300">
         <div className="flex justify-end">
-          <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors">
+          <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors cursor-pointer">
             Create At <FaArrowDownLong className="text-[#a0faa0]" />
           </div>
         </div>
