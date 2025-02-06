@@ -1,11 +1,11 @@
-import AgentRequest from './AgentRequest';
 import AuthRequest from './AuthRequest';
-import RaidenxRequest from './RaidenxRequest';
+import ThreadRequest from './ThreadRequest';
+import MessageRequest from './MessageRequest';
 
 const requestMap = {
   AuthRequest,
-  AgentRequest,
-  RaidenxRequest,
+  ThreadRequest,
+  MessageRequest,
 };
 
 const instances = {} as any;

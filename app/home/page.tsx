@@ -1,26 +1,36 @@
 'use client';
 
 import { FeatureIcon } from '@/assets/icons';
-import { FullLogo } from '@/assets/images';
-import AgentList from '@/components/agents/AgentList';
+import { DefaultImage, FullLogo, RaidenxLogo } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import ChatInput from '@/components/home/ChatInput';
-import { exampleAnswer } from '@/constants/exampleAnswer';
 import React, { FormEvent, useState } from 'react';
+import rf from '@/services/RequestFactory';
+import { useRouter } from 'next/navigation';
+import AgentList from '@/components/agents/AgentList';
 
 const Home = () => {
-  const [chatBot, setChatBot] = useState<
-    { question: string; answer: string }[]
-  >([]);
   const [inputValue, setInputValue] = useState('');
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  const router = useRouter();
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (inputValue.length === 0) return;
-    setChatBot((prev) => [
-      ...prev,
-      { question: inputValue, answer: exampleAnswer },
-    ]);
-    setInputValue('');
+
+    try {
+      const dataMessage = await rf.getRequest('MessageRequest').createMessage({
+        agentId: '1', //TODO: Need get agentId
+        question: inputValue,
+      });
+
+      if (dataMessage) {
+        router.push(`/threads/${dataMessage.threadId}`);
+      }
+      setInputValue('');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

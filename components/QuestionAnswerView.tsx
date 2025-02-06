@@ -2,13 +2,16 @@
 import useTypingEffect from '@/hooks/useTypingEffect';
 import React from 'react';
 import Markdown from 'react-markdown';
+
 interface AnswerViewProps {
   askAndAnswer: {
     question: string;
     answer: string;
   };
+  isTyping?: boolean;
 }
-const QuestionAnswerView = ({ askAndAnswer }: AnswerViewProps) => {
+
+const QuestionAnswerView = ({ askAndAnswer, isTyping }: AnswerViewProps) => {
   const typingText = useTypingEffect(askAndAnswer.answer);
   return (
     <div>
@@ -18,7 +21,11 @@ const QuestionAnswerView = ({ askAndAnswer }: AnswerViewProps) => {
         </div>
       </div>
       <div>
-        <Markdown className="mark-down-content">{typingText}</Markdown>
+        {isTyping ? (
+          <Markdown className="mark-down-content">{typingText}</Markdown>
+        ) : (
+          <div className="mark-down-content">{askAndAnswer?.answer}</div>
+        )}
       </div>
     </div>
   );
