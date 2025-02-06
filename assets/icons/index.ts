@@ -75,6 +75,7 @@ import DocumentIcon from './DocumentIcon.svg';
 import MobileIcon from './MobileIcon.svg';
 import FeatureIcon from './FeatureIcon.svg';
 import CopyCheckedIcon from './CopyCheckedIcon.svg';
+import ChatIcon from './ChatIcon.svg';
 
 export {
   AUMIcon,
@@ -154,4 +155,5 @@ export {
   MobileIcon,
   FeatureIcon,
   CopyCheckedIcon,
+  ChatIcon,
 };

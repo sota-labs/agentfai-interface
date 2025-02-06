@@ -1,9 +1,6 @@
-import React, { useEffect, useState } from 'react';
-import rf from '@/services/RequestFactory';
-import AppFallbackImage from '../AppFallbackImage';
-import { DefaultImage, RaidenxLogo } from '@/assets/images';
-import { getRaindexAuthorizeUrl } from '@/utils/helper';
+import { DefaultImage } from '@/assets/images';
 import { AgentT } from '@/libs/agents/type';
+import { useState } from 'react';
 import AgentCard from './AgentCard';
 
 const AgentList = () => {
@@ -18,11 +15,6 @@ const AgentList = () => {
     },
   ] as any);
 
-  const connectToRaidenx = () => {
-    const url = getRaindexAuthorizeUrl();
-    window.location.replace(url);
-  };
-
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-3">
@@ -32,7 +24,6 @@ const AgentList = () => {
               key={agent.id}
               srcImage={agent.logo || ''}
               isConnected={agent.isConnected}
-              handleConnect={connectToRaidenx}
             />
           );
         })}

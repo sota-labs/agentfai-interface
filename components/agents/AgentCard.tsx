@@ -1,14 +1,24 @@
-import React from 'react';
-import AppFallbackImage from '../AppFallbackImage';
 import { DefaultImage } from '@/assets/images';
+import { getRaindexAuthorizeUrl } from '@/utils/helper';
 import { StaticImageData } from 'next/image';
+import { useState } from 'react';
+import AppFallbackImage from '../AppFallbackImage';
+import { ModalConfirm } from './ModalConfirm';
+import { ChatIcon } from '@/assets/icons';
 
 interface AgentCardI {
   srcImage: string | StaticImageData;
   isConnected: boolean;
-  handleConnect: () => void;
 }
-const AgentCard = ({ srcImage, isConnected, handleConnect }: AgentCardI) => {
+const AgentCard = ({ srcImage, isConnected }: AgentCardI) => {
+  const [isOpenModal, setIsOpenModal] = useState(false);
+  const openModal = () => {
+    setIsOpenModal(true);
+  };
+  const connectToRaidenx = () => {
+    const url = getRaindexAuthorizeUrl();
+    window.location.replace(url);
+  };
   return (
     <div className="border border-solid border-[#3f3f46] rounded-lg p-4 flex flex-col space-y-4">
       <div className="flex items-center justify-between">
@@ -23,12 +33,19 @@ const AgentCard = ({ srcImage, isConnected, handleConnect }: AgentCardI) => {
           />
           <h1 className="text-md">Raidenx</h1>
         </div>
-        <div>
+        <div className="cursor-pointer">
           {isConnected ? (
             'Chat'
           ) : (
-            <button onClick={handleConnect}>Connect</button>
+            <div className="!cursor-pointer" onClick={openModal}>
+              <ChatIcon className="!w-6 !h-6 !cursor-pointer" />
+            </div>
           )}
+          <ModalConfirm
+            isOpen={isOpenModal}
+            onClose={() => setIsOpenModal(false)}
+            connectToRaidenx={connectToRaidenx}
+          />
         </div>
       </div>
 
