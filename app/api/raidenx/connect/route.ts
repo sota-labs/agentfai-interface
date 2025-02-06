@@ -5,7 +5,6 @@ import { cookies } from 'next/headers';
 
 const RAIDENX_OATH_URL = config.appRaidenXApiUrl;
 const AUTH_API_URL = config.authApiUrl;
-const RAIDENX_CALLBACK_URL = `${process.env.NEXT_PUBLIC_APP_URL}/raidenx/callback`;
 const RAIDENX_CLIENT_SECRET_KEY =
   process.env.RAIDENX_CLIENT_SECRET_KEY || '9dd4abe7f02496740c101052ed934d86';
 const RAIDENX_CLIENT_ID = config.raidenXClientId;
@@ -40,9 +39,11 @@ const getRaidenXAccessToken = async (code: string) => {
       authorizationCode: code,
       clientId: RAIDENX_CLIENT_ID,
       clientSecret: RAIDENX_CLIENT_SECRET_KEY,
-      redirectUri: RAIDENX_CALLBACK_URL,
     });
-    console.log('getRaidenXAccessToken success');
+    console.log('getRaidenXAccessToken success', {
+      accessToken: data.accessToken,
+      refreshToken: data.refreshToken,
+    });
     const { accessToken, refreshToken } = data;
 
     return {
@@ -61,6 +62,13 @@ const connectToRaidenXAgent = async (
 ) => {
   try {
     const appAccessToken = cookies().get('Authorization')?.value;
+    console.log('connectToRaidenXAgent', {
+      accessToken,
+      refreshToken,
+      clientId: RAIDENX_CLIENT_ID,
+      clientSecret: RAIDENX_CLIENT_SECRET_KEY,
+      appAccessToken: appAccessToken,
+    });
     await axios.post(
       `${AUTH_API_URL}/api/v1/agent/connect`,
       {

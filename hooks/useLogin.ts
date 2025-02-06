@@ -6,7 +6,7 @@ export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [redirectUri, setRedirectUri] = useState<string>('/home');
   const [callbackUri, setCallBackUri] = useState<string>(
-    config.googleCallbackUrl,
+    config.googleCallbackUrl || '',
   );
 
   const login = async () => {

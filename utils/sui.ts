@@ -16,7 +16,7 @@ export const fetchCoinBalances = async (
     const balancesFormatted: TCoinMetadata[] = [];
 
     balances.forEach((item) => {
-      const coinInWl = WHITE_LIST_COINS[config.network].find(
+      const coinInWl = WHITE_LIST_COINS[config.network as 'testnet' | 'mainnet'].find(
         (coin) => coin.type === item.coinType,
       );
 

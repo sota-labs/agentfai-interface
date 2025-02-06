@@ -1,5 +1,4 @@
 import config from '@/config';
-import { SUI_VISION_URL_CONFIGS } from '@/constants';
 
 export const truncateMiddleText = (
   text: string,
@@ -15,9 +14,15 @@ export const truncateMiddleText = (
 };
 
 export const getSuiVisionExplore = (account: string) => {
-  return `${SUI_VISION_URL_CONFIGS[config.network]}/account/${account}`;
+  return `${config.explorerUrl}/account/${account}`;
 };
 
 export const getRaindexAuthorizeUrl = () => {
-  return `${config.appRaidenXUrl}/authorize?redirect_uri=${config.raidenXCallbackUrl}&client_id=${config.raidenXClientId}&scope=${config.agentScopes}`;
+  const agentScopes = 'full_read_only,order.market.write,order.limit.write';
+  const params = new URLSearchParams({
+    redirect_uri: config.raidenXCallbackUrl,
+    client_id: config.raidenXClientId,
+    scope: agentScopes
+  });
+  return `${config.appRaidenXUrl}/authorize?${params.toString()}`;
 };
