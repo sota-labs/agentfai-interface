@@ -38,7 +38,7 @@ const AgentCard = ({ srcImage, isConnected }: AgentCardI) => {
             'Chat'
           ) : (
             <div className="!cursor-pointer" onClick={openModal}>
-              <ChatIcon className="!w-6 !h-6 !cursor-pointer" />
+              <ChatIcon className="!w-6 !h-6 !cursor-pointer" color="#A0FFA0" />
             </div>
           )}
           <ModalConfirm
