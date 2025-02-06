@@ -40,10 +40,10 @@ const getRaidenXAccessToken = async (code: string) => {
       clientId: RAIDENX_CLIENT_ID,
       clientSecret: RAIDENX_CLIENT_SECRET_KEY,
     });
-    console.log('getRaidenXAccessToken success', {
-      accessToken: data.accessToken,
-      refreshToken: data.refreshToken,
-    });
+    // console.log('getRaidenXAccessToken success', {
+    //   accessToken: data.accessToken,
+    //   refreshToken: data.refreshToken,
+    // });
     const { accessToken, refreshToken } = data;
 
     return {
@@ -62,13 +62,13 @@ const connectToRaidenXAgent = async (
 ) => {
   try {
     const appAccessToken = cookies().get('Authorization')?.value;
-    console.log('connectToRaidenXAgent', {
-      accessToken,
-      refreshToken,
-      clientId: RAIDENX_CLIENT_ID,
-      clientSecret: RAIDENX_CLIENT_SECRET_KEY,
-      appAccessToken: appAccessToken,
-    });
+    // console.log('connectToRaidenXAgent', {
+    //   accessToken,
+    //   refreshToken,
+    //   clientId: RAIDENX_CLIENT_ID,
+    //   clientSecret: RAIDENX_CLIENT_SECRET_KEY,
+    //   appAccessToken: appAccessToken,
+    // });
     await axios.post(
       `${AUTH_API_URL}/api/v1/agent/connect`,
       {
@@ -80,14 +80,14 @@ const connectToRaidenXAgent = async (
       },
       { headers: { Authorization: `Bearer ${appAccessToken}` } },
     );
-    console.log('connectToRaidenXAgent success');
+    // console.log('connectToRaidenXAgent success');
 
     return {
       accessToken,
       refreshToken,
     };
   } catch (error: any) {
-    console.log('connectToRaidenXAgent error');
+    console.log(`connectToRaidenXAgent error: ${error.message}`);
     throw error?.response?.data ?? error;
   }
 };
