@@ -74,7 +74,6 @@ const ThreadItem = ({
 };
 
 const Threads = () => {
-  const [threads, setThreads] = useState<TThread[]>([]);
   const getThreads = async (payload: any) => {
     try {
       const res = await rf.getRequest('ThreadRequest').getThreads(payload);
@@ -86,6 +85,7 @@ const Threads = () => {
       console.error(e);
     }
   };
+  const [threads, setThreads] = useState<TThread[]>([]);
   const handleDeleteThread = (id: string) => {
     setThreads((prev) => prev.filter((thread) => thread.id !== id));
   };

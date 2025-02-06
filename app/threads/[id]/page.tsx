@@ -3,13 +3,14 @@ import ChatInput from '@/components/home/ChatInput';
 import QuestionAnswerView from '@/components/QuestionAnswerView';
 import WalletInfo from '@/components/WalletInfo';
 import { FormEvent, useEffect, useState } from 'react';
-import { TThread } from '@/types';
+import { TMessage, TThread } from '@/types';
 import rf from '@/services/RequestFactory';
 import { useParams } from 'next/navigation';
 import { formatUnixTimestamp } from '@/utils/format';
 
 export default function ChatAndWallet() {
   const [thread, setThread] = useState<TThread>();
+  const [message, setMessage] = useState<TMessage[]>([]);
   const [chatBot, setChatBot] = useState<
     { question: string; answer: string }[]
   >([]);
@@ -40,9 +41,23 @@ export default function ChatAndWallet() {
     }
   };
 
+  const getMessages = async () => {
+    try {
+      const res = await rf.getRequest('ThreadRequest').getMessages(threadId, {
+        id: threadId,
+        page: 1,
+        limit: 10,
+      });
+      setMessage(res.docs.reverse());
+    } catch (e) {
+      console.error(e);
+    }
+  };
+
   useEffect(() => {
     if (!threadId) return;
     getThread().then();
+    getMessages().then();
   }, [threadId]);
 
   if (!thread) return <></>;
@@ -57,8 +72,15 @@ export default function ChatAndWallet() {
               {formatUnixTimestamp(thread?.createdAt * 1000, 'DD/MM')}
             </p>
             <div className="h-[calc(100vh-224px)] overflow-auto customer-scroll max-desktop:h-[calc(100vh-216px)] pr-3">
-              {chatBot.map((askAndAnswer, index) => (
+              {message.map((askAndAnswer, index) => (
                 <QuestionAnswerView askAndAnswer={askAndAnswer} key={index} />
+              ))}
+              {chatBot.map((askAndAnswer, index) => (
+                <QuestionAnswerView
+                  askAndAnswer={askAndAnswer}
+                  key={index}
+                  isTyping
+                />
               ))}
             </div>
             <ChatInput
