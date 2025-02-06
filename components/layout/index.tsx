@@ -17,7 +17,9 @@ export const Layout = ({
   const pathname = usePathname();
   const { toggleSidebar } = useCommonStore();
   const router = useRouter();
-  const isHideSidebar = ['/', '/google/callback'].includes(pathname);
+  const isHideSidebar = ['/', '/google/callback', '/raidenx/callback'].includes(
+    pathname,
+  );
 
   useEffect(() => {
     if (!!authorization) {
