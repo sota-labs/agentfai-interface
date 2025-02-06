@@ -15,7 +15,7 @@ export async function POST(request: Request) {
 
     // Call third-party login API
     const { data: authUser } = await axios.post(
-      `${AUTH_URL}/auth/login-google`,
+      `${AUTH_URL}/api/v1/auth/login-google`,
       { idToken },
     );
     const { accessToken } = authUser;
@@ -30,7 +30,7 @@ export async function POST(request: Request) {
 
     return NextResponse.json(authUser);
   } catch (error: any) {
-    console.error('Login Google Error', error);
+    console.error('Login Google Error', error?.message);
     return NextResponse.json(
       { message: 'Invalid credentials', error: error.response?.data },
       { status: 401 },
