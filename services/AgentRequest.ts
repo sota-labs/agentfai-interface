@@ -7,7 +7,7 @@ export default class AgentRequest extends BaseRequest {
   }
 
   async getConnectedAgents() {
-    const url = '/agent/connected';
+    const url = '/api/v1/agent/connected';
     return this.get(url);
   }
 }

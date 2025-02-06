@@ -60,9 +60,8 @@ const connectToRaidenXAgent = async (
 ) => {
   try {
     const appAccessToken = cookies().get('Authorization')?.value;
-
     await axios.post(
-      `${AUTH_API_URL}/agent/connect`,
+      `${AUTH_API_URL}/api/v1/agent/connect`,
       {
         agentId: config.raidenXAgentId,
         accessToken,
