@@ -6,13 +6,17 @@ import rf from '@/services/RequestFactory';
 
 export const useRaidenXCallback = ({ callback }: any) => {
   const [code, setCode] = useState('');
+  const [error, setError] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     const responseParams = new URLSearchParams(window.location.search);
 
     const code = responseParams.get('code') || '';
+    const error = responseParams.get('error') || '';
     setCode(code);
+    setError(error);
+    console.log(error, 'error');
   }, []);
 
   useEffect(() => {
@@ -40,5 +44,6 @@ export const useRaidenXCallback = ({ callback }: any) => {
 
   return {
     isLoading,
+    error,
   };
 };
