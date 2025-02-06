@@ -1,7 +1,9 @@
 'use client';
 
 import { useRaidenXCallback } from '@/hooks/useRaidenXCallback';
+import { toastError } from '@/libs/toast';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { Oval } from 'react-loader-spinner';
 
 export default function RaidenXCallbackPage() {
@@ -10,7 +12,14 @@ export default function RaidenXCallbackPage() {
     router.push('/home');
   };
 
-  const { isLoading } = useRaidenXCallback({ callback: onCompleted });
+  const { isLoading, error } = useRaidenXCallback({ callback: onCompleted });
+
+  useEffect(() => {
+    if (error) {
+      toastError('Failed to login with RaidenX');
+      router.push('/home');
+    }
+  }, [error]);
 
   if (isLoading) {
     return (
