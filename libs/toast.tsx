@@ -38,7 +38,7 @@ export const ErrorMessage = (props: IMessageProps) => {
   const { message } = props;
   return (
     <div style={{ color: '#fff' }}>
-      <div className="mr-1">
+      <div className="flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="24"
@@ -56,8 +56,10 @@ export const ErrorMessage = (props: IMessageProps) => {
             fill="#f24040"
           ></path>
         </svg>
-      </div>{' '}
-      <div className="text-[14px]">{message ?? 'Error'}</div>
+        <div className="text-[14px]" style={{ marginLeft: '8px' }}>
+          {message ?? 'Error'}
+        </div>
+      </div>
     </div>
   );
 };
