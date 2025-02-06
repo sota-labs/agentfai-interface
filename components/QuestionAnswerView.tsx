@@ -1,6 +1,7 @@
 'use client';
 import useTypingEffect from '@/hooks/useTypingEffect';
 import React from 'react';
+import { Oval } from 'react-loader-spinner';
 import Markdown from 'react-markdown';
 
 interface AnswerViewProps {
@@ -9,9 +10,14 @@ interface AnswerViewProps {
     answer: string;
   };
   isTyping?: boolean;
+  isLoading?: boolean;
 }
 
-const QuestionAnswerView = ({ askAndAnswer, isTyping }: AnswerViewProps) => {
+const QuestionAnswerView = ({
+  askAndAnswer,
+  isTyping,
+  isLoading,
+}: AnswerViewProps) => {
   const typingText = useTypingEffect(askAndAnswer.answer);
   return (
     <div>
@@ -22,7 +28,19 @@ const QuestionAnswerView = ({ askAndAnswer, isTyping }: AnswerViewProps) => {
       </div>
       <div>
         {isTyping ? (
-          <Markdown className="mark-down-content">{typingText}</Markdown>
+          <>
+            {isLoading ? (
+              <Oval
+                visible={true}
+                height="12"
+                width="12"
+                color="#000000"
+                ariaLabel="oval-loading"
+              />
+            ) : (
+              <Markdown className="mark-down-content">{typingText}</Markdown>
+            )}
+          </>
         ) : (
           <div className="mark-down-content">{askAndAnswer?.answer}</div>
         )}
