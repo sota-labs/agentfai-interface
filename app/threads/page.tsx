@@ -8,22 +8,28 @@ import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
 import { useRouter } from 'next/navigation';
-import { MenuDotIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import { MdDeleteOutline } from 'react-icons/md';
 
-import { toastSuccess } from '@/libs/toast';
+import { toastError, toastSuccess } from '@/libs/toast';
 
-const ThreadItem = ({ thread }: { thread: TThread }) => {
+const ThreadItem = ({
+  thread,
+  fetchData,
+}: {
+  thread: TThread;
+  fetchData: () => void;
+}) => {
   const router = useRouter();
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
 
-  const deleteThread = async () => {
+  const onDelete = async () => {
     try {
       await rf.getRequest('ThreadRequest').deleteThread(thread.id);
-      toastSuccess('Success!', 'Thread deleted successfully');
-      onDelete(thread.id);
-    } catch (e) {
+      toastSuccess('Thread deleted successfully');
+      fetchData();
+    } catch (e: any) {
+      toastError(e.message || 'Something went wrong!');
       console.error(e);
     }
   };
@@ -37,32 +43,37 @@ const ThreadItem = ({ thread }: { thread: TThread }) => {
       </td>
       <td className="p-2.5 border-b border-white-50">--</td>
       <td className="p-2.5 border-b border-white-50">
-        <div className="flex items-center gap-1">--</div>
+        <div className="flex items-center gap-1">{thread.totalMessages}</div>
       </td>
-      <td className="p-2.5 border-b border-white-50 text-neutral-400">--</td>
+      <td className="p-2.5 border-b border-white-50 text-neutral-400">
+        {formatUnixTimestamp(thread.lastViewedAt * 1000, 'DD/MM/YYYY HH:mm')}
+      </td>
       <td className="p-2.5 border-b border-white-50 text-neutral-400">
         {formatUnixTimestamp(thread.createdAt * 1000, 'DD/MM/YYYY HH:mm')}
       </td>
-      <td className="p-2.5 border-b border-white-50">
+      <td
+        className="p-2.5 border-b border-white-50"
+        onClick={(e) => e.stopPropagation()}
+      >
         <AppPopover
           isOpen={isPopoverMenu}
           onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
           onClose={() => setIsPopoverMenu(false)}
           trigger={
-            <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
-              <MenuDotIcon />
+            <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+              <HiOutlineDotsVertical />
             </div>
           }
           position="left"
           content={
             <>
-              <p
-                className="cursor-pointer py-[6px] px-[20px] text-[16px] leading-[24px] font-medium text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all flex items-center gap-2"
-                onClick={deleteThread}
+              <div
+                className="cursor-pointer py-1 px-2 text-white-0 rounded-[6px] hover:bg-white-50 transition-all flex items-center gap-1"
+                onClick={onDelete}
               >
                 <MdDeleteOutline />
-                Delele
-              </p>
+                Delete
+              </div>
             </>
           }
           customClassWrapper="min-w-[110px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
@@ -73,6 +84,7 @@ const ThreadItem = ({ thread }: { thread: TThread }) => {
 };
 
 const Threads = () => {
+  const [params, setParams] = useState<any>({});
   const getThreads = async (payload: any) => {
     try {
       const res = await rf.getRequest('ThreadRequest').getThreads(payload);
@@ -89,7 +101,13 @@ const Threads = () => {
     return (
       <tbody>
         {data.map((item: TThread, index: number) => {
-          return <ThreadItem thread={item} key={index} />;
+          return (
+            <ThreadItem
+              thread={item}
+              key={index}
+              fetchData={() => setParams({ ...params })}
+            />
+          );
         })}
       </tbody>
     );
@@ -120,6 +138,8 @@ const Threads = () => {
         </div>
         <div className="w-full">
           <AppDataTableBase
+            isLoadingOnce
+            requestParams={params}
             fetchData={getThreads}
             renderBody={_renderContent}
             renderHeader={_renderHeader}

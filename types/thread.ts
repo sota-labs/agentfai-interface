@@ -4,4 +4,6 @@ export type TThread = {
   userId: string;
   status: string;
   createdAt: number;
+  totalMessages: number;
+  lastViewedAt: number;
 };
