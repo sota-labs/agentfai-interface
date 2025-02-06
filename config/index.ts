@@ -10,13 +10,13 @@ export interface Config {
   zkProofUrl: string;
   suiEpochTime: number;
   googleClientId: string;
-  appUrl?: string;
-  googleCallbackUrl?: string;
-  raidenXCallbackUrl?: string;
-  network: 'testnet' | 'mainnet';
+  network: string;
   raidenXClientId: string;
-  agentScopes?: string;
   raidenXAgentId: string;
+  appUrl?: string;
+  googleCallbackUrl: string;
+  raidenXCallbackUrl: string;
+  explorerUrl: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
@@ -31,10 +31,6 @@ if (appUrl) {
   console.log('AppUrl: ' + appUrl);
 }
 
-const agentScopes =
-  process.env.NEXT_PUBLIC_RAIDENX_AGENT_SCOPE ||
-  'full_read_only,order.market.write,order.limit.write';
-
 interface EnvConfig {
   prod: Config;
   dev: Config;
@@ -48,7 +44,6 @@ config = {
   appUrl: appUrl || '',
   googleCallbackUrl,
   raidenXCallbackUrl,
-  agentScopes,
 };
 
 export default config;

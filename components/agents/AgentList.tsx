@@ -1,19 +1,23 @@
 import { DefaultImage } from '@/assets/images';
+import React, { useEffect, useState } from 'react';
 import { AgentT } from '@/libs/agents/type';
-import { useState } from 'react';
 import AgentCard from './AgentCard';
 
 const AgentList = () => {
-  const [agents, setAgents] = useState<AgentT[]>([
-    {
-      id: '1',
-      name: 'RaindenX',
-      logo: DefaultImage,
-      isConnected: false,
-      description:
-        'The best trading bot on SUI delivering millions of opportunities in milliseconds.',
-    },
-  ] as any);
+  const [agents, setAgents] = useState<AgentT[]>([] as any);
+
+  useEffect(() => {
+    setAgents([
+      {
+        id: '1',
+        name: 'RaindenX',
+        logo: DefaultImage,
+        isConnected: false,
+        description:
+          'The best trading bot on SUI delivering millions of opportunities in milliseconds.',
+      },
+    ]);
+  }, []);
 
   return (
     <div>

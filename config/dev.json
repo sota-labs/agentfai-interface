@@ -9,5 +9,6 @@
   "network": "testnet",
   "googleClientId": "744708243047-vli6hrf5ra17k6oevgjikg9puln90voc.apps.googleusercontent.com",
   "raidenXClientId": "db850806-154b-4cc8-b91f-af6763584207",
-  "raidenXAgentId": "1"
+  "raidenXAgentId": "1",
+  "explorerUrl": "https://testnet.suivision.xyz/"
 }

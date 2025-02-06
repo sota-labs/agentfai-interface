@@ -1,7 +1,7 @@
 'use client';
 
 import { FeatureIcon } from '@/assets/icons';
-import { DefaultImage, FullLogo, RaidenxLogo } from '@/assets/images';
+import { FullLogo } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import ChatInput from '@/components/home/ChatInput';
 import React, { FormEvent, useState } from 'react';
