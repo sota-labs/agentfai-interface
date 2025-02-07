@@ -3,6 +3,7 @@ import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import axios from 'axios';
 import config from '@/config';
+import { jwtDecode } from 'jwt-decode';
 
 const AUTH_URL = config.authApiUrl;
 
@@ -18,11 +19,14 @@ export async function POST(request: Request) {
     const { data: authUser } = await axios.post(`${AUTH_URL}/api/v1/auth/login-google`, { idToken });
     const { accessToken } = authUser;
 
-    // Set auth token in a session cookie (valid for 7 days)
+    // decode accessToken
+    const decodedToken = jwtDecode(accessToken);
+    
+    // Set auth token in a session cookie
     cookies().set('Authorization', accessToken, {
       httpOnly: true,
       secure: process.env.NEXT_PUBLIC_ENV === 'prod',
-      maxAge: 60 * 60 * 24 * 7, // 7 days
+      maxAge: Math.max(60 * 60, (decodedToken.exp || 0) - Math.floor(Date.now() / 1000)), // Set maxAge based on token expiration
       path: '/',
     });
 
