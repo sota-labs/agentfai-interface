@@ -1,14 +1,38 @@
 'use client';
 
 import { useRaidenXCallback } from '@/hooks/useRaidenXCallback';
+import { AgentT } from '@/libs/agents/type';
 import { toastError } from '@/libs/toast';
 import { useRouter } from 'next/navigation';
 import { useEffect } from 'react';
 import { Oval } from 'react-loader-spinner';
+import rf from '@/services/RequestFactory';
+import { useMetadata } from '@/libs/zustand/metadata';
 
 export default function RaidenXCallbackPage() {
   const router = useRouter();
+  const { setListAgentsWithIsConnected, setAgents } = useMetadata();
+  
   const onCompleted = () => {
+    const fetchAgentsData = async () => {
+      const [agents, listAgentsConnected] = await Promise.all([
+        rf.getRequest('AgentRequest').getListAgents(),
+        rf.getRequest('AgentRequest').getConnectedAgents(),
+      ]);
+      const listAgentsWithIsConnected = agents.map((agent: AgentT) => {
+        return {
+          ...agent,
+          isConnected: listAgentsConnected.some(
+            (agentConnected: AgentT) =>
+              agentConnected.agentId === agent.agentId,
+          ),
+        };
+      });
+      setListAgentsWithIsConnected(listAgentsWithIsConnected);
+      setAgents(agents);
+    };
+
+    fetchAgentsData();
     router.push('/home');
   };
 
