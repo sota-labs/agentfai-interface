@@ -22,7 +22,30 @@ export const getRaindexAuthorizeUrl = () => {
   const params = new URLSearchParams({
     redirect_uri: config.raidenXCallbackUrl,
     client_id: config.raidenXClientId,
-    scope: agentScopes
+    scope: agentScopes,
   });
   return `${config.appRaidenXUrl}/authorize?${params.toString()}`;
+};
+
+export const parseSSEMessage = (sseString: string) => {
+  const lines = sseString.split('\n');
+  const event: any = {};
+
+  lines.forEach((line) => {
+    const [field, ...rest] = line.split(':');
+    if (field) {
+      const value = rest.join(':').trim();
+      if (field === 'data') {
+        try {
+          event[field] = JSON.parse(value);
+        } catch (e) {
+          event[field] = value;
+        }
+      } else {
+        event[field] = value;
+      }
+    }
+  });
+
+  return event;
 };

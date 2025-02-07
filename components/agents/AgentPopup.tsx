@@ -40,7 +40,7 @@ const AgentPopup = ({ activeAgentIdProp }: AgentPopupI) => {
         onToggle={(isOpen) => setIsPopoverAgent(isOpen)}
         onClose={() => setIsPopoverAgent(false)}
         trigger={
-          <div className="cursor-pointer mx-[16px] mt-1 px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#a0faa0]  hover:bg-[#a0faa0]/25 transition-colors duration-300">
+          <div className="cursor-pointer mx-[8px] mt-1 px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#a0faa0]  hover:bg-[#a0faa0]/25 transition-colors duration-300">
             <span className="text-white-0 text-[14px] leading-[24px] font-medium">
               {activeAgent?.agentId ? (
                 <div className="flex cursor-pointer font-normal text-white-0 rounded-[8px] gap-[10px]">

@@ -1,6 +1,7 @@
 'use client';
 import Sidebar from '@/components/layout/Sidebar';
 import { AgentT } from '@/libs/agents/type';
+import { useAuthStore } from '@/libs/zustand/auth';
 import { useMetadata } from '@/libs/zustand/metadata';
 import { useCommonStore } from '@/libs/zustand/store';
 import { setAuthorizationToRequest } from '@/services/BaseRequest';
@@ -22,12 +23,14 @@ export const Layout = ({
     pathname,
   );
   const { setListAgentsWithIsConnected, setAgents } = useMetadata();
+  const { zkAddress } = useAuthStore();
 
   useEffect(() => {
+    if (!zkAddress) return;
     const fetchAgentsData = async () => {
       const [agents, listAgentsConnected] = await Promise.all([
         rf.getRequest('AgentRequest').getListAgents(),
-        rf.getRequest('AgentRequest').getListAgentsConnected(),
+        rf.getRequest('AgentRequest').getConnectedAgents(),
       ]);
       const listAgentsWithIsConnected = agents.map((agent: AgentT) => {
         return {
@@ -43,7 +46,7 @@ export const Layout = ({
     };
 
     fetchAgentsData();
-  }, []);
+  }, [zkAddress]);
 
   useEffect(() => {
     if (!!authorization) {

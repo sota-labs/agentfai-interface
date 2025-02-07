@@ -1,5 +1,5 @@
 'use client';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
@@ -10,12 +10,18 @@ import { useAuthStore } from '@/libs/zustand/auth';
 
 const WalletInfo = () => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
+  const [clientZkAddress, setClientZkAddress] = useState('');
+
   const { activeWallet } = useWalletBalances();
   const { zkAddress } = useAuthStore();
 
+  useEffect(() => {
+    if (zkAddress) setClientZkAddress(zkAddress);
+  }, [zkAddress]);
+
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
-      {zkAddress && (
+      {clientZkAddress && (
         <>
           <div className="flex items-center justify-between pb-[16px] border-b border-[#3f3f46] border-solid">
             <p className="text-[16px] leading-[32px] font-semibold text-white-0">

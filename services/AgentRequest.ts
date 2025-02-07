@@ -15,9 +15,4 @@ export default class AgentRequest extends BaseRequest {
     const url = '/api/v1/agent/connected';
     return this.get(url);
   }
-
-  getListAgentsConnected() {
-    const url = '/api/v1/agent/connected';
-    return this.get(url);
-  }
 }

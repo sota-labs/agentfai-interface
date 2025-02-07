@@ -2,7 +2,7 @@
 import axios from 'axios';
 import { v4 as uuidv4 } from 'uuid';
 // import { load } from 'recaptcha-v3';
-import config from "@/config";
+import config from '@/config';
 // import retry from 'async-retry';
 
 export const setAuthorizationToRequest = (token: string) => {
@@ -42,7 +42,24 @@ export default class BaseRequest {
       params,
       headers: await this.buildCustomHeaders(),
     };
-    return this._handleRequest(() => axios.get(this.getUrlPrefix() + url, config));
+    return this._handleRequest(() =>
+      axios.get(this.getUrlPrefix() + url, config),
+    );
+  }
+
+  async getSse(url: string, params?: any) {
+    const headers = await this.buildCustomHeaders();
+    const config = {
+      params,
+      headers: {
+        ...headers,
+        'Content-Type': 'text/event-stream',
+      },
+    };
+
+    return this._handleRequest(() =>
+      axios.get(this.getUrlPrefix() + url, config),
+    );
   }
 
   async getWithoutEncode(url: string, params?: any) {
@@ -55,36 +72,36 @@ export default class BaseRequest {
           .join('&');
       },
     };
-    return this._handleRequest(() => axios.get(this.getUrlPrefix() + url, config));
+    return this._handleRequest(() =>
+      axios.get(this.getUrlPrefix() + url, config),
+    );
   }
 
   async put(url: any, data?: any) {
     const config = {
       headers: await this.buildCustomHeaders(),
     };
-    return this._handleRequest(() => axios.put(this.getUrlPrefix() + url, data, config));
+    return this._handleRequest(() =>
+      axios.put(this.getUrlPrefix() + url, data, config),
+    );
   }
 
   async patch(url: any, data?: any) {
     const config = {
       headers: await this.buildCustomHeaders(),
     };
-    return this._handleRequest(() => axios.patch(
-      this.getUrlPrefix() + url,
-      data,
-      config,
-    ));
+    return this._handleRequest(() =>
+      axios.patch(this.getUrlPrefix() + url, data, config),
+    );
   }
 
   async post(url: any, data = {}) {
     const config = {
       headers: await this.buildCustomHeaders(),
     };
-    return this._handleRequest(() => axios.post(
-      this.getUrlPrefix() + url,
-      data,
-      config,
-    ));
+    return this._handleRequest(() =>
+      axios.post(this.getUrlPrefix() + url, data, config),
+    );
   }
 
   async delete(url: any, data?: any) {
@@ -92,7 +109,9 @@ export default class BaseRequest {
       data,
       headers: await this.buildCustomHeaders(),
     };
-    return this._handleRequest(() => axios.delete(this.getUrlPrefix() + url, config));
+    return this._handleRequest(() =>
+      axios.delete(this.getUrlPrefix() + url, config),
+    );
   }
 
   async download(url: any, data?: any) {
@@ -101,7 +120,9 @@ export default class BaseRequest {
       headers: await this.buildCustomHeaders(),
       responseType: 'blob',
     };
-    return this._handleRequest(() => axios.get(this.getUrlPrefix() + url, config));
+    return this._handleRequest(() =>
+      axios.get(this.getUrlPrefix() + url, config),
+    );
   }
 
   async _responseHandler(response: any) {
