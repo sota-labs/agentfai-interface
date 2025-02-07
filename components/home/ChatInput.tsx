@@ -1,6 +1,6 @@
 'use client';
 import AppInput from '@/components/AppInput';
-import { useCommonStore } from '@/libs/zustand/store';
+// import { useCommonStore } from '@/libs/zustand/store';
 import { FC, FormEvent, SetStateAction } from 'react';
 
 interface ChatInputI {
@@ -14,7 +14,7 @@ const ChatInput: FC<ChatInputI> = ({
   setInputValue,
   handleSubmit,
 }) => {
-  const { isSendMessage } = useCommonStore();
+  // const { isSendMessage } = useCommonStore();
 
   return (
     <div className="relative">
@@ -33,7 +33,7 @@ const ChatInput: FC<ChatInputI> = ({
         <div className="flex justify-end">
           <button
             className="w-[32px] h-[32px] rounded-[8px] bg-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/75 transition-colors duration-300 disabled:cursor-not-allowed"
-            disabled={inputValue.length === 0 || isSendMessage}
+            disabled={inputValue.length === 0}
             type="submit"
           >
             <svg

@@ -24,6 +24,7 @@ const Home = () => {
         question: inputValue,
       });
 
+      console.log('dataMessage', dataMessage);
       if (dataMessage) {
         router.push(`/threads/${dataMessage.threadId}`);
       }
