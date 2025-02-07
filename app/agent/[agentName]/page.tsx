@@ -1,21 +1,44 @@
 'use client';
 
 import ChatInput from '@/components/home/ChatInput';
+import { useRouter } from 'next/navigation';
 import React, { FormEvent, useState } from 'react';
+import rf from '@/services/RequestFactory';
 
 const AgentPage = () => {
+  const router = useRouter();
   // const [chatBot, setChatBot] = useState<
   //   { question: string; answer: string }[]
   // >([]);
   const [inputValue, setInputValue] = useState('');
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  // const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   if (inputValue.length === 0) return;
+  //   // setChatBot((prev) => [
+  //   //   ...prev,
+  //   //   { question: inputValue, answer: exampleAnswer },
+  //   // ]);
+  //   setInputValue('');
+  // };
+
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     if (inputValue.length === 0) return;
-    // setChatBot((prev) => [
-    //   ...prev,
-    //   { question: inputValue, answer: exampleAnswer },
-    // ]);
-    setInputValue('');
+
+    try {
+      const dataMessage = await rf.getRequest('MessageRequest').createMessage({
+        question: inputValue,
+      });
+
+      console.log('dataMessage', dataMessage);
+      if (dataMessage) {
+        router.push(`/threads/${dataMessage.threadId}`);
+      }
+      setInputValue('');
+    } catch (e) {
+      console.error(e);
+    }
   };
 
   return (

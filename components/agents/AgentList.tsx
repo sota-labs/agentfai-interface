@@ -8,6 +8,7 @@ const AgentList = () => {
     <div>
       <div className="grid gap-4 md:grid-cols-3">
         {listAgentsWithIsConnected?.map((agent) => {
+          if (agent.agentId === 'AgentFAI') return;
           return <AgentCard key={agent.agentId} agent={agent} />;
         })}
       </div>
