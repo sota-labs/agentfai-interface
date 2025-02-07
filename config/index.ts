@@ -17,6 +17,7 @@ export interface Config {
   googleCallbackUrl: string;
   raidenXCallbackUrl: string;
   explorerUrl: string;
+  defaultAgentId: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';
@@ -37,6 +38,7 @@ config = {
   ...config,
   googleCallbackUrl,
   raidenXCallbackUrl,
+  defaultAgentId: process.env.DEFAULT_AGENT_ID || '1',
 };
 
 export default config;

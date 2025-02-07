@@ -3,8 +3,12 @@ import { devtools } from 'zustand/middleware';
 import { AgentT } from '../agents/type';
 
 type TMetadataState = {
+  listAgents: AgentT[];
   listAgentsWithIsConnected: AgentT[];
+  activeAgent: AgentT;
   setListAgentsWithIsConnected: (payload: AgentT[]) => void;
+  setAgents: (payload: AgentT[]) => void;
+  setActiveAgent: (payload: AgentT) => void;
 };
 
 const initialState = {
@@ -20,6 +24,18 @@ export const useMetadata = create<TMetadataState>()(
         (state) => ({ ...state, listAgentsWithIsConnected: payload }),
         true,
         'metadata/setListAgentsWithIsConnected',
+      ),
+    setAgents: (payload: AgentT[]) =>
+      set(
+        (state) => ({ ...state, listAgents: payload }),
+        true,
+        'metadata/setAgents',
+      ),
+    setActiveAgent: (payload: AgentT) =>
+      set(
+        (state) => ({ ...state, activeAgent: payload }),
+        true,
+        'metadata/SetActiveAgent',
       ),
   })),
 );

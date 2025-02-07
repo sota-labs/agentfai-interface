@@ -8,11 +8,11 @@ import React, { FormEvent, useState } from 'react';
 import rf from '@/services/RequestFactory';
 import { useRouter } from 'next/navigation';
 import AgentList from '@/components/agents/AgentList';
+import config from '@/config';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
-
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -21,7 +21,7 @@ const Home = () => {
 
     try {
       const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-        agentId: '1', //TODO: Need get agentId
+        agentId: config.defaultAgentId, //TODO: Need get agentId
         question: inputValue,
       });
 

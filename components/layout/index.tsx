@@ -21,7 +21,7 @@ export const Layout = ({
   const isHideSidebar = ['/', '/google/callback', '/raidenx/callback'].includes(
     pathname,
   );
-  const { setListAgentsWithIsConnected } = useMetadata();
+  const { setListAgentsWithIsConnected, setAgents } = useMetadata();
 
   useEffect(() => {
     const fetchAgentsData = async () => {
@@ -39,6 +39,7 @@ export const Layout = ({
         };
       });
       setListAgentsWithIsConnected(listAgentsWithIsConnected);
+      setAgents(agents);
     };
 
     fetchAgentsData();

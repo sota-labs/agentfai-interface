@@ -7,6 +7,7 @@ import { TMessage, TThread } from '@/types';
 import rf from '@/services/RequestFactory';
 import { useParams } from 'next/navigation';
 import { formatUnixTimestamp } from '@/utils/format';
+import { useMetadata } from '@/libs/zustand/metadata';
 
 export default function ChatAndWallet() {
   const [thread, setThread] = useState<TThread>();
@@ -16,12 +17,13 @@ export default function ChatAndWallet() {
   >([]);
   const [inputValue, setInputValue] = useState('');
   const { id: threadId }: { id: string } = useParams();
+  const { activeAgent } = useMetadata();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue.length === 0) return;
     const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-      agentId: '1', //TODO: Need get agentId
+      agentId: activeAgent.agentId, //TODO: Need get agentId
       question: inputValue,
       threadId,
     });
