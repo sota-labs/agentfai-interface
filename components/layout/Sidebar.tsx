@@ -92,7 +92,7 @@ const Sidebar = () => {
           />
         </div>
       ),
-      label: agent.agentId,
+      label: agent.name,
       href: `/agent/${agent.agentId}`,
     };
   });
@@ -158,7 +158,7 @@ const Sidebar = () => {
             ))}
           </nav>
 
-          <nav className="flex flex-col gap-2 mb-6">
+          <nav className="flex flex-col gap-2 mb-0">
             {menuSidebar.map((item) => (
               <Link
                 key={item.label}
@@ -184,8 +184,8 @@ const Sidebar = () => {
           </nav>
           {listAgentsSidebar?.length > 0 && (
             <div>
-              <h3 className="text-neutral-500 text-xs p-[8px]">Agents</h3>
-              <div className="mt-2 flex flex-col gap-2">
+              <h3 className="text-neutral-500 text-xs p-[8px] mt-4">Agents</h3>
+              <div className="flex flex-col gap-2">
                 {listAgentsSidebar.map((item) => (
                   <Link
                     key={item.label}
