@@ -8,11 +8,12 @@ import { useEffect } from 'react';
 import { Oval } from 'react-loader-spinner';
 import rf from '@/services/RequestFactory';
 import { useMetadata } from '@/libs/zustand/metadata';
+import config from '@/config';
 
 export default function RaidenXCallbackPage() {
   const router = useRouter();
   const { setListAgentsWithIsConnected, setAgents } = useMetadata();
-  
+
   const onCompleted = () => {
     const fetchAgentsData = async () => {
       const [agents, listAgentsConnected] = await Promise.all([
@@ -33,7 +34,7 @@ export default function RaidenXCallbackPage() {
     };
 
     fetchAgentsData();
-    router.push('/home');
+    router.push(`/agents/${config.raidenxAgentId}`);
   };
 
   const { isLoading, error } = useRaidenXCallback({ callback: onCompleted });
