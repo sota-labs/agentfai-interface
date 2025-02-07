@@ -22,7 +22,7 @@ const AgentPage = () => {
       return;
     }
     setSelectAgent(agent);
-  }, [agentId]);
+  }, [agentId, listAgentsWithIsConnected]);
 
   return (
     <div className="space-y-8 flex flex-col items-center justify-center h-screen">
