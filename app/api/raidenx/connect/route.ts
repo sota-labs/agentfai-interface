@@ -72,7 +72,7 @@ const connectToRaidenXAgent = async (
     await axios.post(
       `${AUTH_API_URL}/api/v1/agent/connect`,
       {
-        agentId: config.raidenXAgentId,
+        agentId: config.raidenxAgentId,
         accessToken,
         refreshToken,
         clientId: RAIDENX_CLIENT_ID,

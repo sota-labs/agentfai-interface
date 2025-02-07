@@ -6,14 +6,12 @@ import { TMessage, TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
 import { parseSSEMessage } from '@/utils/helper';
 import React, {
-  FormEvent,
   useCallback,
   useEffect,
   useRef,
   useState,
 } from 'react';
 import rf from '@/services/RequestFactory';
-import { toastError } from '@/libs/toast';
 import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 interface ChatBoxI {
@@ -23,8 +21,8 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
   const [thread, setThread] = useState<TThread>();
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
-  const [isLoading, setIsLoading] = useState(false);
-  const [isChatting, setIsChatting] = useState(false);
+
+  const [isRespondingIndex, setIsRespondingIndex] = useState<number | null>(null);
   const [isGettingMessage, setIsGettingMessage] = useState(false);
 
   const [hasNextPage, setHasNextPage] = useState(true);
@@ -33,41 +31,21 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
   const chatRef = useRef<any>(null);
 
   useEffect(() => {
-    if (chatRef.current && isChatting) {
+    if (chatRef.current) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
   }, [JSON.stringify(messages)]);
 
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (inputValue.length === 0) return;
-    setIsChatting(true);
-
-    try {
-      setMessages((prev) => [
-        ...prev,
-        {
-          question: inputValue,
-          answer: '',
-        } as any,
-      ]);
-      setInputValue('');
-      setIsLoading(true);
-
-      const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-        agentId: '1', //TODO: Need get agentId
+  const onChatSuccess = (messageId: string) => {
+    console.log('onChatSuccess', messageId);
+    setMessages((prev) => [
+      ...prev,
+      {
         question: inputValue,
-        threadId,
-      });
-
-      await getStreamMessage(dataMessage.id);
-    } catch (error) {
-      console.error('chat error', error);
-      toastError('Something went wrong!!');
-    } finally {
-      setIsLoading(false);
-      setIsChatting(false);
-    }
+        answer: '',
+      } as any,
+    ]);
+    getStreamMessage(messageId);
   };
 
   const getStreamMessage = async (messageId: string) => {
@@ -89,35 +67,42 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
 
       const reader = response.body.getReader();
       const decoder = new TextDecoder();
-      const loopRunner = true;
       let answer = '';
+      let buffer = '';
 
-      while (loopRunner) {
+      while (true) {
         const { value, done } = await reader.read();
         if (done) {
           break;
         }
         const decodedChunk = decoder.decode(value, { stream: true });
-        const answerDecoded = parseSSEMessage(decodedChunk);
-
-        if (answerDecoded.data?.content) {
-          answer += answerDecoded.data?.content;
+        buffer += decodedChunk;
+        const events = buffer.split('\n\n');
+        buffer = events.pop() || '';
+        for (const event of events) {
+          if (!event.trim()) continue;
+          const parsed = parseSSEMessage(event);
+          if (parsed.data?.content && parsed.data?.content !== "DONE") {
+            answer += parsed.data?.content;
+            setIsRespondingIndex(messages.length - 1);
+            setMessages((prev) =>
+              prev.map((msg, index) =>
+                index === prev.length - 1
+                  ? {
+                      ...msg,
+                      answer,
+                    }
+                  : msg,
+              ),
+            );
+          }
         }
       }
-
-      setMessages((prev) =>
-        prev.map((msg, index) =>
-          index === prev.length - 1
-            ? {
-                ...msg,
-                answer,
-              }
-            : msg,
-        ),
-      );
     } catch (error) {
       console.error('getStreamMessage error', error);
       throw error;
+    } finally {
+      setIsRespondingIndex(null);
     }
   };
 
@@ -197,16 +182,17 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
             askAndAnswer={askAndAnswer}
             key={index}
             index={index}
-            isLoading={isLoading}
-            isTyping={index == messages.length - 1 && isChatting}
+            isTyping={isRespondingIndex === index}
             setEl={setEl}
           />
         ))}
       </div>
       <ChatInput
+        agentId={'1'}
+        threadId={threadId}
         inputValue={inputValue}
         setInputValue={setInputValue}
-        handleSubmit={handleSubmit}
+        onSuccess={onChatSuccess}
       />
     </div>
   );

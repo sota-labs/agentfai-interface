@@ -4,35 +4,12 @@ import { FeatureIcon } from '@/assets/icons';
 import { FullLogo } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import ChatInput from '@/components/home/ChatInput';
-import React, { FormEvent, useState } from 'react';
-import rf from '@/services/RequestFactory';
-import { useRouter } from 'next/navigation';
+import React, { useState } from 'react';
 import AgentList from '@/components/agents/AgentList';
+import config from '@/config';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');
-  const router = useRouter();
-
-
-  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    if (inputValue.length === 0) return;
-
-    try {
-      const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-        question: inputValue,
-      });
-
-      console.log('dataMessage', dataMessage);
-      if (dataMessage) {
-        router.push(`/threads/${dataMessage.threadId}`);
-      }
-      setInputValue('');
-    } catch (e) {
-      console.error(e);
-    }
-  };
 
   return (
     <div className="space-y-8">
@@ -49,7 +26,8 @@ const Home = () => {
       <div className="flex justify-center">
         <div className="w-2/3">
           <ChatInput
-            handleSubmit={handleSubmit}
+            agentId={config.defaultAgentId}
+            isInitial={true}
             inputValue={inputValue}
             setInputValue={setInputValue}
           />
@@ -65,7 +43,7 @@ const Home = () => {
             </h1>
           </div>
         </div>
-        <AgentList />
+        <AgentList ignoreAgentIds={[config.defaultAgentId]} />
       </div>
     </div>
   );

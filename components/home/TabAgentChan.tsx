@@ -5,7 +5,7 @@ import AppFallbackImage from '@/components/AppFallbackImage';
 import { AppPopover } from '@/components/AppPopover';
 // import QuestionAnswerView from '@/components/QuestionAnswerView';
 // import { exampleAnswer } from '@/constants/exampleAnswer';
-import { FormEvent, useState } from 'react';
+import { useState } from 'react';
 import ChatInput from './ChatInput';
 
 const TabAgentChan = () => {
@@ -15,15 +15,6 @@ const TabAgentChan = () => {
   //   { question: string; answer: string }[]
   // >([]);
   const [inputValue, setInputValue] = useState('');
-  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (inputValue.length === 0) return;
-    // setChatBot((prev) => [
-    //   ...prev,
-    //   { question: inputValue, answer: exampleAnswer },
-    // ]);
-    setInputValue('');
-  };
   return (
     <div>
       <div className="space-y-4">
@@ -75,7 +66,6 @@ const TabAgentChan = () => {
         <ChatInput 
           inputValue={inputValue}
           setInputValue={setInputValue}
-          handleSubmit={handleSubmit}
         />
         <div className="flex gap-2 px-2 customer-scroll overflow-x-auto pb-2">
           {[

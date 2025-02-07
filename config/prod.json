@@ -10,6 +10,7 @@
   "googleClientId": "744708243047-vli6hrf5ra17k6oevgjikg9puln90voc.apps.googleusercontent.com",
   "network": "mainnet",
   "raidenXClientId": "2115dc77-f20e-4a66-83c1-ae2d6c10b7cd",
-  "raidenXAgentId": "1",
+  "defaultAgentId": "AgentFAI",
+  "raidenxAgentId": "1",
   "explorerUrl": "https://suivision.xyz/"
 }

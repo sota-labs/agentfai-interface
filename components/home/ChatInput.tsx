@@ -1,20 +1,49 @@
 'use client';
 import AppInput from '@/components/AppInput';
-// import { useCommonStore } from '@/libs/zustand/store';
+import rf from '@/services/RequestFactory';
 import { FC, FormEvent, SetStateAction } from 'react';
+import { useRouter } from 'next/navigation';
 
 interface ChatInputI {
+  agentId?: string;
+  threadId?: string;
+  isInitial?: boolean;
   inputValue: string;
   setInputValue: (value: SetStateAction<string>) => void;
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
+  onSuccess?: (messageId: string) => void;
 }
 
 const ChatInput: FC<ChatInputI> = ({
+  agentId,
+  threadId,
+  isInitial,
   inputValue,
   setInputValue,
-  handleSubmit,
+  onSuccess,
 }) => {
-  // const { isSendMessage } = useCommonStore();
+  const router = useRouter();
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
+    if (inputValue.length === 0) return;
+
+    try {
+      const dataMessage = await rf.getRequest('MessageRequest').createMessage({
+        agentId: agentId || '',
+        question: inputValue,
+        threadId: threadId || '',
+      });
+      if (dataMessage && isInitial) {
+        if (onSuccess) onSuccess(dataMessage.id);
+        router.push(`/threads/${dataMessage.threadId}`);
+      } else {
+        if (onSuccess) onSuccess(dataMessage.id);
+      }
+      setInputValue('');
+    } catch (e) {
+      console.error(e);
+    }
+  };
 
   return (
     <div className="relative">

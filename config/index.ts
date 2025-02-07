@@ -13,7 +13,8 @@ export interface Config {
   googleClientId: string;
   network: string;
   raidenXClientId: string;
-  raidenXAgentId: string;
+  defaultAgentId: string;
+  raidenxAgentId: string;
   googleCallbackUrl: string;
   raidenXCallbackUrl: string;
   explorerUrl: string;

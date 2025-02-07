@@ -36,7 +36,7 @@ export const ModalConfirm = ({
               />
             </div>
 
-            <p className="text-center text-gray-600 text-[16px] max-w-md pt-2 pb-4 max-md:text-[14px]">
+            <p className="text-center text-gray-600 text-[15px] max-w-md pt-2 pb-4 max-md:text-[14px]">
               Please authenticate and grant permission to continue.
             </p>
 
