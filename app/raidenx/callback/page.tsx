@@ -34,7 +34,7 @@ export default function RaidenXCallbackPage() {
     };
 
     fetchAgentsData();
-    router.push(`/agents/${config.raidenxAgentId}`);
+    router.push(`/agent/${config.raidenxAgentId}`);
   };
 
   const { isLoading, error } = useRaidenXCallback({ callback: onCompleted });
