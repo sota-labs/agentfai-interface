@@ -15,7 +15,7 @@ const AgentCard = ({ agent }: AgentCardI) => {
   const [isOpenModal, setIsOpenModal] = useState(false);
 
   const openModal = () => {
-    if (!agent.isConnected) {
+    if (!agent.isConnected && agent.oauthRequired) {
       setIsOpenModal(true);
     } else {
       router.push(`/agent/${agent.agentId}`);
@@ -45,6 +45,7 @@ const AgentCard = ({ agent }: AgentCardI) => {
           </div>
 
           <ModalConfirm
+            agent={agent}
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
             connectToRaidenx={connectToRaidenx}

@@ -1,16 +1,19 @@
-import React from 'react';
-import AppModal from '../AppModal';
+import { DefaultImage } from '@/assets/images';
+import { AgentT } from '@/libs/agents/type';
 import { AppButton } from '../AppButton';
-import { RaidenxIcon } from '@/assets/icons';
+import AppFallbackImage from '../AppFallbackImage';
+import AppModal from '../AppModal';
 
 export const ModalConfirm = ({
   isOpen,
   onClose,
   connectToRaidenx,
+  agent,
 }: {
   isOpen: boolean;
   onClose: () => void;
   connectToRaidenx: () => void;
+  agent: AgentT;
 }) => {
   return (
     <AppModal isOpen={isOpen} onClose={onClose}>
@@ -18,11 +21,19 @@ export const ModalConfirm = ({
         <div className="max-md:w-[360px] w-[500px] bg-white rounded-3xl shadow-lg px-4 pb-4">
           <div className="flex flex-col items-center space-y-2">
             <h2 className="text-2xl font-bold max-md:text-xl">
-              Welcome to Raiden Agent
+              Welcome to {agent.name}
             </h2>
 
             <div className="!mt-5 w-[64px] h-[64px] flex items-center justify-center">
-              <RaidenxIcon />
+              {/* <RaidenxIcon /> */}
+              <AppFallbackImage
+                fallbackSrc={DefaultImage}
+                src={agent?.logoUrl || ''}
+                alt={'logo'}
+                width={64}
+                height={64}
+                className="rounded-[8px]"
+              />
             </div>
 
             <p className="text-center text-gray-600 text-[16px] max-w-md pt-2 pb-4 max-md:text-[14px]">
