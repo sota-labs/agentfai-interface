@@ -133,7 +133,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="flex flex-col">
-          <nav className="flex flex-col gap-2 mb-6 border-b border-white-50 pb-3">
+          <nav className="flex flex-col gap-2 mb-1 border-b border-white-50 pb-3">
             {menuTopSidebar.map((item) => (
               <Link
                 key={item.label}
@@ -184,7 +184,7 @@ const Sidebar = () => {
           </nav>
           {listAgentsSidebar?.length > 0 && (
             <div>
-              <h3 className="text-neutral-500 text-xs p-[8px] mt-4">Agents</h3>
+              <h3 className="text-neutral-500 text-xs p-[8px] mt-4\">Agents</h3>
               <div className="flex flex-col gap-2">
                 {listAgentsSidebar.map((item) => (
                   <Link
