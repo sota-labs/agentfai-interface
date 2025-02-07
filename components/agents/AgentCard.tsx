@@ -1,19 +1,25 @@
+import { ChatIcon } from '@/assets/icons';
 import { DefaultImage } from '@/assets/images';
+import { AgentT } from '@/libs/agents/type';
 import { getRaindexAuthorizeUrl } from '@/utils/helper';
-import { StaticImageData } from 'next/image';
 import { useState } from 'react';
 import AppFallbackImage from '../AppFallbackImage';
 import { ModalConfirm } from './ModalConfirm';
-import { ChatIcon } from '@/assets/icons';
+import { useRouter } from 'next/navigation';
 
 interface AgentCardI {
-  srcImage: string | StaticImageData;
-  isConnected: boolean;
+  agent: AgentT;
 }
-const AgentCard = ({ srcImage, isConnected }: AgentCardI) => {
+const AgentCard = ({ agent }: AgentCardI) => {
+  const router = useRouter();
   const [isOpenModal, setIsOpenModal] = useState(false);
+
   const openModal = () => {
-    setIsOpenModal(true);
+    if (!agent.isConnected) {
+      setIsOpenModal(true);
+    } else {
+      router.push(`/agent/${agent.agentId}`);
+    }
   };
   const connectToRaidenx = () => {
     const url = getRaindexAuthorizeUrl();
@@ -25,22 +31,19 @@ const AgentCard = ({ srcImage, isConnected }: AgentCardI) => {
         <div className="flex items-center space-x-2">
           <AppFallbackImage
             fallbackSrc={DefaultImage}
-            src={srcImage}
+            src={agent?.logoUrl || ''}
             alt={'logo'}
             width={36}
             height={36}
             className="rounded-[8px]"
           />
-          <h1 className="text-md">Raidenx</h1>
+          <h1 className="text-md">{agent?.name}</h1>
         </div>
         <div className="cursor-pointer">
-          {isConnected ? (
-            'Chat'
-          ) : (
-            <div className="!cursor-pointer" onClick={openModal}>
-              <ChatIcon className="!w-6 !h-6 !cursor-pointer" color="#A0FFA0" />
-            </div>
-          )}
+          <div className="!cursor-pointer" onClick={openModal}>
+            <ChatIcon className="!w-6 !h-6 !cursor-pointer" color="#A0FFA0" />
+          </div>
+
           <ModalConfirm
             isOpen={isOpenModal}
             onClose={() => setIsOpenModal(false)}
@@ -50,10 +53,7 @@ const AgentCard = ({ srcImage, isConnected }: AgentCardI) => {
       </div>
 
       <div className="text-xs font-normal text-neutral-400">
-        <p>
-          The best trading bot on SUI delivering millions of opportunities in
-          milliseconds.
-        </p>
+        <p>{agent?.description}</p>
       </div>
     </div>
   );
