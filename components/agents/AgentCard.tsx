@@ -18,7 +18,7 @@ const AgentCard = ({ agent }: AgentCardI) => {
     if (!agent.isConnected) {
       setIsOpenModal(true);
     } else {
-      router.push(`/agents/${agent.agentId}`);
+      router.push(`/agent/${agent.agentId}`);
     }
   };
   const connectToRaidenx = () => {

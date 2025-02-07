@@ -4,7 +4,7 @@ export type AgentT = {
   agentId: string;
   name: string;
   description: string;
-  isConnected: boolean;
+  isConnected?: boolean;
   logoUrl?: string | StaticImageData;
   oauthRequired: boolean;
 };

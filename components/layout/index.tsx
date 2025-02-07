@@ -1,12 +1,13 @@
 'use client';
 import Sidebar from '@/components/layout/Sidebar';
+import { AgentT } from '@/libs/agents/type';
+import { useMetadata } from '@/libs/zustand/metadata';
 import { useCommonStore } from '@/libs/zustand/store';
 import { setAuthorizationToRequest } from '@/services/BaseRequest';
-import { usePathname } from 'next/navigation';
+import rf from '@/services/RequestFactory';
+import { usePathname, useRouter } from 'next/navigation';
 import { ReactNode, useEffect } from 'react';
 import { IoIosMenu } from 'react-icons/io';
-import { useRouter } from 'next/navigation';
-
 export const Layout = ({
   children,
   authorization,
@@ -20,6 +21,28 @@ export const Layout = ({
   const isHideSidebar = ['/', '/google/callback', '/raidenx/callback'].includes(
     pathname,
   );
+  const { setListAgentsWithIsConnected } = useMetadata();
+
+  useEffect(() => {
+    const fetchAgentsData = async () => {
+      const [agents, listAgentsConnected] = await Promise.all([
+        rf.getRequest('AgentRequest').getListAgents(),
+        rf.getRequest('AgentRequest').getListAgentsConnected(),
+      ]);
+      const listAgentsWithIsConnected = agents.map((agent: AgentT) => {
+        return {
+          ...agent,
+          isConnected: listAgentsConnected.some(
+            (agentConnected: AgentT) =>
+              agentConnected.agentId === agent.agentId,
+          ),
+        };
+      });
+      setListAgentsWithIsConnected(listAgentsWithIsConnected);
+    };
+
+    fetchAgentsData();
+  }, []);
 
   useEffect(() => {
     if (!!authorization) {
