@@ -5,11 +5,15 @@ import { FC, FormEvent, SetStateAction } from 'react';
 
 interface ChatInputI {
   inputValue: string;
-  setInputValue: (value: SetStateAction<string>) => void
-  handleSubmit: (e: FormEvent<HTMLFormElement>) => void
+  setInputValue: (value: SetStateAction<string>) => void;
+  handleSubmit: (e: FormEvent<HTMLFormElement>) => void;
 }
 
-const ChatInput: FC<ChatInputI> = ({inputValue, setInputValue, handleSubmit}) => {
+const ChatInput: FC<ChatInputI> = ({
+  inputValue,
+  setInputValue,
+  handleSubmit,
+}) => {
   const { isSendMessage } = useCommonStore();
 
   return (
@@ -52,7 +56,7 @@ const ChatInput: FC<ChatInputI> = ({inputValue, setInputValue, handleSubmit}) =>
         </div>
       </form>
     </div>
-  )
-}
+  );
+};
 
-export default ChatInput
+export default ChatInput;

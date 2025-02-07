@@ -1,11 +1,13 @@
 import AuthRequest from './AuthRequest';
 import ThreadRequest from './ThreadRequest';
 import MessageRequest from './MessageRequest';
+import AgentRequest from './AgentRequest';
 
 const requestMap = {
   AuthRequest,
   ThreadRequest,
   MessageRequest,
+  AgentRequest,
 };
 
 const instances = {} as any;
