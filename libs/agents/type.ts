@@ -1,9 +1,10 @@
 import { StaticImageData } from 'next/image';
 
 export type AgentT = {
-  id: string;
+  agentId: string;
   name: string;
   description: string;
   isConnected: boolean;
-  logo?: string | StaticImageData;
+  logoUrl?: string | StaticImageData;
+  oauthRequired: boolean;
 };

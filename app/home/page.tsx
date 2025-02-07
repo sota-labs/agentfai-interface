@@ -13,6 +13,7 @@ const Home = () => {
   const [inputValue, setInputValue] = useState('');
   const router = useRouter();
 
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
