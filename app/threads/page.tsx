@@ -36,7 +36,7 @@ const Threads = () => {
     try {
       const res = await rf.getRequest('ThreadRequest').getThreads(payload);
       return {
-        docs: res?.docs,
+        docs: res?.docs.reverse(),
         totalPages: res?.totalPages,
       };
     } catch (e) {
@@ -73,7 +73,7 @@ const Threads = () => {
     <div>
       <div className="w-auto min-h-[600px] p-6 text-neutral-300">
         <div className="flex justify-end">
-          <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors cursor-pointer">
+          <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors">
             Create At <FaArrowDownLong className="text-[#a0faa0]" />
           </div>
         </div>
