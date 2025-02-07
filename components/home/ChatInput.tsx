@@ -1,8 +1,9 @@
 'use client';
 import AppInput from '@/components/AppInput';
 import rf from '@/services/RequestFactory';
-import { FC, FormEvent, SetStateAction } from 'react';
+import { FC, FormEvent, SetStateAction, useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
+import AgentPopup from '../agents/AgentPopup';
 
 interface ChatInputI {
   agentId?: string;
@@ -11,6 +12,7 @@ interface ChatInputI {
   inputValue: string;
   setInputValue: (value: SetStateAction<string>) => void;
   onSuccess?: (messageId: string) => void;
+  canSwitchAgent?: boolean;
 }
 
 const ChatInput: FC<ChatInputI> = ({
@@ -20,8 +22,10 @@ const ChatInput: FC<ChatInputI> = ({
   inputValue,
   setInputValue,
   onSuccess,
+  canSwitchAgent = false,
 }) => {
   const router = useRouter();
+  const [activeAgentId, setActiveAgentId] = useState<string>('');
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -29,7 +33,7 @@ const ChatInput: FC<ChatInputI> = ({
 
     try {
       const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-        agentId: agentId || '',
+        agentId: activeAgentId || '',
         question: inputValue,
         threadId: threadId || '',
       });
@@ -45,12 +49,21 @@ const ChatInput: FC<ChatInputI> = ({
     }
   };
 
+  useEffect(() => {
+    setActiveAgentId(agentId || '');
+  }, [agentId]);
+
   return (
     <div className="relative">
       <form
         onSubmit={handleSubmit}
-        className="flex item-center bg-[#272729] bottom-0 left-0 rounded-[8px] w-full p-[24px] space-y-1 max-desktop:p-[16px] max-desktop:relative"
+        className="flex item-center bg-[#272729] bottom-0 left-0 rounded-[8px] w-full pt-[38px] p-[24px] space-y-1 max-desktop:p-[16px] max-desktop:relative"
       >
+        {canSwitchAgent && (
+          <div className="absolute top-0 left-1">
+            <AgentPopup activeAgentId={activeAgentId} setActiveAgentId={setActiveAgentId} />
+          </div>
+        )}
         <AppInput
           type="text"
           placeholder="Message"

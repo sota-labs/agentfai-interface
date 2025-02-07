@@ -3,7 +3,7 @@ import AgentCard from './AgentCard';
 
 const AgentList = ({ ignoreAgentIds }: { ignoreAgentIds: string[] }) => {
   const { listAgentsWithIsConnected } = useMetadata();
-
+  console.log('listAgentsWithIsConnected', listAgentsWithIsConnected, 'ignoreAgentIds', ignoreAgentIds);
   return (
     <div>
       <div className="grid gap-4 md:grid-cols-3">

@@ -28,7 +28,7 @@ export const AppPopover: React.FC<AppPopoverProps> = ({
 
   const getPositionClass = useCallback(() => {
     const positionClasses = {
-      top: 'bottom-0 mb-1',
+      top: 'bottom-0 mb-8',
       left: 'right-0 mt-2',
       right: 'left-0 mt-2',
       bottom: 'top-0 mt-2',

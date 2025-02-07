@@ -31,9 +31,11 @@ const QuestionAnswerView = ({
       }}
     >
       <div className="flex justify-end">
-        <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded">
-          {askAndAnswer?.question}
-        </div>
+        {askAndAnswer?.question && (
+          <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded">
+            {askAndAnswer?.question}
+          </div>
+        )}
       </div>
       <div>
         {isTyping ? (

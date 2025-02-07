@@ -4,4 +4,5 @@ export type TThread = {
   userId: string;
   status: string;
   createdAt: number;
+  activeAgentId: string;
 };

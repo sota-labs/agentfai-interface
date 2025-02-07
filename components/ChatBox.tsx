@@ -19,6 +19,7 @@ interface ChatBoxI {
 }
 const ChatBox = ({ threadId }: ChatBoxI) => {
   const [thread, setThread] = useState<TThread>();
+  const [activeAgentId, setActiveAgentId] = useState<string>('');
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -27,6 +28,17 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
 
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
+  const [lastMessage, setLastMessage] = useState<TMessage | null>(null);
+  
+  useEffect(() => {
+    setActiveAgentId(thread?.activeAgentId || '');
+  }, [thread?.activeAgentId]);
+
+  useEffect(() => {
+    if (lastMessage?.status === 'processing' && lastMessage?.id) {
+      onChatSuccess(lastMessage?.id || '');
+    }
+  }, [lastMessage?.status]);
 
   const chatRef = useRef<any>(null);
 
@@ -37,7 +49,6 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
   }, [JSON.stringify(messages)]);
 
   const onChatSuccess = (messageId: string) => {
-    console.log('onChatSuccess', messageId);
     setMessages((prev) => [
       ...prev,
       {
@@ -125,6 +136,7 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
       });
       if (page === 1) {
         setMessages(data?.docs.reverse() || []);
+        setLastMessage(data?.docs.reverse()[0] || null);
       } else {
         setMessages((prevComments) => [
           ...(data?.docs.reverse() || []),
@@ -188,11 +200,12 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
         ))}
       </div>
       <ChatInput
-        agentId={'1'}
+        agentId={activeAgentId}
         threadId={threadId}
         inputValue={inputValue}
         setInputValue={setInputValue}
         onSuccess={onChatSuccess}
+        canSwitchAgent={true}
       />
     </div>
   );
