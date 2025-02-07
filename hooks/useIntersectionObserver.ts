@@ -18,11 +18,18 @@ export const useIntersectionObserver = ({
 }: IUseIntersectionObserver) => {
   const ref = useRef<HTMLDivElement | null>(null);
   const [stateEl, setEl] = useState<HTMLDivElement | null>(null);
+  const hasLoaded = useRef(false);
 
   useEffect(() => {
     const el = ref.current ? ref : { current: stateEl };
     const observer = new IntersectionObserver((observerEntry) => {
-      if (observerEntry[0].isIntersecting) loadMore?.();
+      if (observerEntry[0].isIntersecting && hasLoaded.current) {
+        loadMore?.();
+      }
+
+      if (!hasLoaded.current) {
+        hasLoaded.current = true;
+      }
     }, options);
 
     if (el.current) observer.observe(el.current);

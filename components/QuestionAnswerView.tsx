@@ -11,16 +11,25 @@ interface AnswerViewProps {
   };
   isTyping?: boolean;
   isLoading?: boolean;
+  index: number;
+  setEl: (el: HTMLDivElement | null) => void;
 }
 
 const QuestionAnswerView = ({
   askAndAnswer,
   isTyping,
   isLoading,
+  index,
+  setEl,
 }: AnswerViewProps) => {
   const typingText = useTypingEffect(askAndAnswer.answer);
   return (
-    <div>
+    <div
+      ref={(el) => {
+        if (index > 0) return;
+        setEl(el);
+      }}
+    >
       <div className="flex justify-end">
         <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded">
           {askAndAnswer?.question}

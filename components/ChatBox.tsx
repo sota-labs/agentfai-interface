@@ -5,9 +5,16 @@ import { Storage } from '@/libs/storage';
 import { TMessage, TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
 import { parseSSEMessage } from '@/utils/helper';
-import React, { FormEvent, useEffect, useRef, useState } from 'react';
+import React, {
+  FormEvent,
+  useCallback,
+  useEffect,
+  useRef,
+  useState,
+} from 'react';
 import rf from '@/services/RequestFactory';
 import { toastError } from '@/libs/toast';
+import { useIntersectionObserver } from '@/hooks/useIntersectionObserver';
 
 interface ChatBoxI {
   threadId: string;
@@ -17,11 +24,16 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [isChatting, setIsChatting] = useState(false);
+  const [isGettingMessage, setIsGettingMessage] = useState(false);
+
+  const [hasNextPage, setHasNextPage] = useState(true);
+  const [pageNumber, setPageNumber] = useState(1);
 
   const chatRef = useRef<any>(null);
 
   useEffect(() => {
-    if (chatRef.current) {
+    if (chatRef.current && isChatting) {
       chatRef.current.scrollTop = chatRef.current.scrollHeight;
     }
   }, [JSON.stringify(messages)]);
@@ -29,6 +41,7 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue.length === 0) return;
+    setIsChatting(true);
 
     try {
       setMessages((prev) => [
@@ -39,8 +52,8 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
         } as any,
       ]);
       setInputValue('');
-
       setIsLoading(true);
+
       const dataMessage = await rf.getRequest('MessageRequest').createMessage({
         agentId: '1', //TODO: Need get agentId
         question: inputValue,
@@ -53,6 +66,7 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
       toastError('Something went wrong!!');
     } finally {
       setIsLoading(false);
+      setIsChatting(false);
     }
   };
 
@@ -116,24 +130,50 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
     }
   };
 
-  const getMessages = async () => {
+  const getMessages = async (page: number) => {
     try {
-      const res = await rf.getRequest('ThreadRequest').getMessages(threadId, {
+      setIsGettingMessage(true);
+      const data = await rf.getRequest('ThreadRequest').getMessages(threadId, {
         id: threadId,
-        page: 1,
+        page,
         limit: 10,
       });
-      console.log(res.docs, 'res.docs');
-      setMessages(res.docs.reverse());
+      if (page === 1) {
+        setMessages(data?.docs.reverse() || []);
+      } else {
+        setMessages((prevComments) => [
+          ...(data?.docs.reverse() || []),
+          ...prevComments,
+        ]);
+      }
+      if (pageNumber >= data?.totalPages) {
+        setHasNextPage(false);
+      }
     } catch (e) {
       console.error(e);
+    } finally {
+      setIsGettingMessage(false);
     }
   };
+
+  const handleLoadMoreComments = useCallback(() => {
+    if (hasNextPage) {
+      setPageNumber((prev) => prev + 1);
+    }
+  }, [hasNextPage]);
+
+  const { setEl } = useIntersectionObserver({
+    loadMore: handleLoadMoreComments,
+  });
+
+  useEffect(() => {
+    if (!threadId) return;
+    getMessages(pageNumber);
+  }, [threadId, pageNumber]);
 
   useEffect(() => {
     if (!threadId) return;
     getThread().then();
-    getMessages().then();
   }, [threadId]);
 
   if (!thread) return <></>;
@@ -143,6 +183,11 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
       <p className="text-[24px] leading-[32px] font-semibold text-white-0">
         Thread from {formatUnixTimestamp(thread?.createdAt * 1000, 'DD/MM')}
       </p>
+      {isGettingMessage && (
+        <div className="flex flex-col items-center justify-center">
+          loading...
+        </div>
+      )}
       <div
         ref={chatRef}
         className="h-[calc(100vh-224px)] overflow-auto customer-scroll max-desktop:h-[calc(100vh-216px)] pr-3"
@@ -151,8 +196,10 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
           <QuestionAnswerView
             askAndAnswer={askAndAnswer}
             key={index}
+            index={index}
             isLoading={isLoading}
-            isTyping={index == messages.length - 1}
+            isTyping={index == messages.length - 1 && isChatting}
+            setEl={setEl}
           />
         ))}
       </div>
