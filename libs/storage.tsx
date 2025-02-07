@@ -26,8 +26,8 @@ export class Storage {
       return '';
     }
     if (!Storage.userSub) {
-      for (let i = 0; i < sessionStorage.length; i++) {
-        const key = sessionStorage.key(i);
+      for (let i = 0; i < localStorage.length; i++) {
+        const key = localStorage.key(i);
         if (
           key?.slice(0, PREFERENCES_WITH_SUB.length) === PREFERENCES_WITH_SUB
         ) {
@@ -48,8 +48,8 @@ export class Storage {
     if (typeof window === "undefined") {
       return;
     }
-    sessionStorage.removeItem(Storage.getStorageKey());
-    sessionStorage.removeItem(Storage.getGuestKey());
+    localStorage.removeItem(Storage.getStorageKey());
+    localStorage.removeItem(Storage.getGuestKey());
     Storage.userSub = null;
   }
 
@@ -57,7 +57,7 @@ export class Storage {
     if (typeof window === "undefined") {
       return {};
     }
-    const preferencesString = sessionStorage.getItem(
+    const preferencesString = localStorage.getItem(
       Storage.getStorageKey(),
     );
     const preferences = JSON.parse(preferencesString || '{}');
@@ -77,7 +77,7 @@ export class Storage {
     if (typeof window === "undefined") {
       return {};
     }
-    const preferencesString = sessionStorage.getItem(Storage.getGuestKey());
+    const preferencesString = localStorage.getItem(Storage.getGuestKey());
     const preferences = JSON.parse(preferencesString || '{}');
     return {
       ...defaultPreferences,
@@ -89,14 +89,14 @@ export class Storage {
     if (typeof window === "undefined") {
       return;
     }
-    sessionStorage.setItem(type, JSON.stringify(value));
+    localStorage.setItem(type, JSON.stringify(value));
   }
 
   static setGuestStorage(type: string, value: StorageInterface) {
     if (typeof window === "undefined") {
       return;
     }
-    sessionStorage.setItem(type, JSON.stringify(value));
+    localStorage.setItem(type, JSON.stringify(value));
   }
 
   static init() {
@@ -114,18 +114,18 @@ export class Storage {
     const preferences = Storage.getStorage();
     Storage.userSub = userSub;
 
-    sessionStorage.removeItem(PREFERENCES);
+    localStorage.removeItem(PREFERENCES);
     let arr = [];
-    for (let i = 0; i < sessionStorage.length; i++) {
+    for (let i = 0; i < localStorage.length; i++) {
       if (
-        sessionStorage.key(i)?.slice(0, PREFERENCES_WITH_SUB.length) ===
+        localStorage.key(i)?.slice(0, PREFERENCES_WITH_SUB.length) ===
         PREFERENCES_WITH_SUB
       ) {
-        arr.push(sessionStorage.key(i) || '');
+        arr.push(localStorage.key(i) || '');
       }
     }
     for (let i = 0; i < arr.length; i++) {
-      sessionStorage.removeItem(arr[i]);
+      localStorage.removeItem(arr[i]);
     }
 
     Storage.setStorage(Storage.getStorageKey(), {
@@ -158,7 +158,7 @@ export class Storage {
   }
 
   static removeZkLoginForGuest() {
-    window && window.sessionStorage.removeItem(Storage.getGuestKey());
+    window && window.localStorage.removeItem(Storage.getGuestKey());
   }
 
   static getZkLoginForGuest() {
