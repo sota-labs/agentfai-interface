@@ -21,7 +21,7 @@ const Home = () => {
 
     try {
       const dataMessage = await rf.getRequest('MessageRequest').createMessage({
-        agentId: '1', //TODO: Need get agentId
+        agentId: 'AgentFAI', //TODO: Need get agentId
         question: inputValue,
       });
 

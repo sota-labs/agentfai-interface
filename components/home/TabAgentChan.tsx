@@ -3,25 +3,25 @@ import { DefaultImage } from '@/assets/images';
 import { MenuDotIcon } from '@/assets/icons';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { AppPopover } from '@/components/AppPopover';
-import QuestionAnswerView from '@/components/QuestionAnswerView';
-import { exampleAnswer } from '@/constants/exampleAnswer';
+// import QuestionAnswerView from '@/components/QuestionAnswerView';
+// import { exampleAnswer } from '@/constants/exampleAnswer';
 import { FormEvent, useState } from 'react';
 import ChatInput from './ChatInput';
 
 const TabAgentChan = () => {
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
 
-  const [chatBot, setChatBot] = useState<
-    { question: string; answer: string }[]
-  >([]);
+  // const [chatBot, setChatBot] = useState<
+  //   { question: string; answer: string }[]
+  // >([]);
   const [inputValue, setInputValue] = useState('');
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (inputValue.length === 0) return;
-    setChatBot((prev) => [
-      ...prev,
-      { question: inputValue, answer: exampleAnswer },
-    ]);
+    // setChatBot((prev) => [
+    //   ...prev,
+    //   { question: inputValue, answer: exampleAnswer },
+    // ]);
     setInputValue('');
   };
   return (
@@ -68,9 +68,9 @@ const TabAgentChan = () => {
           />
         </div>
         <div className="mt-6 max-h-[calc(100vh-430px)] overflow-y-auto customer-scroll max-desktop:max-h-[calc(100vh-400px)] pr-3">
-          {chatBot.map((askAndAnswer, index) => (
+          {/* {chatBot.map((askAndAnswer, index) => (
             <QuestionAnswerView askAndAnswer={askAndAnswer} key={index} />
-          ))}
+          ))} */}
         </div>
         <ChatInput 
           inputValue={inputValue}
