@@ -209,7 +209,7 @@ td {
   font-weight: 400;
   line-height: 20px;
   color: #a1a1aa;
-  margin: 12px 0px;
+  padding: 12px 0px;
 }
 .mark-down-content strong {
   color: white;

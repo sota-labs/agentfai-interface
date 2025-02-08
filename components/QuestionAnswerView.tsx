@@ -13,6 +13,7 @@ interface AnswerViewProps {
   isLoading?: boolean;
   index: number;
   setEl: (el: HTMLDivElement | null) => void;
+  onTypingCompleted: () => void;
 }
 
 const QuestionAnswerView = ({
@@ -21,8 +22,13 @@ const QuestionAnswerView = ({
   isLoading,
   index,
   setEl,
+  onTypingCompleted,
 }: AnswerViewProps) => {
-  const typingText = useTypingEffect(askAndAnswer.answer);
+  const formattedMarkdown = askAndAnswer?.answer?.replace(/\\n/g, '\n\n');
+  const typingText = useTypingEffect(
+    formattedMarkdown,
+    isTyping ? onTypingCompleted : undefined,
+  );
   return (
     <div
       ref={(el) => {
@@ -32,12 +38,12 @@ const QuestionAnswerView = ({
     >
       <div className="flex justify-end">
         {askAndAnswer?.question && (
-          <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded">
+          <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded break-words">
             {askAndAnswer?.question}
           </div>
         )}
       </div>
-      <div>
+      <div className="max-w-100 break-words">
         {isTyping ? (
           <>
             {isLoading ? (
@@ -53,7 +59,7 @@ const QuestionAnswerView = ({
             )}
           </>
         ) : (
-          <div className="mark-down-content">{askAndAnswer?.answer}</div>
+          <Markdown className="mark-down-content">{formattedMarkdown}</Markdown>
         )}
       </div>
     </div>
