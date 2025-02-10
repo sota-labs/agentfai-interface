@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     siteName: 'AgentFI',
     images: [
       {
-        url: '/logo/opengraph-image.png',
+        url: '/logo/opengraph-image.png?id=1739182209479',
         alt: 'AgentFI',
       },
     ],
