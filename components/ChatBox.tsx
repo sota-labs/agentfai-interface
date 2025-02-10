@@ -9,15 +9,17 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import rf from '@/services/RequestFactory';
 import { Virtuoso } from 'react-virtuoso';
 import { Oval } from 'react-loader-spinner';
+import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
 
 interface ChatBoxI {
   threadId: string;
+  activeAgentId: string;
+  setActiveAgentId: (agentID: string) => void;
 }
 const MESSAGES_LIMIT = 10;
 
-const ChatBox = ({ threadId }: ChatBoxI) => {
+const ChatBox = ({ threadId, activeAgentId, setActiveAgentId }: ChatBoxI) => {
   const [thread, setThread] = useState<TThread>();
-  const [activeAgentId, setActiveAgentId] = useState<string>('');
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -107,6 +109,7 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
       }
 
       scrollToBottom();
+      AppBroadcast.dispatch(BROADCAST_EVENTS.UPDATE_BALANCE, {});
     } catch (error) {
       console.error('getStreamMessage error', error);
       throw error;

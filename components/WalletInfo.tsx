@@ -1,27 +1,58 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
-import { useWalletBalances } from '@/hooks/useBalance';
-import { useAuthStore } from '@/libs/zustand/auth';
+import { fetchCoinBalances } from '@/utils/sui';
+import { TCoinMetadata } from '@/libs/wallet/type';
+import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
 
-const WalletInfo = () => {
+interface WalletInfoI {
+  walletAddress: string;
+}
+
+const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
-  const [clientZkAddress, setClientZkAddress] = useState('');
-
-  const { activeWallet } = useWalletBalances();
-  const { zkAddress } = useAuthStore();
+  const [balances, setBalances] = useState<TCoinMetadata[]>();
 
   useEffect(() => {
-    if (zkAddress) setClientZkAddress(zkAddress);
-  }, [zkAddress]);
+    AppBroadcast.on(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
+      getBalances(walletAddress),
+    );
+    return () => {
+      AppBroadcast.remove(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
+        getBalances(walletAddress),
+      );
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const getBalances = async (address: string) => {
+    try {
+      const balances = await fetchCoinBalances(address);
+
+      setBalances(balances);
+    } catch (err) {
+      console.log(
+        `fetch coins balances of address ${walletAddress} error`,
+        err,
+      );
+    }
+  };
+
+  useEffect(() => {
+    if (!walletAddress) {
+      return;
+    }
+
+    getBalances(walletAddress);
+  }, [walletAddress]);
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
-      {clientZkAddress && (
+      {walletAddress && (
         <>
           <div className="flex items-center justify-between pb-[16px] border-b border-[#3f3f46] border-solid">
             <p className="text-[16px] leading-[32px] font-semibold text-white-0">
@@ -58,7 +89,7 @@ const WalletInfo = () => {
             </div>
           </div>
           <div className="pt-[16px] space-y-[16px]">
-            {activeWallet.coinBalances?.map((item, index) => (
+            {balances?.map((item, index) => (
               <CardToken
                 key={'token ' + index}
                 token={{
