@@ -29,19 +29,19 @@ const CardToken = ({ token }: Props) => {
           <p className="text-[E7E7E9] text-[14px] leading-[20px] font-medium">
             {token.symbol}
           </p>
-          <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
+          {/* <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
             {formatNumberWithComa(token.tokenBalance, token.decimals)}{' '}
             {token.symbol}
-          </p>
+          </p> */}
         </div>
       </div>
       <div className="space-y-[6px]">
         <p className="text-[E7E7E9] text-[14px] leading-[20px] font-medium">
           {formatNumberWithComa(token.tokenBalance, token.decimals)}
         </p>
-        <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
+        {/* <p className="text-[#908F94] text-[14px] leading-[20px] font-medium">
           {formatNumberWithComa(token.tokenBalance, token.decimals)}
-        </p>
+        </p> */}
       </div>
     </div>
   );
