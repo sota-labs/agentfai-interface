@@ -95,7 +95,7 @@ const ChatInput: FC<ChatInputI> = ({
               fill="none"
             >
               <path
-                stroke="#0cad0f"
+                stroke="#FFFFFF"
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeMiterlimit="10"
