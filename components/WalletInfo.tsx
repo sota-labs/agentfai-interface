@@ -31,7 +31,7 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const getBalances = async (address: string) => {
     try {
       const balances = await fetchCoinBalances(address);
-
+      console.log('=== getBalances', balances, 'address', address);
       setBalances(balances);
     } catch (err) {
       console.log(
