@@ -240,25 +240,27 @@ const Sidebar = () => {
           <div>
             <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
               <MdContactSupport className="text-[#a1a1aa] group-hover:text-white-0" />
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Support
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="text-[#a1a1aa] group-hover:text-white-0">
+                  Support
+                </span>
+                <span className="ml-1 text-[12px] text-white-1000 bg-green-500 rounded-sm p-1">
+                  (Coming Soon)
+                </span>
+              </div>
             </div>
             <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
               <div className="text-[#a1a1aa] group-hover:text-white-0">
                 <DocumentIcon />
               </div>
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Docs
-              </span>
-            </div>
-            <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
-              <div className="text-[#a1a1aa] group-hover:text-white-0">
-                <MobileIcon />
+              <div className="flex items-center gap-1">
+                <span className="text-[#a1a1aa] group-hover:text-white-0">
+                  Docs
+                </span>
+                <span className="ml-[28px] text-[12px] text-white-1000 bg-green-500 rounded-sm p-1">
+                  (Coming Soon)
+                </span>
               </div>
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Mobile
-              </span>
             </div>
           </div>
 

@@ -1,8 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RiAccountCircleFill } from 'react-icons/ri';
-import { AiOutlineTeam } from 'react-icons/ai';
-import { FaInbox } from 'react-icons/fa';
-import { CiGift } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 import { AppButton } from '../AppButton';
 import rf from '@/services/RequestFactory';
@@ -45,10 +42,10 @@ const AccountMenu = () => {
   }, [isModalOpen]);
 
   const accountMenuItems = [
-    { icon: RiAccountCircleFill, label: 'Account' },
-    { icon: AiOutlineTeam, label: 'Team' },
-    { icon: FaInbox, label: 'Inbox' },
-    { icon: CiGift, label: 'Gift' },
+    { icon: RiAccountCircleFill, label: 'Account', extra: ' (Coming Soon)' },
+    // { icon: AiOutlineTeam, label: 'Team' },
+    // { icon: FaInbox, label: 'Inbox' },
+    // { icon: CiGift, label: 'Gift' },
   ];
   return (
     <div className="mt-auto text-neutral-500 text-sm space-y-6 relative">
@@ -68,13 +65,20 @@ const AccountMenu = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="space-y-2">
-            {accountMenuItems.map(({ icon: Icon, label }) => (
+            {accountMenuItems.map(({ icon: Icon, label, extra }) => (
               <div
                 key={label}
                 className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
               >
                 <Icon className="mr-2" />
-                {label}
+                <div>
+                  {label}
+                  {extra && (
+                    <span className="ml-1 text-[12px] text-white-1000 bg-green-500 rounded-sm p-1">
+                      {extra}
+                    </span>
+                  )}
+                </div>
               </div>
             ))}
             <div className=" border-b border-white-100"></div>
