@@ -16,6 +16,11 @@ export default function ChatAndWallet() {
   const [clientZkAddress, setClientZkAddress] = useState('');
 
   const currentWallet = useMemo(() => {
+    console.log('=== currentWallet', {
+      activeAgentId,
+      raidenXWallet,
+      clientZkAddress,
+    });
     return activeAgentId == config.raidenxAgentId
       ? raidenXWallet?.address
       : (clientZkAddress as any);
