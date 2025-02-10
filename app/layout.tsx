@@ -13,19 +13,19 @@ import ToastProvider from '@/provider/ToastProvider';
 export const metadata: Metadata = {
   metadataBase: new URL('https://agentf.ai'),
   openGraph: {
-    title: 'AgentFI',
+    title: 'AgentFAI',
     description: 'I power the Agent Engine to help you turn intent into action.',
-    siteName: 'AgentFI',
+    siteName: 'AgentFAI',
     images: [
       {
         url: '/opengraph-image.png',
         width: 1200,
         height: 630,
-        alt: 'AgentFI Open Graph Image'
+        alt: 'AgentFAI Open Graph Image'
       }
     ],
   },
-  title: 'AgentFI',
+  title: 'AgentFAI',
   description: 'I power the Agent Engine to help you turn intent into action.',
   icons: {
     icon: '/logo/logo-favicon.png',

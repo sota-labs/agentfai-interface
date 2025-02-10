@@ -29,7 +29,7 @@ const Header = () => {
           <span className="font-medium">
             <AppFallbackImage
               src={FullLogo}
-              alt="agentfi"
+              alt="agentfai"
               width={120}
               className="rounded-full"
             />

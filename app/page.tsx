@@ -59,7 +59,7 @@ export default function LandingPage() {
             onClick={() => toggleSidebar()}
           >
             <div className="flex items-center gap-2">
-              <span className="font-medium">AgentFI</span>
+              <span className="font-medium">AgentFAI</span>
             </div>
 
             <button className="ml-auto block" data-drawer-dismiss="mobile-menu">
@@ -100,7 +100,7 @@ export default function LandingPage() {
       <main className="flex flex-col md:flex-row justify-between items-center px-4 md:px-20 pt-16 md:pt-32 max-w-7xl mx-auto gap-8">
         <div className="space-y-4 text-center md:text-left">
           <h1 className="text-3xl md:text-4xl font-bold flex items-center gap-2 justify-center md:justify-start">
-            Hi, I&apos;m AgentFI
+            Hi, I&apos;m AgentFAI
             <span className="animate-wave">👋</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">

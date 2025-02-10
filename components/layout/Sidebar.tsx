@@ -31,14 +31,14 @@ const Sidebar = () => {
       icon: (
         <AppFallbackImage
           src={AgentFI}
-          alt="agentfi"
+          alt="agentfai"
           width={15}
           height={15}
           className="rounded-full"
           fallbackSrc={DefaultAvatar}
         />
       ),
-      label: 'AgentFI',
+      label: 'AgentFAI',
       href: EPathName.HOME,
     },
   ];
