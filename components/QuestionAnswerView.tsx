@@ -24,9 +24,8 @@ const QuestionAnswerView = ({
   setEl,
   onTypingCompleted,
 }: AnswerViewProps) => {
-  const formattedMarkdown = askAndAnswer?.answer?.replace(/\\n/g, '\n\n');
   const typingText = useTypingEffect(
-    formattedMarkdown,
+    askAndAnswer?.answer,
     isTyping ? onTypingCompleted : undefined,
   );
   return (
@@ -59,7 +58,9 @@ const QuestionAnswerView = ({
             )}
           </>
         ) : (
-          <Markdown className="mark-down-content">{formattedMarkdown}</Markdown>
+          <Markdown className="mark-down-content">
+            {askAndAnswer?.answer}
+          </Markdown>
         )}
       </div>
     </div>
