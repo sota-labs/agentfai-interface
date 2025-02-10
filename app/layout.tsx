@@ -1,15 +1,14 @@
 import '@mysten/dapp-kit/dist/index.css';
-import {GoogleAnalytics} from '@next/third-parties/google';
-import {Metadata} from 'next';
-import {Roboto} from 'next/font/google';
+import { GoogleAnalytics } from '@next/third-parties/google';
+import { Metadata } from 'next';
+import { Roboto } from 'next/font/google';
 import 'rc-tooltip/assets/bootstrap.css';
 import React from 'react';
-import {ToastContainer} from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import './globals.css';
-import {cookies} from 'next/headers';
-import {AppProvider} from '@/provider';
-import {Layout} from '@/components/layout';
+import { cookies } from 'next/headers';
+import { AppProvider } from '@/provider';
+import { Layout } from '@/components/layout';
+import ToastProvider from '@/provider/ToastProvider';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://suidaos.com'),
@@ -50,23 +49,7 @@ export default function RootLayout({
     <html lang="en">
       <body className={varRoboto.variable}>
         <AppProvider>
-          <ToastContainer
-            autoClose={3000}
-            position="top-right"
-            pauseOnHover
-            icon={false}
-            closeButton={false}
-            progressClassName="hidden"
-            hideProgressBar
-            toastStyle={{
-              position: 'relative',
-              overflow: 'visible',
-              height: '100%',
-              marginBottom: '0px',
-              padding: '8px',
-            }}
-            theme="dark"
-          />
+          <ToastProvider />
           <Layout authorization={authorization}>{children}</Layout>
         </AppProvider>
       </body>

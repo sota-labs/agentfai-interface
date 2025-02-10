@@ -2,11 +2,11 @@
 
 import { FeatureIcon } from '@/assets/icons';
 import { FullLogo } from '@/assets/images';
+import AgentList from '@/components/agents/AgentList';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import ChatInput from '@/components/home/ChatInput';
-import React, { useState } from 'react';
-import AgentList from '@/components/agents/AgentList';
 import config from '@/config';
+import { useState } from 'react';
 
 const Home = () => {
   const [inputValue, setInputValue] = useState('');

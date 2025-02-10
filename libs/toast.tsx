@@ -22,15 +22,9 @@ export const toastError = (message: string) => {
   });
 };
 
-export const toastErrorWithTitle = (
-  title?: string,
-  message?: string,
-  time?: number,
-) => {
+export const toastErrorWithTitle = (title?: string, message?: string) => {
   toast(<MessageWithTitle title={title} message={message} />, {
     type: 'error',
-
-    autoClose: time || 3000,
   });
 };
 
