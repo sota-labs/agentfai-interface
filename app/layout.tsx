@@ -14,14 +14,15 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://agentfai.vercel.app'),
   openGraph: {
     title: 'AgentFI',
-    description:
-      'I power the Agent Engine to help you turn intent into action.',
+    description: 'I power the Agent Engine to help you turn intent into action.',
     siteName: 'AgentFI',
     images: [
       {
-        url: '/logo/opengraph-image.png',
-        alt: 'AgentFI',
-      },
+        url: '/opengraph-image.png',
+        width: 1200,
+        height: 630,
+        alt: 'AgentFI Open Graph Image'
+      }
     ],
   },
   title: 'AgentFI',
@@ -30,6 +31,7 @@ export const metadata: Metadata = {
     icon: '/logo/logo-favicon.png',
   },
 };
+
 const varRoboto = Roboto({
   weight: ['400', '500', '700'],
   subsets: ['latin'],
