@@ -38,11 +38,11 @@ const Wallet = () => {
             <div className="text-neutral-400">
               {truncateMiddleText(clientZkAddress || '')}
             </div>
-            <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+            <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#29D971] flex items-center justify-center hover:bg-[#29D971]/25 transition-colors duration-300">
               <CopyButton text={clientZkAddress || ''} />
             </div>
             <a href={getSuiVisionExplore(clientZkAddress)} target="_blank">
-              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#29D971] flex items-center justify-center hover:bg-[#29D971]/25 transition-colors duration-300">
                 <OpenTabIcon />
               </div>
             </a>
@@ -61,30 +61,6 @@ const Wallet = () => {
                 fallbackSrc={DefaultAvatar}
               />
             </div>
-            <div className="flex items-center gap-[8px]">
-              <AppPopover
-                isOpen={isPopoverMenu}
-                onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
-                onClose={() => setIsPopoverMenu(false)}
-                trigger={
-                  <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
-                    <MenuDotIcon />
-                  </div>
-                }
-                position="left"
-                content={
-                  <>
-                    <p
-                      className="cursor-pointer py-[6px] px-[18px] text-[12px] leading-[18px] text-white-0 rounded-[8px] hover:bg-[#3396FF] transition-all"
-                      onClick={() => disconnect()}
-                    >
-                      Disconnect
-                    </p>
-                  </>
-                }
-                customClassWrapper="min-w-[256px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
-              />
-            </div>
           </div>
         </div>
       )}
@@ -94,7 +70,7 @@ const Wallet = () => {
           onToggle={(isOpen) => setIsPopoverToken(isOpen)}
           onClose={() => setIsPopoverToken(false)}
           trigger={
-            <div className="cursor-pointer px-[11px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#a0faa0]  hover:bg-[#a0faa0]/25 transition-colors duration-300">
+            <div className="cursor-pointer px-[11px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#29D971]  hover:bg-[#29D971]/25 transition-colors duration-300">
               <span className="text-white-0 text-[16px] leading-[24px] font-bold">
                 Tokens
               </span>

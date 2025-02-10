@@ -41,7 +41,7 @@ const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
         onToggle={(isOpen) => setIsPopoverAgent(isOpen)}
         onClose={() => setIsPopoverAgent(false)}
         trigger={
-          <div className="cursor-pointer mx-[8px] mt-1 px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#a0faa0]  hover:bg-[#a0faa0]/25 transition-colors duration-300">
+          <div className="cursor-pointer mx-[8px] mt-1 px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#29D971]  hover:bg-[#29D971]/25 transition-colors duration-300">
             <span className="text-white-0 text-[14px] leading-[24px] font-medium">
               {selectedAgent?.agentId ? (
                 <div className="flex cursor-pointer font-normal text-white-0 rounded-[8px] gap-[10px]">
@@ -78,7 +78,7 @@ const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
               <div
                 key={index}
                 onClick={() => handleSelectAgent(agent.agentId)}
-                className="flex cursor-pointer m-2 py-[6px] px-[8px] text-[14px] leading-[24px] font-normal text-white-0 rounded-[8px] hover:bg-[#a0faa0]/25 transition-all gap-[10px]"
+                className="flex cursor-pointer m-2 py-[6px] px-[8px] text-[14px] leading-[24px] font-normal text-white-0 rounded-[8px] hover:bg-[#29D971]/25 transition-all gap-[10px]"
               >
                 <AppFallbackImage
                   src={agent.logoUrl || ''}

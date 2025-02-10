@@ -1,6 +1,8 @@
 import { useLogin } from '@/hooks/useLogin';
 import React, { useState } from 'react';
 import { AppButton } from './AppButton';
+import AppFallbackImage from './AppFallbackImage';
+import { FullLogo } from '@/assets/images';
 
 const Header = () => {
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
@@ -24,7 +26,14 @@ const Header = () => {
     <nav className="flex flex-col md:flex-row justify-between items-center px-4 md:px-6 py-4 max-w-7xl mx-auto">
       <div className="flex justify-between items-center w-full md:w-auto">
         <div className="flex items-center gap-2">
-          <span className="font-medium">Agentfai</span>
+          <span className="font-medium">
+            <AppFallbackImage
+              src={FullLogo}
+              alt="agentfi"
+              width={120}
+              className="rounded-full"
+            />
+          </span>
         </div>
         <button className="md:hidden" onClick={() => toggleSidebar()}>
           <svg
@@ -50,7 +59,7 @@ const Header = () => {
         <AppButton
           onClick={onLogin}
           isLoading={isLoading}
-          className="border-none bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md text-[14px]"
+          className="border-none bg-[#29D971] hover:bg-[#29D971]/75 transition-colors px-4 py-2 rounded-md text-[14px]"
         >
           Get Started
         </AppButton>

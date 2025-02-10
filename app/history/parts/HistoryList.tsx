@@ -68,11 +68,11 @@ const HistoryItem = ({
 
       <td className="p-2.5 border-b border-white-50 ">
         <div className="flex gap-1 justify-end">
-          <div className="w-[3px] h-[3px] bg-[#a0faa0] rounded-full" />
-          <div className="w-[3px] h-[3px] bg-[#a0faa0] rounded-full" />
-          <div className="w-[3px] h-[3px] bg-[#a0faa0] rounded-full" />
-          <div className="w-[3px] h-[3px] bg-[#a0faa0] rounded-full" />
-          <div className="w-[3px] h-[3px] bg-[#a0faa0] rounded-full" />
+          <div className="w-[3px] h-[3px] bg-[#29D971] rounded-full" />
+          <div className="w-[3px] h-[3px] bg-[#29D971] rounded-full" />
+          <div className="w-[3px] h-[3px] bg-[#29D971] rounded-full" />
+          <div className="w-[3px] h-[3px] bg-[#29D971] rounded-full" />
+          <div className="w-[3px] h-[3px] bg-[#29D971] rounded-full" />
         </div>
       </td>
       <td
@@ -85,7 +85,7 @@ const HistoryItem = ({
             onToggle={(isOpen) => setIsShowMenu(isOpen)}
             onClose={() => setIsShowMenu(false)}
             trigger={
-              <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+              <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#29D971] flex items-center justify-center hover:bg-[#29D971]/25 transition-colors duration-300">
                 <HiOutlineDotsVertical />
               </div>
             }

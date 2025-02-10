@@ -22,9 +22,9 @@ export const AppButton = ({
   ...restProps
 }: IProps) => {
   const mapClassName = {
-    primary: 'bg-[#a0faa0] text-gray-950',
+    primary: 'bg-[#29D971] text-gray-950',
     outline:
-      'border border-solid border-[#a0faa0]/75 text-[#fff] hover:bg-[#a0faa0]/25 transition-colors duration-300',
+      'border border-solid border-[#29D971]/75 text-[#fff] hover:bg-[#29D971]/25 transition-colors duration-300',
   };
   return (
     <button

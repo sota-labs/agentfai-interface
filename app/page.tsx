@@ -89,7 +89,7 @@ export default function LandingPage() {
             <AppButton
               onClick={onLogin}
               isLoading={isLoadingRequest}
-              className="border-none bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
+              className="border-none bg-[#29D971] hover:bg-[#29D971]/75 transition-colors px-4 py-2 rounded-md"
             >
               Get Started
             </AppButton>
@@ -109,7 +109,7 @@ export default function LandingPage() {
           <AppButton
             onClick={onLogin}
             isLoading={isLoadingRequest}
-            className="border-none bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
+            className="border-none bg-[#29D971] hover:bg-[#29D971]/75 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
           >
             Get Started
           </AppButton>

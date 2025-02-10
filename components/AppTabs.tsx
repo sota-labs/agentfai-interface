@@ -34,7 +34,7 @@ const AppTabs: React.FC<Props> = ({ tabs }) => {
           ))}
         </div>
         <div className="max-desktop:hidden flex items-center gap-1 cursor-pointer">
-          <BiSolidEdit color="#a0faa0" />
+          <BiSolidEdit color="#29D971" />
           <span>New thread</span>
         </div>
       </div>
