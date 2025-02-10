@@ -2,12 +2,14 @@ import AuthRequest from './AuthRequest';
 import ThreadRequest from './ThreadRequest';
 import MessageRequest from './MessageRequest';
 import AgentRequest from './AgentRequest';
+import RaidenXRequest from './RaidenXRequest';
 
 const requestMap = {
   AuthRequest,
   ThreadRequest,
   MessageRequest,
   AgentRequest,
+  RaidenXRequest,
 };
 
 const instances = {} as any;

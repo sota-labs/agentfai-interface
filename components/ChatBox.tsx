@@ -12,12 +12,13 @@ import { Oval } from 'react-loader-spinner';
 
 interface ChatBoxI {
   threadId: string;
+  activeAgentId: string;
+  setActiveAgentId: (agentID: string) => void;
 }
 const MESSAGES_LIMIT = 10;
 
-const ChatBox = ({ threadId }: ChatBoxI) => {
+const ChatBox = ({ threadId, activeAgentId, setActiveAgentId }: ChatBoxI) => {
   const [thread, setThread] = useState<TThread>();
-  const [activeAgentId, setActiveAgentId] = useState<string>('');
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
 
