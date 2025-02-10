@@ -5,7 +5,7 @@ import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 
 export default function LandingPage() {
-  const { isLoading, login } = useLogin();
+  const { isLoading, isLoadingRequest, login } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
 
   const onLogin = () => {
@@ -16,7 +16,7 @@ export default function LandingPage() {
     setIsOpenSidebar(!isOpenSidebar);
   };
 
-  if (isLoading) {
+  if (isLoading || isLoadingRequest) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <Oval

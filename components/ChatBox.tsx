@@ -144,13 +144,11 @@ const ChatBox = ({ threadId }: ChatBoxI) => {
         limit: MESSAGES_LIMIT,
       });
       if (page === 1) {
-        setMessages(data?.docs.reverse() || []);
-        setLastMessage(data?.docs.reverse()[0] || null);
+        data?.docs.reverse();
+        setMessages(data?.docs || []);
+        setLastMessage(data?.docs[0] || null);
       } else {
-        setMessages((prevComments) => [
-          ...(data?.docs.reverse() || []),
-          ...prevComments,
-        ]);
+        setMessages((prevComments) => [...(data?.docs || []), ...prevComments]);
       }
       if (pageNumber >= data?.totalPages) {
         setHasNextPage(false);
