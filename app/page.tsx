@@ -3,20 +3,12 @@
 import { useLogin } from '@/hooks/useLogin';
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
-import { useAuthStore } from '@/libs/zustand/auth';
-import { useRouter } from 'next/navigation';
 
 export default function LandingPage() {
   const { isLoading, login } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
-  const { connected } = useAuthStore();
-  const router = useRouter();
 
   const onLogin = () => {
-    if (connected) {
-      router.push('/home');
-      return;
-    }
     login().then();
   };
 
