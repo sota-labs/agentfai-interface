@@ -3,7 +3,6 @@ import React, { FC, useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
-import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
 import { fetchCoinBalances } from '@/utils/sui';
 import { TCoinMetadata } from '@/libs/wallet/type';

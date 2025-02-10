@@ -1,7 +1,6 @@
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { formatNumberWithComa } from '@/utils/format';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
-import { useEffect, useState } from 'react';
 
 interface Props {
   token: {
