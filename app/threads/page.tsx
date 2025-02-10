@@ -28,8 +28,10 @@ const ThreadItem = ({
       await rf.getRequest('ThreadRequest').deleteThread(thread.id);
       toastSuccess('Thread deleted successfully');
       fetchData();
+      setIsPopoverMenu(false)
     } catch (e: any) {
       toastError(e.message || 'Something went wrong!');
+      setIsPopoverMenu(false)
       console.error(e);
     }
   };
@@ -55,29 +57,31 @@ const ThreadItem = ({
         className="p-2.5 border-b border-white-50"
         onClick={(e) => e.stopPropagation()}
       >
-        <AppPopover
-          isOpen={isPopoverMenu}
-          onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
-          onClose={() => setIsPopoverMenu(false)}
-          trigger={
-            <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
-              <HiOutlineDotsVertical />
-            </div>
-          }
-          position="left"
-          content={
-            <>
-              <div
-                className="cursor-pointer py-1 px-2 text-white-0 rounded-[6px] hover:bg-white-50 transition-all flex items-center gap-1"
-                onClick={onDelete}
-              >
-                <MdDeleteOutline />
-                Delete
+        <div className="w-max">
+          <AppPopover
+            isOpen={isPopoverMenu}
+            onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
+            onClose={() => setIsPopoverMenu(false)}
+            trigger={
+              <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+                <HiOutlineDotsVertical />
               </div>
-            </>
-          }
-          customClassWrapper="min-w-[110px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
-        />
+            }
+            position="right"
+            content={
+              <>
+                <div
+                  className="cursor-pointer py-1 px-2 text-white-0 rounded-[6px] hover:bg-white-50 transition-all flex items-center gap-1"
+                  onClick={onDelete}
+                >
+                  <MdDeleteOutline />
+                  Delete
+                </div>
+              </>
+            }
+            customClassWrapper="min-w-[110px] border border-solid border-[#3f3f46] rounded-[8px] bg-[#18181A] p-[4px]"
+          />
+        </div>
       </td>
     </tr>
   );
