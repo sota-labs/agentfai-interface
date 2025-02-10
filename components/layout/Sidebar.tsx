@@ -244,7 +244,7 @@ const Sidebar = () => {
                 <span className="text-[#a1a1aa] group-hover:text-white-0">
                   Support
                 </span>
-                <span className="ml-1 text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm p-[2px]">
+                <span className="ml-1 text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm px-1">
                   Coming Soon
                 </span>
               </div>
@@ -257,7 +257,7 @@ const Sidebar = () => {
                 <span className="text-[#a1a1aa] group-hover:text-white-0">
                   Docs
                 </span>
-                <span className="ml-[28px] text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm p-[2px]">
+                <span className="ml-[28px] text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm px-1">
                   Coming Soon
                 </span>
               </div>
