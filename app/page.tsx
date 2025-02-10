@@ -1,22 +1,30 @@
 'use client';
 
+import { AppButton } from '@/components/AppButton';
+import Header from '@/components/Header';
 import { useLogin } from '@/hooks/useLogin';
 import React, { useState } from 'react';
 import { Oval } from 'react-loader-spinner';
 
 export default function LandingPage() {
-  const { isLoading, isLoadingRequest, login } = useLogin();
+  const { isLoading, login } = useLogin();
   const [isOpenSidebar, setIsOpenSidebar] = useState(false);
+  const [isLoadingRequest, setIsLoadingRequest] = useState<boolean>(false);
 
   const onLogin = () => {
-    login().then();
+    setIsLoadingRequest(true);
+    login()
+      .then()
+      .catch(() => {
+        setIsLoadingRequest(false);
+      });
   };
 
   const toggleSidebar = () => {
     setIsOpenSidebar(!isOpenSidebar);
   };
 
-  if (isLoading || isLoadingRequest) {
+  if (isLoading) {
     return (
       <div className="flex flex-col items-center justify-center h-screen">
         <Oval
@@ -33,41 +41,7 @@ export default function LandingPage() {
 
   return (
     <div className="w-full min-h-screen text-white relative">
-      <nav className="flex flex-col md:flex-row justify-between items-center px-4 md:px-6 py-4 max-w-7xl mx-auto">
-        <div className="flex justify-between items-center w-full md:w-auto">
-          <div className="flex items-center gap-2">
-            <span className="font-medium">Agentfai</span>
-          </div>
-          <button className="md:hidden" onClick={() => toggleSidebar()}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-6 w-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M4 6h16M4 12h16M4 18h16"
-              />
-            </svg>
-          </button>
-        </div>
-        <div className="hidden md:flex items-center gap-6">
-          <a href="#" className="hover:opacity-80 transition-opacity">
-            Docs
-          </a>
-          <button
-            className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
-            onClick={onLogin}
-          >
-            Get Started
-          </button>
-        </div>
-      </nav>
-
+      <Header />
       <>
         {isOpenSidebar && (
           <div
@@ -112,12 +86,13 @@ export default function LandingPage() {
             >
               Docs
             </a>
-            <button
-              className="bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
+            <AppButton
               onClick={onLogin}
+              isLoading={isLoadingRequest}
+              className="border-none bg-green-500 hover:bg-green-600 transition-colors px-4 py-2 rounded-md"
             >
               Get Started
-            </button>
+            </AppButton>
           </div>
         </div>
       </>
@@ -131,12 +106,13 @@ export default function LandingPage() {
           <p className="text-gray-400 text-base md:text-lg">
             I power the Agent Engine to help you turn intent into action.
           </p>
-          <button
-            className="bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
+          <AppButton
             onClick={onLogin}
+            isLoading={isLoadingRequest}
+            className="border-none bg-green-500 hover:bg-green-600 transition-colors px-6 py-3 rounded-md mt-4 w-full sm:w-auto"
           >
             Get Started
-          </button>
+          </AppButton>
         </div>
 
         <div className="relative w-[280px] h-[280px] md:w-[400px] md:h-[400px]">

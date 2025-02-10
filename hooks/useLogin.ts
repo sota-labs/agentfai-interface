@@ -5,7 +5,6 @@ import { toastError } from '@/libs/toast';
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isLoadingRequest, setIsLoadingRequest] = useState(false);
   const [redirectUri, setRedirectUri] = useState<string>('/home');
   const [callbackUri, setCallBackUri] = useState<string>(
     config.googleCallbackUrl || '',
@@ -13,15 +12,12 @@ export const useLogin = () => {
 
   const login = async () => {
     try {
-      setIsLoadingRequest(true);
       const url = await getZkLoginUrl(callbackUri, redirectUri);
       console.log('zkLoginUrl', url);
       window.location.replace(url);
     } catch (e) {
       console.log(e);
       toastError('Failed to login. Please try again.');
-    } finally {
-      setIsLoadingRequest(false);
     }
   };
 
@@ -49,7 +45,6 @@ export const useLogin = () => {
   return {
     login,
     onLogin,
-    isLoadingRequest,
     isLoading,
     redirectUri,
     setIsLoading,
