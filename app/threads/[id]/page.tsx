@@ -2,11 +2,43 @@
 import WalletInfo from '@/components/WalletInfo';
 import { useParams } from 'next/navigation';
 import ChatBox from '@/components/ChatBox';
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import config from '@/config';
+import rf from '@/services/RequestFactory';
+import { useAuthStore } from '@/libs/zustand/auth';
+import { AgentWallet } from '@/libs/agents/type';
+import { useMetadata } from '@/libs/zustand/metadata';
 
 export default function ChatAndWallet() {
   const { id: threadId }: { id: string } = useParams();
   const [activeAgentId, setActiveAgentId] = useState<string>('');
+  const { zkAddress, connected } = useAuthStore();
+  const [raidenXWallet, setRaidenXWallet] = useState<AgentWallet>();
+  const [clientZkAddress, setClientZkAddress] = useState('');
+
+  const { listAgentsWithIsConnected } = useMetadata();
+
+  const isChattingWithRaidenX = useMemo(() => {
+    return activeAgentId == config.raidenxAgentId;
+  }, [activeAgentId]);
+
+  useEffect(() => {
+    if (zkAddress) setClientZkAddress(zkAddress);
+  }, [zkAddress]);
+
+  useEffect(() => {
+    if (!connected && isChattingWithRaidenX) {
+      return;
+    }
+
+    const getRaidenXAgentWallet = async () => {
+      const data = await rf.getRequest('RaidenXRequest').getWallets();
+
+      setRaidenXWallet(data[0]); // Set first wallet is default wallet
+    };
+
+    getRaidenXAgentWallet();
+  }, [connected, listAgentsWithIsConnected.length]);
 
   return (
     <div>
@@ -18,7 +50,11 @@ export default function ChatAndWallet() {
             setActiveAgentId={(id) => setActiveAgentId(id)}
           />
         </div>
-        <WalletInfo activeAgentId={activeAgentId} />
+        <WalletInfo
+          walletAddress={
+            isChattingWithRaidenX ? raidenXWallet?.address : clientZkAddress
+          }
+        />
       </div>
     </div>
   );

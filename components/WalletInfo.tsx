@@ -1,85 +1,45 @@
 'use client';
-import React, { FC, useEffect, useMemo, useState } from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
 import { useWalletBalances } from '@/hooks/useBalance';
-import { useAuthStore } from '@/libs/zustand/auth';
-import rf from '@/services/RequestFactory';
-import { AgentWallet } from '@/libs/agents/type';
-import { useMetadata } from '@/libs/zustand/metadata';
-import config from '@/config';
 import { fetchCoinBalances } from '@/utils/sui';
 import { TCoinMetadata } from '@/libs/wallet/type';
 
 interface WalletInfoI {
-  activeAgentId: string;
+  walletAddress: string | undefined;
 }
 
-const WalletInfo: FC<WalletInfoI> = ({ activeAgentId }) => {
+const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
-  const [clientZkAddress, setClientZkAddress] = useState('');
-  const [agentWallet, setAgentWallet] = useState<AgentWallet>();
-  const [agentWalletBalances, setAgentWalletBalances] =
-    useState<TCoinMetadata[]>();
+  const [balances, setBalances] = useState<TCoinMetadata[]>();
 
   const { activeWallet } = useWalletBalances();
-  const { zkAddress, connected } = useAuthStore();
-  const { listAgentsWithIsConnected } = useMetadata();
 
   const getBalances = async (address: string) => {
     try {
       const balances = await fetchCoinBalances(address);
 
-      setAgentWalletBalances(balances);
+      setBalances(balances);
     } catch (err) {
       console.log(`fetch coins balances of address ${activeWallet} error`, err);
     }
   };
 
-  const isChattingWithRaidenX = useMemo(() => {
-    return activeAgentId == config.raidenxAgentId;
-  }, [activeAgentId]);
-
   useEffect(() => {
-    if (zkAddress) setClientZkAddress(zkAddress);
-  }, [zkAddress]);
-
-  useEffect(() => {
-    if (!connected && isChattingWithRaidenX) {
+    if (!walletAddress) {
       return;
     }
 
-    const getRaidenXAgentWallet = async () => {
-      const data = await rf.getRequest('RaidenXRequest').getWallets();
-
-      setAgentWallet(data[0]); // Set first wallet is default wallet
-    };
-
-    getRaidenXAgentWallet();
-  }, [connected, listAgentsWithIsConnected.length]);
-
-  useEffect(() => {
-    if (!agentWallet?.address) {
-      return;
-    }
-
-    getBalances(agentWallet.address);
-  }, [agentWallet]);
-
-  const balances = useMemo(() => {
-    if (isChattingWithRaidenX) {
-      return agentWalletBalances;
-    }
-
-    return activeWallet?.coinBalances;
-  }, [isChattingWithRaidenX, activeWallet?.coinBalances, agentWalletBalances]);
+    getBalances(walletAddress);
+  }, [walletAddress]);
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
-      {clientZkAddress && (
+      {walletAddress && (
         <>
           <div className="flex items-center justify-between pb-[16px] border-b border-[#3f3f46] border-solid">
             <p className="text-[16px] leading-[32px] font-semibold text-white-0">
