@@ -37,9 +37,10 @@ export const AppButton = ({
       {...restProps}
     >
       <div className="flex items-center gap-2 justify-center">
-        {children}
-        {isLoading && (
-          <LoadingIcon className="animate-spin h-5 w-5 mr-2 text-white" />
+        {isLoading ? (
+          <LoadingIcon className="animate-spin h-5 w-5 text-white" />
+        ) : (
+          children
         )}
       </div>
     </button>

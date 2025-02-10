@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import config from '@/config';
 import { getZkLoginUrl, handleZkLoginByGoogle } from '@/libs/zklogin/auth';
+import { toastError } from '@/libs/toast';
 
 export const useLogin = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -16,6 +17,7 @@ export const useLogin = () => {
       window.location.replace(url);
     } catch (e) {
       console.log(e);
+      toastError('Failed to login. Please try again.');
     }
   };
 
