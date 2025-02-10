@@ -11,7 +11,7 @@ import { Layout } from '@/components/layout';
 import ToastProvider from '@/provider/ToastProvider';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://suidaos.com'),
+  metadataBase: new URL('https://agentfai.vercel.app'),
   openGraph: {
     title: 'AgentFI',
     description:

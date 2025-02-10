@@ -3,7 +3,7 @@ import Image, { ImageProps, StaticImageData } from 'next/image';
 import { memo, useState } from 'react';
 
 type AppFallbackImageProps = ImageProps & {
-  fallbackSrc: string | StaticImageData;
+  fallbackSrc?: string | StaticImageData;
 };
 
 const AppFallbackImage: React.FC<AppFallbackImageProps> = memo(
@@ -11,7 +11,7 @@ const AppFallbackImage: React.FC<AppFallbackImageProps> = memo(
     const [src, setSrc] = useState(props.src);
 
     const handleError = () => {
-      setSrc(fallbackSrc);
+      setSrc(fallbackSrc || '/logo/logo-favicon.png');
     };
 
     return (

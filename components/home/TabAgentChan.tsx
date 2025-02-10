@@ -1,5 +1,4 @@
 'use client';
-import { DefaultImage } from '@/assets/images';
 import { MenuDotIcon } from '@/assets/icons';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { AppPopover } from '@/components/AppPopover';
@@ -21,8 +20,7 @@ const TabAgentChan = () => {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <AppFallbackImage
-              fallbackSrc={DefaultImage}
-              src={DefaultImage}
+              src={'/logo/logo-favicon.png'}
               width={40}
               height={40}
               alt={'solana'}

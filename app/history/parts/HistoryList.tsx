@@ -10,7 +10,7 @@ import { useRouter } from 'next/navigation';
 import { useMetadata } from '@/libs/zustand/metadata';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { toastError, toastSuccess } from '@/libs/toast';
-import { DefaultImage } from '@/assets/images';
+import { AgentFI } from '@/assets/images';
 
 const HistoryItem = ({
   thread,
@@ -54,7 +54,7 @@ const HistoryItem = ({
           <AppFallbackImage
             alt={agentActive?.name || '--'}
             className="rounded-full"
-            fallbackSrc={DefaultImage}
+            fallbackSrc={AgentFI}
             src={agentActive?.logoUrl || ''}
             width={24}
             height={24}

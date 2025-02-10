@@ -1,5 +1,4 @@
 import { ChatIcon } from '@/assets/icons';
-import { DefaultImage } from '@/assets/images';
 import { AgentT } from '@/libs/agents/type';
 import { getRaindexAuthorizeUrl } from '@/utils/helper';
 import { useState } from 'react';
@@ -30,7 +29,6 @@ const AgentCard = ({ agent }: AgentCardI) => {
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
           <AppFallbackImage
-            fallbackSrc={DefaultImage}
             src={agent?.logoUrl || ''}
             alt={'logo'}
             width={36}

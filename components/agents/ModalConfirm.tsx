@@ -1,4 +1,3 @@
-import { DefaultImage } from '@/assets/images';
 import { AgentT } from '@/libs/agents/type';
 import { AppButton } from '../AppButton';
 import AppFallbackImage from '../AppFallbackImage';
@@ -27,7 +26,6 @@ export const ModalConfirm = ({
             <div className="!mt-5 w-[64px] h-[64px] flex items-center justify-center">
               {/* <RaidenxIcon /> */}
               <AppFallbackImage
-                fallbackSrc={DefaultImage}
                 src={agent?.logoUrl || ''}
                 alt={'logo'}
                 width={64}

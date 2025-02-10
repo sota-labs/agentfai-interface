@@ -1,4 +1,3 @@
-import { DefaultImage } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { formatNumberWithComa } from '@/utils/format';
 import { StaticImport } from 'next/dist/shared/lib/get-img-props';
@@ -19,7 +18,6 @@ const CardToken = ({ token }: Props) => {
     <div className="rounded-[8px] bg-[#272729] py-1 px-2 flex items-center justify-between">
       <div className="flex items-center gap-[6px]">
         <AppFallbackImage
-          fallbackSrc={DefaultImage}
           src={token.image}
           width={32}
           height={32}

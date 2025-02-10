@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { AppPopover } from '../AppPopover';
 import { useMetadata } from '@/libs/zustand/metadata';
 import AppFallbackImage from '../AppFallbackImage';
-import { DefaultImage } from '@/assets/images';
 import config from '@/config';
 // import AppInput from '../AppInput';
 
@@ -47,7 +46,6 @@ const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
               {selectedAgent?.agentId ? (
                 <div className="flex cursor-pointer font-normal text-white-0 rounded-[8px] gap-[10px]">
                   <AppFallbackImage
-                    fallbackSrc={DefaultImage}
                     src={selectedAgent.logoUrl || ''}
                     alt={'agent'}
                     width={25}
@@ -83,7 +81,6 @@ const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
                 className="flex cursor-pointer m-2 py-[6px] px-[8px] text-[14px] leading-[24px] font-normal text-white-0 rounded-[8px] hover:bg-[#a0faa0]/25 transition-all gap-[10px]"
               >
                 <AppFallbackImage
-                  fallbackSrc={DefaultImage}
                   src={agent.logoUrl || ''}
                   alt={'agent'}
                   width={30}

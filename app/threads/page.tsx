@@ -13,7 +13,6 @@ import { MdDeleteOutline } from 'react-icons/md';
 import { toastError, toastSuccess } from '@/libs/toast';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { useMetadata } from '@/libs/zustand/metadata';
-import { DefaultImage } from '@/assets/images';
 
 const ThreadItem = ({
   thread,
@@ -57,7 +56,6 @@ const ThreadItem = ({
             alt={agentActive?.name || '--'}
             className="rounded-full"
             src={agentActive?.logoUrl || ''}
-            fallbackSrc={DefaultImage}
             width={24}
             height={24}
           />
