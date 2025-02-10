@@ -44,7 +44,7 @@ const History = () => {
           ))}
         </div>
 
-        <div className="max-h-96 overflow-auto">{_renderContentTab()}</div>
+        <div>{_renderContentTab()}</div>
       </div>
     </div>
   );

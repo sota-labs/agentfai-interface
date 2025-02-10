@@ -10,8 +10,10 @@ import { formatUnixTimestamp } from '@/utils/format';
 import { useRouter } from 'next/navigation';
 import { AppPopover } from '@/components/AppPopover';
 import { MdDeleteOutline } from 'react-icons/md';
-
 import { toastError, toastSuccess } from '@/libs/toast';
+import AppFallbackImage from '@/components/AppFallbackImage';
+import { useMetadata } from '@/libs/zustand/metadata';
+import { DefaultImage } from '@/assets/images';
 
 const ThreadItem = ({
   thread,
@@ -20,41 +22,59 @@ const ThreadItem = ({
   thread: TThread;
   fetchData: () => void;
 }) => {
-  const router = useRouter();
   const [isPopoverMenu, setIsPopoverMenu] = useState(false);
+  const router = useRouter();
+  const { listAgents } = useMetadata();
+
+  const agentActive = listAgents.find(
+    (item) => item.agentId === thread.activeAgentId,
+  );
 
   const onDelete = async () => {
     try {
       await rf.getRequest('ThreadRequest').deleteThread(thread.id);
       toastSuccess('Thread deleted successfully');
       fetchData();
-      setIsPopoverMenu(false)
+      setIsPopoverMenu(false);
     } catch (e: any) {
       toastError(e.message || 'Something went wrong!');
-      setIsPopoverMenu(false)
+      setIsPopoverMenu(false);
       console.error(e);
     }
   };
+
   return (
     <tr
       onClick={() => router.push(`/threads/${thread.id}`)}
       className="hover:bg-white-50 transition-all duration-200 cursor-pointer"
     >
-      <td className="p-2.5 border-b border-white-50">
-        <div className="flex items-center gap-2">--</div>
+      <td className="p-2.5 px-2 border-b border-white-50 ">
+        <div className="truncate w-[250px]">{thread.name}</div>
       </td>
-      <td className="p-2.5 border-b border-white-50">--</td>
-      <td className="p-2.5 border-b border-white-50">
+      <td className="p-2.5 px-2 border-b border-white-50">
+        <div className="flex gap-2 items-center">
+          <AppFallbackImage
+            alt={agentActive?.name || '--'}
+            className="rounded-full"
+            src={agentActive?.logoUrl || ''}
+            fallbackSrc={DefaultImage}
+            width={24}
+            height={24}
+          />
+          <div>{agentActive?.name || '--'}</div>
+        </div>
+      </td>
+      <td className="p-2.5 px-2 border-b border-white-50">
         <div className="flex items-center gap-1">{thread.totalMessages}</div>
       </td>
-      <td className="p-2.5 border-b border-white-50 text-neutral-400">
+      <td className="p-2.5 px-2 border-b border-white-50 text-neutral-400">
         {formatUnixTimestamp(thread.lastViewedAt * 1000, 'DD/MM/YYYY HH:mm')}
       </td>
-      <td className="p-2.5 border-b border-white-50 text-neutral-400">
+      <td className="p-2.5 px-2 border-b border-white-50 text-neutral-400">
         {formatUnixTimestamp(thread.createdAt * 1000, 'DD/MM/YYYY HH:mm')}
       </td>
       <td
-        className="p-2.5 border-b border-white-50"
+        className="p-2.5 px-2 border-b border-white-50"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="w-max">
@@ -89,6 +109,7 @@ const ThreadItem = ({
 
 const Threads = () => {
   const [params, setParams] = useState<any>({});
+
   const getThreads = async (payload: any) => {
     try {
       const res = await rf.getRequest('ThreadRequest').getThreads(payload);
