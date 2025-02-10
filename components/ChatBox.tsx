@@ -9,6 +9,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import rf from '@/services/RequestFactory';
 import { Virtuoso } from 'react-virtuoso';
 import { Oval } from 'react-loader-spinner';
+import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
 
 interface ChatBoxI {
   threadId: string;
@@ -108,6 +109,7 @@ const ChatBox = ({ threadId, activeAgentId, setActiveAgentId }: ChatBoxI) => {
       }
 
       scrollToBottom();
+      AppBroadcast.dispatch(BROADCAST_EVENTS.UPDATE_BALANCE, {});
     } catch (error) {
       console.error('getStreamMessage error', error);
       throw error;

@@ -7,14 +7,27 @@ import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
 import { fetchCoinBalances } from '@/utils/sui';
 import { TCoinMetadata } from '@/libs/wallet/type';
+import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
 
 interface WalletInfoI {
-  walletAddress: string | undefined;
+  walletAddress: string;
 }
 
 const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
   const [balances, setBalances] = useState<TCoinMetadata[]>();
+
+  useEffect(() => {
+    AppBroadcast.on(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
+      getBalances(walletAddress),
+    );
+    return () => {
+      AppBroadcast.remove(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
+        getBalances(walletAddress),
+      );
+    };
+    // eslint-disable-next-line
+  }, []);
 
   const getBalances = async (address: string) => {
     try {

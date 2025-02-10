@@ -52,7 +52,9 @@ export default function ChatAndWallet() {
         </div>
         <WalletInfo
           walletAddress={
-            isChattingWithRaidenX ? raidenXWallet?.address : clientZkAddress
+            isChattingWithRaidenX
+              ? raidenXWallet?.address
+              : (clientZkAddress as any)
           }
         />
       </div>
