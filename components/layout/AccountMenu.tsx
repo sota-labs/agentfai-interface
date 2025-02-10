@@ -42,7 +42,7 @@ const AccountMenu = () => {
   }, [isModalOpen]);
 
   const accountMenuItems = [
-    { icon: RiAccountCircleFill, label: 'Account', extra: ' (Coming Soon)' },
+    { icon: RiAccountCircleFill, label: 'Account', extra: ' Coming Soon' },
     // { icon: AiOutlineTeam, label: 'Team' },
     // { icon: FaInbox, label: 'Inbox' },
     // { icon: CiGift, label: 'Gift' },
@@ -74,7 +74,7 @@ const AccountMenu = () => {
                 <div>
                   {label}
                   {extra && (
-                    <span className="ml-1 text-[12px] text-white-1000 bg-green-500 rounded-sm p-1">
+                    <span className="ml-1 text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm p-1">
                       {extra}
                     </span>
                   )}
