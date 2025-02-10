@@ -23,7 +23,7 @@ export default function RaidenXCallbackPage() {
       const listAgentsWithIsConnected = agents.map((agent: AgentT) => {
         return {
           ...agent,
-          isConnected: listAgentsConnected.some(
+          isConnected: listAgentsConnected?.some(
             (agentConnected: AgentT) =>
               agentConnected.agentId === agent.agentId,
           ),
