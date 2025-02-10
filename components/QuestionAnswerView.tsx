@@ -3,6 +3,7 @@ import useTypingEffect from '@/hooks/useTypingEffect';
 import React from 'react';
 import { Oval } from 'react-loader-spinner';
 import Markdown from 'react-markdown';
+import remarkGfm from "remark-gfm";
 
 interface AnswerViewProps {
   askAndAnswer: {
@@ -24,9 +25,8 @@ const QuestionAnswerView = ({
   setEl,
   onTypingCompleted,
 }: AnswerViewProps) => {
-  const formattedMarkdown = askAndAnswer?.answer?.replace(/\\n/g, '\n\n');
   const typingText = useTypingEffect(
-    formattedMarkdown,
+    askAndAnswer?.answer,
     isTyping ? onTypingCompleted : undefined,
   );
   return (
@@ -55,11 +55,13 @@ const QuestionAnswerView = ({
                 ariaLabel="oval-loading"
               />
             ) : (
-              <Markdown className="mark-down-content">{typingText}</Markdown>
+              <Markdown className="mark-down-content" remarkPlugins={[remarkGfm]}>{typingText}</Markdown>
             )}
           </>
         ) : (
-          <Markdown className="mark-down-content">{formattedMarkdown}</Markdown>
+          <Markdown className="mark-down-content" remarkPlugins={[remarkGfm]}>
+            {askAndAnswer?.answer}
+          </Markdown>
         )}
       </div>
     </div>
