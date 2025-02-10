@@ -95,7 +95,7 @@ export function formatCommentTime(createdAt: string): string {
   return createdDate.toLocaleDateString('en-US', options);
 }
 
-export const formatNumberWithComa = (num: number | string, decimals = 2) => {
+export const formatNumberWithComa = (num: number | string, decimals = 8) => {
   const number = Number(num);
   if (isNaN(number)) {
     return '--';
