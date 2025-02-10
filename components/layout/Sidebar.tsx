@@ -18,7 +18,7 @@ import { HiWallet } from 'react-icons/hi2';
 import { MdContactSupport } from 'react-icons/md';
 import AppFallbackImage from '../AppFallbackImage';
 import AccountMenu from './AccountMenu';
-import LabelComingSoon from './labelComingSoon';
+import LabelComingSoon from './LabelComingSoon';
 
 const Sidebar = () => {
   const [threads, setThreads] = useState<TThread[]>([]);

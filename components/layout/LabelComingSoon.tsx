@@ -1,15 +1,13 @@
 'use client';
 import React from 'react';
 
-const LabelComingSoon = ({ classNames }: { classNames?: string }) => {
+const LabelComingSoon = () => {
   return (
-    <>
-      <div
-        className={`${classNames} text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm`}
-      >
-        Coming Soon
-      </div>
-    </>
+    <div
+      className={`px-1 body-sm-medium-12 text-white-700 bg-white-50 border border-white-50 rounded-sm`}
+    >
+      Coming Soon
+    </div>
   );
 };
 

@@ -5,7 +5,7 @@ import { AppButton } from '../AppButton';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { useRouter } from 'next/navigation';
-import LabelComingSoon from './labelComingSoon';
+import LabelComingSoon from './LabelComingSoon';
 
 const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
