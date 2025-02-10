@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { AgentFI } from '@/assets/images';
+import { FullLogo } from '@/assets/images';
 import { useMetadata } from '@/libs/zustand/metadata';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
@@ -30,15 +30,15 @@ const Sidebar = () => {
     {
       icon: (
         <AppFallbackImage
-          src={AgentFI}
+          src={FullLogo}
           alt="agentfai"
-          width={15}
-          height={15}
+          width={80}
+          height={30}
           className="rounded-full"
           fallbackSrc={DefaultAvatar}
         />
       ),
-      label: 'AgentFAI',
+      label: '',
       href: EPathName.HOME,
     },
   ];
