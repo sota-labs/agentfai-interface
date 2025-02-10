@@ -65,7 +65,7 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
                   onToggle={(isOpen) => setIsPopoverToken(isOpen)}
                   onClose={() => setIsPopoverToken(false)}
                   trigger={
-                    <div className="cursor-pointer px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#a0faa0]  hover:bg-[#a0faa0]/25 transition-colors duration-300">
+                    <div className="cursor-pointer px-[8px] py-1 rounded-[8px] inline-flex items-center gap-[8px] text-[#29D971]  hover:bg-[#29D971]/25 transition-colors duration-300">
                       <span className="text-white-0 text-[14px] leading-[24px] font-bold">
                         Tokens
                       </span>

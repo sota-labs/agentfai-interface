@@ -81,7 +81,7 @@ const ThreadItem = ({
             onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
             onClose={() => setIsPopoverMenu(false)}
             trigger={
-              <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+              <div className="cursor-pointer w-[24px] h-[24px] rounded-[6px] text-[#29D971] flex items-center justify-center hover:bg-[#29D971]/25 transition-colors duration-300">
                 <HiOutlineDotsVertical />
               </div>
             }
@@ -156,7 +156,7 @@ const Threads = () => {
       <div className="w-auto min-h-[600px] p-6 text-neutral-300">
         <div className="flex justify-end">
           <div className="flex gap-2 cursor-pointer items-center hover:text-neutral-300 transition-colors">
-            Create At <FaArrowDownLong className="text-[#a0faa0]" />
+            Create At <FaArrowDownLong className="text-[#29D971]" />
           </div>
         </div>
         <div className="w-full">

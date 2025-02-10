@@ -55,7 +55,7 @@ const AccountMenu = () => {
           e.stopPropagation();
           toggleModal();
         }}
-        className={`${isModalOpen ? 'bg-[#a0faa0]/25' : ''} mt-2`}
+        className={`${isModalOpen ? 'bg-[#29D971]/25' : ''} mt-2`}
       >
         Account
       </AppButton>

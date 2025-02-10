@@ -83,7 +83,7 @@ const ChatInput: FC<ChatInputI> = ({
         />
         <div className="flex justify-end">
           <button
-            className="w-[32px] h-[32px] rounded-[8px] bg-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/75 transition-colors duration-300 disabled:cursor-not-allowed"
+            className="w-[32px] h-[32px] rounded-[8px] bg-[#29D971] flex items-center justify-center hover:bg-[#29D971]/75 transition-colors duration-300 disabled:cursor-not-allowed"
             disabled={inputValue.length === 0 || isDisabled}
             type="submit"
           >

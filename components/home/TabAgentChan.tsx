@@ -38,7 +38,7 @@ const TabAgentChan = () => {
             onToggle={(isOpen) => setIsPopoverMenu(isOpen)}
             onClose={() => setIsPopoverMenu(false)}
             trigger={
-              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/25 transition-colors duration-300">
+              <div className="cursor-pointer w-[36px] h-[36px] rounded-[8px] text-[#29D971] flex items-center justify-center hover:bg-[#29D971]/25 transition-colors duration-300">
                 <MenuDotIcon />
               </div>
             }
@@ -61,10 +61,7 @@ const TabAgentChan = () => {
             <QuestionAnswerView askAndAnswer={askAndAnswer} key={index} />
           ))} */}
         </div>
-        <ChatInput 
-          inputValue={inputValue}
-          setInputValue={setInputValue}
-        />
+        <ChatInput inputValue={inputValue} setInputValue={setInputValue} />
         <div className="flex gap-2 px-2 customer-scroll overflow-x-auto pb-2">
           {[
             'Tokens',

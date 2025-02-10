@@ -114,7 +114,7 @@ export const AppDataTableBase = forwardRef(
               onChangePagination({ selected: pagination.page - 2 });
             }}
           >
-            <FaArrowLeftLong className="text-[#a0faa0]" />
+            <FaArrowLeftLong className="text-[#29D971]" />
             <div className="hover:text-neutral-300 transition-colors cursor-pointer">
               Previous
             </div>
@@ -134,7 +134,7 @@ export const AppDataTableBase = forwardRef(
             <div className="hover:text-neutral-300 transition-colors cursor-pointer">
               Next
             </div>
-            <FaArrowRight className="text-[#a0faa0]" />
+            <FaArrowRight className="text-[#29D971]" />
           </div>
         </div>
       );
