@@ -227,3 +227,23 @@ td {
   border: 1px solid #272729 !important;
   background-color: #272729 !important;
 }
+
+.mark-down-content table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+.mark-down-content table td {
+  border: 1px solid #272729;
+  padding: 8px;
+}
+
+.mark-down-content table th {
+  border: 1px solid #272729;
+  padding: 8px;
+}
+
+.mark-down-content table th {
+  background-color: #272729;
+}
+
