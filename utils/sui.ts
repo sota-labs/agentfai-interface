@@ -1,5 +1,3 @@
-import config from '@/config';
-import { WHITE_LIST_COINS } from '@/constants/coinWhitelist';
 import { TCoinMetadata } from '@/libs/wallet/type';
 import { sortBy } from 'lodash';
 import { client, covertMistToDec } from './format';
@@ -14,19 +12,14 @@ export const fetchCoinBalances = async (
     });
 
     const balancesFormatted: TCoinMetadata[] = [];
-
-    balances.forEach((item) => {
-      const coinInWl = WHITE_LIST_COINS[config.network as 'testnet' | 'mainnet'].find(
-        (coin) => coin.type === item.coinType,
-      );
-
-      if (coinInWl) {
-        balancesFormatted.push({
-          ...coinInWl,
-          balance: covertMistToDec(item.totalBalance, coinInWl.decimal),
-        });
-      }
-    });
+    for (const balance of balances) {
+      const coin = await client.getCoinMetadata({ coinType: balance.coinType });
+      balancesFormatted.push({
+        ...coin,
+        balance: covertMistToDec(balance.totalBalance, coin?.decimals),
+      } as TCoinMetadata);
+      await new Promise((resolve) => setTimeout(resolve, 200));
+    }
 
     return sortBy(balancesFormatted, ['type', 'balance']);
   } catch (error) {
