@@ -1,15 +1,12 @@
 'use client';
-import { useCommonStore } from '@/libs/zustand/store';
 import { useState, useEffect } from 'react';
 
-const useTypingEffect = (text: string) => {
-  const { setIsSendMessage } = useCommonStore();
+const useTypingEffect = (text: string, onTypingCompleted?: () => void) => {
   const [displayedText, setDisplayedText] = useState('');
   const maxDuration = 5000;
   const minDuration = 2000;
 
   useEffect(() => {
-    setIsSendMessage(true);
     let index = 0;
     const duration = Math.min(
       maxDuration,
@@ -23,7 +20,7 @@ const useTypingEffect = (text: string) => {
       index++;
       if (index === text.length) {
         clearInterval(interval);
-        setIsSendMessage(false);
+        if (onTypingCompleted) onTypingCompleted();
       }
     }, speed);
 

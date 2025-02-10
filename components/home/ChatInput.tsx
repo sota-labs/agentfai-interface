@@ -13,6 +13,8 @@ interface ChatInputI {
   setInputValue: (value: SetStateAction<string>) => void;
   onSuccess?: (messageId: string) => void;
   canSwitchAgent?: boolean;
+  setIsSendingMessage?: (isLoading: boolean) => void;
+  isDisabled?: boolean;
 }
 
 const ChatInput: FC<ChatInputI> = ({
@@ -23,11 +25,14 @@ const ChatInput: FC<ChatInputI> = ({
   setInputValue,
   onSuccess,
   canSwitchAgent = false,
+  setIsSendingMessage,
+  isDisabled,
 }) => {
   const router = useRouter();
   const [activeAgentId, setActiveAgentId] = useState<string>('');
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (setIsSendingMessage) setIsSendingMessage(true);
 
     if (inputValue.length === 0) return;
 
@@ -45,6 +50,7 @@ const ChatInput: FC<ChatInputI> = ({
       }
       setInputValue('');
     } catch (e) {
+      if (setIsSendingMessage) setIsSendingMessage(false);
       console.error(e);
     }
   };
@@ -61,7 +67,10 @@ const ChatInput: FC<ChatInputI> = ({
       >
         {canSwitchAgent && (
           <div className="absolute top-0 left-1">
-            <AgentPopup activeAgentId={activeAgentId} setActiveAgentId={setActiveAgentId} />
+            <AgentPopup
+              activeAgentId={activeAgentId}
+              setActiveAgentId={setActiveAgentId}
+            />
           </div>
         )}
         <AppInput
@@ -75,7 +84,7 @@ const ChatInput: FC<ChatInputI> = ({
         <div className="flex justify-end">
           <button
             className="w-[32px] h-[32px] rounded-[8px] bg-[#a0faa0] flex items-center justify-center hover:bg-[#a0faa0]/75 transition-colors duration-300 disabled:cursor-not-allowed"
-            disabled={inputValue.length === 0}
+            disabled={inputValue.length === 0 || isDisabled}
             type="submit"
           >
             <svg
