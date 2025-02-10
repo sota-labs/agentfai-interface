@@ -7,7 +7,6 @@ import config from '@/config';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { AgentWallet } from '@/libs/agents/type';
-import { useMetadata } from '@/libs/zustand/metadata';
 
 export default function ChatAndWallet() {
   const { id: threadId }: { id: string } = useParams();
@@ -16,18 +15,18 @@ export default function ChatAndWallet() {
   const [raidenXWallet, setRaidenXWallet] = useState<AgentWallet>();
   const [clientZkAddress, setClientZkAddress] = useState('');
 
-  const { listAgentsWithIsConnected } = useMetadata();
-
-  const isChattingWithRaidenX = useMemo(() => {
-    return activeAgentId == config.raidenxAgentId;
-  }, [activeAgentId]);
+  const currentWallet = useMemo(() => {
+    return activeAgentId == config.raidenxAgentId
+      ? raidenXWallet?.address
+      : (clientZkAddress as any);
+  }, [raidenXWallet, clientZkAddress, activeAgentId]);
 
   useEffect(() => {
     if (zkAddress) setClientZkAddress(zkAddress);
   }, [zkAddress]);
 
   useEffect(() => {
-    if (!connected && isChattingWithRaidenX) {
+    if (!connected && activeAgentId == config.raidenxAgentId) {
       return;
     }
 
@@ -38,7 +37,7 @@ export default function ChatAndWallet() {
     };
 
     getRaidenXAgentWallet();
-  }, [connected, listAgentsWithIsConnected.length]);
+  }, [connected, activeAgentId]);
 
   return (
     <div>
@@ -50,13 +49,7 @@ export default function ChatAndWallet() {
             setActiveAgentId={(id) => setActiveAgentId(id)}
           />
         </div>
-        <WalletInfo
-          walletAddress={
-            isChattingWithRaidenX
-              ? raidenXWallet?.address
-              : (clientZkAddress as any)
-          }
-        />
+        {activeAgentId && <WalletInfo walletAddress={currentWallet} />}
       </div>
     </div>
   );
