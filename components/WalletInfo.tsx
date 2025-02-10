@@ -17,6 +17,7 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [balances, setBalances] = useState<TCoinMetadata[]>();
 
   useEffect(() => {
+    if (!walletAddress) return;
     AppBroadcast.on(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
       getBalances(walletAddress),
     );
