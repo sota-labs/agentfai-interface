@@ -5,6 +5,7 @@ import { AppButton } from '../AppButton';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { useRouter } from 'next/navigation';
+import LabelComingSoon from './labelComingSoon';
 
 const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -42,7 +43,7 @@ const AccountMenu = () => {
   }, [isModalOpen]);
 
   const accountMenuItems = [
-    { icon: RiAccountCircleFill, label: 'Account', extra: ' Coming Soon' },
+    { icon: RiAccountCircleFill, label: 'Account' },
     // { icon: AiOutlineTeam, label: 'Team' },
     // { icon: FaInbox, label: 'Inbox' },
     // { icon: CiGift, label: 'Gift' },
@@ -65,19 +66,15 @@ const AccountMenu = () => {
           onClick={(e) => e.stopPropagation()}
         >
           <div className="space-y-2">
-            {accountMenuItems.map(({ icon: Icon, label, extra }) => (
+            {accountMenuItems.map(({ icon: Icon, label }) => (
               <div
                 key={label}
                 className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
               >
                 <Icon className="mr-2" />
-                <div>
+                <div className="flex items-center gap-1">
                   {label}
-                  {extra && (
-                    <span className="ml-1 text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm p-1">
-                      {extra}
-                    </span>
-                  )}
+                  <LabelComingSoon />
                 </div>
               </div>
             ))}

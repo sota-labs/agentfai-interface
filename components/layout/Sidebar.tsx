@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  CloseIcon,
-  DefaultAvatar,
-  DocumentIcon,
-  MobileIcon,
-} from '@/assets/icons';
+import { CloseIcon, DefaultAvatar, DocumentIcon } from '@/assets/icons';
 import { EPathName } from '@/constants/pathName';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
@@ -23,6 +18,7 @@ import { HiWallet } from 'react-icons/hi2';
 import { MdContactSupport } from 'react-icons/md';
 import AppFallbackImage from '../AppFallbackImage';
 import AccountMenu from './AccountMenu';
+import LabelComingSoon from './labelComingSoon';
 
 const Sidebar = () => {
   const [threads, setThreads] = useState<TThread[]>([]);
@@ -244,9 +240,7 @@ const Sidebar = () => {
                 <span className="text-[#a1a1aa] group-hover:text-white-0">
                   Support
                 </span>
-                <span className="ml-1 text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm px-1">
-                  Coming Soon
-                </span>
+                <LabelComingSoon />
               </div>
             </div>
             <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
@@ -257,9 +251,7 @@ const Sidebar = () => {
                 <span className="text-[#a1a1aa] group-hover:text-white-0">
                   Docs
                 </span>
-                <span className="ml-[28px] text-[12px] text-white-700 bg-white-150 border border-white-150 rounded-sm px-1">
-                  Coming Soon
-                </span>
+                <LabelComingSoon />
               </div>
             </div>
           </div>
