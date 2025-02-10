@@ -1,13 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { RiAccountCircleFill } from 'react-icons/ri';
-import { AiOutlineTeam } from 'react-icons/ai';
-import { FaInbox } from 'react-icons/fa';
-import { CiGift } from 'react-icons/ci';
 import { IoIosLogOut } from 'react-icons/io';
 import { AppButton } from '../AppButton';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { useRouter } from 'next/navigation';
+import LabelComingSoon from './LabelComingSoon';
 
 const AccountMenu = () => {
   const [isModalOpen, setModalOpen] = useState(false);
@@ -46,9 +44,9 @@ const AccountMenu = () => {
 
   const accountMenuItems = [
     { icon: RiAccountCircleFill, label: 'Account' },
-    { icon: AiOutlineTeam, label: 'Team' },
-    { icon: FaInbox, label: 'Inbox' },
-    { icon: CiGift, label: 'Gift' },
+    // { icon: AiOutlineTeam, label: 'Team' },
+    // { icon: FaInbox, label: 'Inbox' },
+    // { icon: CiGift, label: 'Gift' },
   ];
   return (
     <div className="mt-auto text-neutral-500 text-sm space-y-6 relative">
@@ -74,7 +72,10 @@ const AccountMenu = () => {
                 className="flex items-center p-1 rounded w-full text-white-1000 cursor-pointer hover:bg-white-100"
               >
                 <Icon className="mr-2" />
-                {label}
+                <div className="flex items-center gap-1">
+                  {label}
+                  <LabelComingSoon />
+                </div>
               </div>
             ))}
             <div className=" border-b border-white-100"></div>

@@ -1,11 +1,6 @@
 'use client';
 
-import {
-  CloseIcon,
-  DefaultAvatar,
-  DocumentIcon,
-  MobileIcon,
-} from '@/assets/icons';
+import { CloseIcon, DefaultAvatar, DocumentIcon } from '@/assets/icons';
 import { EPathName } from '@/constants/pathName';
 import { useCommonStore } from '@/libs/zustand/store';
 import Link from 'next/link';
@@ -23,6 +18,7 @@ import { HiWallet } from 'react-icons/hi2';
 import { MdContactSupport } from 'react-icons/md';
 import AppFallbackImage from '../AppFallbackImage';
 import AccountMenu from './AccountMenu';
+import LabelComingSoon from './LabelComingSoon';
 
 const Sidebar = () => {
   const [threads, setThreads] = useState<TThread[]>([]);
@@ -240,25 +236,23 @@ const Sidebar = () => {
           <div>
             <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
               <MdContactSupport className="text-[#a1a1aa] group-hover:text-white-0" />
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Support
-              </span>
+              <div className="flex items-center gap-1">
+                <span className="text-[#a1a1aa] group-hover:text-white-0">
+                  Support
+                </span>
+                <LabelComingSoon />
+              </div>
             </div>
             <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
               <div className="text-[#a1a1aa] group-hover:text-white-0">
                 <DocumentIcon />
               </div>
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Docs
-              </span>
-            </div>
-            <div className="cursor-pointer flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group">
-              <div className="text-[#a1a1aa] group-hover:text-white-0">
-                <MobileIcon />
+              <div className="flex items-center gap-1">
+                <span className="text-[#a1a1aa] group-hover:text-white-0">
+                  Docs
+                </span>
+                <LabelComingSoon />
               </div>
-              <span className="text-[#a1a1aa] group-hover:text-white-0">
-                Mobile
-              </span>
             </div>
           </div>
 
