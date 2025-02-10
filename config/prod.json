@@ -1,8 +1,8 @@
 {
   "appRaidenXUrl": "https://raidenx.io",
   "appRaidenXApiUrl": "https://api-oauth2.raidenx.io/api/v1",
-  "appUrl": "https://agentfai.vercel.app",
-  "appApiUrl": "https://agentfai.vercel.app",
+  "appUrl": "https://agentf.ai",
+  "appApiUrl": "https://agentf.ai",
   "authApiUrl": "https://preprod-api-agentfai.dextrade.bot",
   "rpcUrl": "https://fullnode.mainnet.sui.io",
   "zkProofUrl": "https://zklogin-prover-sui.sotalabs.io/v1",
