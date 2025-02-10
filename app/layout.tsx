@@ -11,7 +11,7 @@ import { Layout } from '@/components/layout';
 import ToastProvider from '@/provider/ToastProvider';
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://agentfai.vercel.app'),
+  metadataBase: new URL('https://agentf.ai'),
   openGraph: {
     title: 'AgentFI',
     description: 'I power the Agent Engine to help you turn intent into action.',
