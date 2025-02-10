@@ -14,7 +14,7 @@ export const metadata: Metadata = {
   metadataBase: new URL('https://agentf.ai'),
   openGraph: {
     title: 'AgentFAI',
-    description: 'I power the Agent Engine to help you turn intent into action.',
+    description: 'Appstore for DeFAI agents on SUI.',
     siteName: 'AgentFAI',
     images: [
       {
@@ -26,7 +26,7 @@ export const metadata: Metadata = {
     ],
   },
   title: 'AgentFAI',
-  description: 'I power the Agent Engine to help you turn intent into action.',
+  description: 'Appstore for DeFAI agents on SUI.',
   icons: {
     icon: '/logo/logo-favicon.png',
   },

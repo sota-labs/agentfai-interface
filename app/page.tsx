@@ -104,7 +104,7 @@ export default function LandingPage() {
             <span className="animate-wave">👋</span>
           </h1>
           <p className="text-gray-400 text-base md:text-lg">
-            I power the Agent Engine to help you turn intent into action.
+            Appstore for DeFAI agents on SUI.
           </p>
           <AppButton
             onClick={onLogin}
