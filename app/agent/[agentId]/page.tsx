@@ -27,7 +27,7 @@ const AgentPage = () => {
   return (
     <div className="space-y-8 flex flex-col items-center justify-center h-screen">
       <div>
-        <div className="text-lg text-center">Chart with {selectAgent?.name} Agent</div>
+        <div className="text-lg text-center"> {selectAgent?.name} Agent</div>
         <div className="text-white-500 text-center">
           The most powerful whale watching copilot
         </div>
