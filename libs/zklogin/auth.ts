@@ -27,7 +27,19 @@ export const getEd25519PublicKey = (ephemeralPrivateKey: string) => {
 
 export const getMaxEpoch = async (rpcUrl: string) => {
   const suiClient = new SuiClient({ url: rpcUrl });
-  const { epoch } = await suiClient.getLatestSuiSystemState();
+  const { epoch } = await retry(
+    async () => {
+      return await suiClient.getLatestSuiSystemState();
+    },
+    {
+      retries: 3,
+      minTimeout: 1000,
+      maxTimeout: 3000,
+      onRetry: (error, attempt) => {
+        console.warn(`Failed to get latest sui system state (attempt ${attempt}):`, error);
+      },
+    }
+  );
   return Number(epoch) + config.suiEpochTime;
 };
 
