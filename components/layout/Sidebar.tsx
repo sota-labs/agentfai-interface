@@ -7,7 +7,7 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { Chan } from '@/assets/images';
+import { AgentFI } from '@/assets/images';
 import { useMetadata } from '@/libs/zustand/metadata';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
@@ -30,15 +30,15 @@ const Sidebar = () => {
     {
       icon: (
         <AppFallbackImage
-          src={Chan}
-          alt="solana"
+          src={AgentFI}
+          alt="agentfi"
           width={15}
           height={15}
           className="rounded-full"
           fallbackSrc={DefaultAvatar}
         />
       ),
-      label: 'Griffain',
+      label: 'AgentFI',
       href: EPathName.HOME,
     },
   ];
@@ -80,7 +80,7 @@ const Sidebar = () => {
         <div className="text-[#a1a1aa] group-hover:text-white-0">
           <AppFallbackImage
             src={agent?.logoUrl || DefaultAvatar}
-            alt="solana"
+            alt="sui"
             width={15}
             height={15}
             className="rounded-full"

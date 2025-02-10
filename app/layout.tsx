@@ -13,20 +13,19 @@ import ToastProvider from '@/provider/ToastProvider';
 export const metadata: Metadata = {
   metadataBase: new URL('https://suidaos.com'),
   openGraph: {
-    title: 'Sui DAOs',
+    title: 'AgentFI',
     description:
-      'Raise money, trade AI. The best hedge fund manager on SUI by raidenx.io',
-    siteName: 'Sui DAOs',
+      'I power the Agent Engine to help you turn intent into action.',
+    siteName: 'AgentFI',
     images: [
       {
-        url: '/logo/opengraph-image.jpg',
-        alt: 'Sui DAOs',
+        url: '/logo/opengraph-image.png',
+        alt: 'AgentFI',
       },
     ],
   },
-  title: 'Sui DAOs',
-  description:
-    'Raise money, trade AI. The best hedge fund manager on SUI by raidenx.io',
+  title: 'AgentFI',
+  description: 'I power the Agent Engine to help you turn intent into action.',
   icons: {
     icon: '/logo/logo-favicon.png',
   },
