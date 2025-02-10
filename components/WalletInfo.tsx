@@ -93,11 +93,12 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
               <CardToken
                 key={'token ' + index}
                 token={{
-                  image: TokenImages[item?.name?.toLocaleLowerCase()],
+                  coinType: item?.coinType,
+                  image: item?.image,
                   symbol: item.symbol,
                   tokenName: item.name,
                   tokenBalance: item.balance,
-                  decimal: item.decimal,
+                  decimals: item.decimals,
                   priceUSDT: '0.37',
                 }}
               />

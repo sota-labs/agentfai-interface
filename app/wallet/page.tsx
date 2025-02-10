@@ -4,7 +4,6 @@ import { ArrowDownIcon, DefaultAvatar, OpenTabIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { getSuiVisionExplore, truncateMiddleText } from '@/utils/helper';
-import { TokenImages } from '@/assets/images/token';
 import { Sui } from '@/assets/images';
 import AppFallbackImage from '@/components/AppFallbackImage';
 import { useWalletBalances } from '@/hooks/useBalance';
@@ -86,11 +85,12 @@ const Wallet = () => {
           <CardToken
             key={'token ' + index}
             token={{
-              image: TokenImages[item?.name?.toLocaleLowerCase()],
+              coinType: item?.coinType,
+              image: item?.image,
               symbol: item.symbol,
               tokenName: item.name,
               tokenBalance: item.balance,
-              decimal: item.decimal,
+              decimals: item.decimals,
               priceUSDT: '0.37',
             }}
           />

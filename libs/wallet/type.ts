@@ -4,9 +4,10 @@ export type UserWallet = {
 };
 
 export type TCoinMetadata = {
-  type: string;
-  decimal: number;
+  coinType: string;
+  decimals: number;
   name: string;
   symbol: string;
   balance: string;
+  image?: string;
 };
