@@ -5,7 +5,6 @@ import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
 import { TokenImages } from '@/assets/images/token';
 import moment from 'moment';
-import { useWalletBalances } from '@/hooks/useBalance';
 import { fetchCoinBalances } from '@/utils/sui';
 import { TCoinMetadata } from '@/libs/wallet/type';
 
@@ -17,15 +16,16 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
   const [balances, setBalances] = useState<TCoinMetadata[]>();
 
-  const { activeWallet } = useWalletBalances();
-
   const getBalances = async (address: string) => {
     try {
       const balances = await fetchCoinBalances(address);
 
       setBalances(balances);
     } catch (err) {
-      console.log(`fetch coins balances of address ${activeWallet} error`, err);
+      console.log(
+        `fetch coins balances of address ${walletAddress} error`,
+        err,
+      );
     }
   };
 
