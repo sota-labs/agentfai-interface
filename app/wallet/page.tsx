@@ -1,14 +1,8 @@
 'use client';
 import React, { useEffect, useState } from 'react';
-import {
-  ArrowDownIcon,
-  DefaultAvatar,
-  MenuDotIcon,
-  OpenTabIcon,
-} from '@/assets/icons';
+import { ArrowDownIcon, DefaultAvatar, OpenTabIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
-import { useDisconnectWallet } from '@mysten/dapp-kit';
 import { getSuiVisionExplore, truncateMiddleText } from '@/utils/helper';
 import { TokenImages } from '@/assets/images/token';
 import { Sui } from '@/assets/images';
@@ -18,11 +12,9 @@ import { useAuthStore } from '@/libs/zustand/auth';
 import CopyButton from '@/components/CopyButton';
 
 const Wallet = () => {
-  const [isPopoverMenu, setIsPopoverMenu] = useState(false);
   const [isPopoverToken, setIsPopoverToken] = useState(false);
   const [clientZkAddress, setClientZkAddress] = useState('');
 
-  const { mutate: disconnect } = useDisconnectWallet();
   const { activeWallet } = useWalletBalances();
   const { zkAddress } = useAuthStore();
 
