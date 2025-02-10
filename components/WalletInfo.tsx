@@ -26,7 +26,7 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
       );
     };
     // eslint-disable-next-line
-  }, []);
+  }, [walletAddress]);
 
   const getBalances = async (address: string) => {
     try {
