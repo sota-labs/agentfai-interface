@@ -12,16 +12,17 @@ import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import React, { useEffect, useState } from 'react';
 
-import { GoClockFill } from 'react-icons/go';
-import { MdContactSupport } from 'react-icons/md';
-import { HiWallet } from 'react-icons/hi2';
-import { HiOutlineDotsHorizontal } from 'react-icons/hi';
-import AppFallbackImage from '../AppFallbackImage';
 import { Chan } from '@/assets/images';
-import AccountMenu from './AccountMenu';
+import { useMetadata } from '@/libs/zustand/metadata';
 import rf from '@/services/RequestFactory';
 import { TThread } from '@/types';
 import { formatUnixTimestamp } from '@/utils/format';
+import { GoClockFill } from 'react-icons/go';
+import { HiOutlineDotsHorizontal } from 'react-icons/hi';
+import { HiWallet } from 'react-icons/hi2';
+import { MdContactSupport } from 'react-icons/md';
+import AppFallbackImage from '../AppFallbackImage';
+import AccountMenu from './AccountMenu';
 
 const Sidebar = () => {
   const [threads, setThreads] = useState<TThread[]>([]);
@@ -72,12 +73,17 @@ const Sidebar = () => {
     },
   ];
 
-  const agents = [
-    {
+  const { listAgentsWithIsConnected } = useMetadata();
+  const agentsConnected = listAgentsWithIsConnected.filter(
+    (agent) => agent.isConnected,
+  );
+
+  const listAgentsSidebar = agentsConnected.map((agent) => {
+    return {
       icon: (
         <div className="text-[#a1a1aa] group-hover:text-white-0">
           <AppFallbackImage
-            src={Chan}
+            src={agent?.logoUrl || DefaultAvatar}
             alt="solana"
             width={15}
             height={15}
@@ -86,26 +92,10 @@ const Sidebar = () => {
           />
         </div>
       ),
-      label: 'Chan',
-      href: '/chan',
-    },
-    {
-      icon: (
-        <div className="text-[#a1a1aa] group-hover:text-white-0">
-          <AppFallbackImage
-            src={Chan}
-            alt="solana"
-            width={15}
-            height={15}
-            className="rounded-full"
-            fallbackSrc={DefaultAvatar}
-          />
-        </div>
-      ),
-      label: 'Raidenx',
-      href: '#',
-    },
-  ];
+      label: agent.name,
+      href: `/agent/${agent.agentId}`,
+    };
+  });
 
   const getRecentThreads = async () => {
     try {
@@ -143,7 +133,7 @@ const Sidebar = () => {
           </div>
         </div>
         <div className="flex flex-col">
-          <nav className="flex flex-col gap-2 mb-6 border-b border-white-50 pb-3">
+          <nav className="flex flex-col gap-2 mb-1 border-b border-white-50 pb-3">
             {menuTopSidebar.map((item) => (
               <Link
                 key={item.label}
@@ -168,7 +158,7 @@ const Sidebar = () => {
             ))}
           </nav>
 
-          <nav className="flex flex-col gap-2 mb-6">
+          <nav className="flex flex-col gap-2 mb-0">
             {menuSidebar.map((item) => (
               <Link
                 key={item.label}
@@ -192,28 +182,31 @@ const Sidebar = () => {
               </Link>
             ))}
           </nav>
-
-          <div>
-            <h3 className="text-neutral-500 text-xs p-[8px]">Agents</h3>
-            <div className="mt-2 flex flex-col gap-2">
-              {agents.map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group"
-                >
-                  {item.icon}
-                  <span
-                    className={`${
-                      item.href === pathname ? 'text-white-0' : 'text-[#a1a1aa]'
-                    } group-hover:text-white-0`}
+          {listAgentsSidebar?.length > 0 && (
+            <div>
+              <h3 className="text-neutral-500 text-xs p-[8px] mt-4\">Agents</h3>
+              <div className="flex flex-col gap-2">
+                {listAgentsSidebar.map((item) => (
+                  <Link
+                    key={item.label}
+                    href={item.href}
+                    className="flex items-center gap-2 font-semibold p-[8px] rounded-[8px] transition-all hover:bg-[#FFFFFF0D] group"
                   >
-                    {item.label}
-                  </span>
-                </Link>
-              ))}
+                    {item.icon}
+                    <span
+                      className={`${
+                        item.href === pathname
+                          ? 'text-white-0'
+                          : 'text-[#a1a1aa]'
+                      } group-hover:text-white-0`}
+                    >
+                      {item.label}
+                    </span>
+                  </Link>
+                ))}
+              </div>
             </div>
-          </div>
+          )}
 
           <div className="mt-4 p-[8px]">
             <h3 className="text-neutral-500 text-xs">Recent Threads</h3>

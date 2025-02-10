@@ -6,6 +6,12 @@ export default class AuthRequest extends BaseRootRequest {
     return config.appApiUrl;
   }
 
+  connectToRaidenX(code: string) {
+    const url = '/api/raidenx/connect';
+
+    return this.post(url, { code });
+  }
+
   login(idToken: string): Promise<{
     accessToken: string;
     salt: string;

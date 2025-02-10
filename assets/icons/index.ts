@@ -73,7 +73,9 @@ import OpenTabIcon from './OpenTabIcon.svg';
 import MenuDotIcon from './MenuDotIcon.svg';
 import DocumentIcon from './DocumentIcon.svg';
 import MobileIcon from './MobileIcon.svg';
-import FeatureIcon from './FeatureIcon.svg'
+import FeatureIcon from './FeatureIcon.svg';
+import CopyCheckedIcon from './CopyCheckedIcon.svg';
+import ChatIcon from './ChatIcon.svg';
 
 export {
   AUMIcon,
@@ -151,5 +153,7 @@ export {
   MenuDotIcon,
   DocumentIcon,
   MobileIcon,
-  FeatureIcon
+  FeatureIcon,
+  CopyCheckedIcon,
+  ChatIcon,
 };

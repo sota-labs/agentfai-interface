@@ -1,13 +1,13 @@
 'use client';
 
-import { useGoogleCallback } from "@/hooks/useGoogleCallback";
-import { useLogin } from "@/hooks/useLogin";
-import { useEffect } from "react";
-import { Storage } from "@/libs/storage";
-import { toastError } from "@/libs/toast";
+import { useGoogleCallback } from '@/hooks/useGoogleCallback';
+import { useLogin } from '@/hooks/useLogin';
+import { useEffect } from 'react';
+import { Storage } from '@/libs/storage';
+import { toastError } from '@/libs/toast';
 import { Oval } from 'react-loader-spinner';
-import { useRouter } from "next/navigation";
-import { useAuthStore } from "@/libs/zustand/auth";
+import { useRouter } from 'next/navigation';
+import { useAuthStore } from '@/libs/zustand/auth';
 
 export default function GoogleCallbackPage() {
   const router = useRouter();
@@ -21,17 +21,15 @@ export default function GoogleCallbackPage() {
 
   useEffect(() => {
     if (idToken && accessToken) {
-      onLogin(idToken, accessToken, onLoginSuccess).catch(
-        (error) => {
-          console.error('[onLogin] Error: ', error.message, error);
-          if (error?.message.includes('length')) {
-            toastError('Please login again');
-          } else {
-            toastError(error.message || 'Something wrong');
-          }
-          router.push('/');
-        },
-      );
+      onLogin(idToken, accessToken, onLoginSuccess).catch((error) => {
+        console.error('[onLogin] Error: ', error.message, error);
+        if (error?.message.includes('length')) {
+          toastError('Please login again');
+        } else {
+          toastError(error.message || 'Something wrong');
+        }
+        router.push('/');
+      });
     }
   }, [idToken, accessToken]);
 
@@ -44,10 +42,7 @@ export default function GoogleCallbackPage() {
       });
       return redirectUrlAfterLogin();
     } catch (err: any) {
-      console.error(
-        '[onLoginSuccess] Error: ',
-        err.message,
-      );
+      console.error('[onLoginSuccess] Error: ', err.message);
       throw err;
     }
   };

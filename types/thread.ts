@@ -6,4 +6,5 @@ export type TThread = {
   createdAt: number;
   totalMessages: number;
   lastViewedAt: number;
+  activeAgentId: string;
 };

@@ -1,10 +1,16 @@
 {
-  "appRaidenXUrl": "https://raidenx.io",
+  "appRaidenXUrl": "https://dextrade.bot",
+  "appRaidenXApiUrl": "https://api-oauth2.dextrade.bot/api/v1",
+  "appUrl": "http://localhost:3000",
   "appApiUrl": "http://localhost:3000",
   "authApiUrl": "https://api-agentfai.dextrade.bot",
   "rpcUrl": "https://fullnode.testnet.sui.io",
   "zkProofUrl": "https://zklogin-prover-sui.sotalabs.io/v1",
   "suiEpochTime": 2,
   "network": "testnet",
-  "googleClientId": "744708243047-vli6hrf5ra17k6oevgjikg9puln90voc.apps.googleusercontent.com"
+  "googleClientId": "744708243047-vli6hrf5ra17k6oevgjikg9puln90voc.apps.googleusercontent.com",
+  "raidenXClientId": "db850806-154b-4cc8-b91f-af6763584207",
+  "defaultAgentId": "AgentFAI",
+  "raidenxAgentId": "1",
+  "explorerUrl": "https://testnet.suivision.xyz/"
 }

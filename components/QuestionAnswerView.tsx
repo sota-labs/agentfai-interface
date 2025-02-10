@@ -1,6 +1,7 @@
 'use client';
 import useTypingEffect from '@/hooks/useTypingEffect';
 import React from 'react';
+import { Oval } from 'react-loader-spinner';
 import Markdown from 'react-markdown';
 
 interface AnswerViewProps {
@@ -9,22 +10,56 @@ interface AnswerViewProps {
     answer: string;
   };
   isTyping?: boolean;
+  isLoading?: boolean;
+  index: number;
+  setEl: (el: HTMLDivElement | null) => void;
+  onTypingCompleted: () => void;
 }
 
-const QuestionAnswerView = ({ askAndAnswer, isTyping }: AnswerViewProps) => {
-  const typingText = useTypingEffect(askAndAnswer.answer);
+const QuestionAnswerView = ({
+  askAndAnswer,
+  isTyping,
+  isLoading,
+  index,
+  setEl,
+  onTypingCompleted,
+}: AnswerViewProps) => {
+  const formattedMarkdown = askAndAnswer?.answer?.replace(/\\n/g, '\n\n');
+  const typingText = useTypingEffect(
+    formattedMarkdown,
+    isTyping ? onTypingCompleted : undefined,
+  );
   return (
-    <div>
+    <div
+      ref={(el) => {
+        if (index > 0) return;
+        setEl(el);
+      }}
+    >
       <div className="flex justify-end">
-        <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded">
-          {askAndAnswer?.question}
-        </div>
+        {askAndAnswer?.question && (
+          <div className="max-w-64 bg-[#403F45] px-[8px] py-[4px] rounded break-words">
+            {askAndAnswer?.question}
+          </div>
+        )}
       </div>
-      <div>
+      <div className="max-w-100 break-words">
         {isTyping ? (
-          <Markdown className="mark-down-content">{typingText}</Markdown>
+          <>
+            {isLoading ? (
+              <Oval
+                visible={true}
+                height="12"
+                width="12"
+                color="#000000"
+                ariaLabel="oval-loading"
+              />
+            ) : (
+              <Markdown className="mark-down-content">{typingText}</Markdown>
+            )}
+          </>
         ) : (
-          <div className="mark-down-content">{askAndAnswer?.answer}</div>
+          <Markdown className="mark-down-content">{formattedMarkdown}</Markdown>
         )}
       </div>
     </div>

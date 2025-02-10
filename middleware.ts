@@ -1,22 +1,22 @@
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
-import { cookies } from 'next/headers';
 
-// This function can be marked `async` if using `await` inside
 export function middleware(request: NextRequest) {
-  if (request.nextUrl.pathname === '/') {
-    return NextResponse.next();
+  const token = request.cookies.get('Authorization')?.value;
+
+  if (token && request.nextUrl.pathname === '/') {
+    return NextResponse.redirect(new URL('/home', request.url));
   }
 
-  const isAuthorization = cookies().get('Authorization');
-  if (!isAuthorization) {
+  if (!token && request.nextUrl.pathname !== '/') {
     return NextResponse.redirect(new URL('/', request.url));
   }
-  
+
   return NextResponse.next();
 }
 
-// This config ensures that the middleware only applies to the `/home` route
 export const config = {
-  matcher: '/((?!api/|_next/|static/|public/|google/callback|login|register|logo/|image|favicon.ico).*)'
+  matcher: [
+    '/((?!api/|_next/|static/|public/|google/callback|login|register|logo/|image|favicon.ico).*)',
+  ],
 };
