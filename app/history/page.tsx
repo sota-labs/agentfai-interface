@@ -5,7 +5,12 @@ import { HistoryList } from './parts';
 
 const History = () => {
   const [activeTab, setActiveTab] = useState('History');
-  const tabs = ['History', 'Tweets', 'Uploads', 'Emails'];
+  const tabs = [
+    'History',
+    // 'Tweets',
+    // 'Uploads',
+    // 'Emails'
+  ];
 
   const _renderContentTab = () => {
     switch (activeTab) {
