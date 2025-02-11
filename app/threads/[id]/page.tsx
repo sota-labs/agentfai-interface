@@ -7,14 +7,13 @@ import config from '@/config';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { AgentWallet } from '@/libs/agents/type';
-import { useAgent } from '@/libs/zustand/agent';
 
 export default function ChatAndWallet() {
   const { id: threadId }: { id: string } = useParams();
-  const { activeAgentId } = useAgent();
   const { zkAddress, connected } = useAuthStore();
   const [raidenXWallet, setRaidenXWallet] = useState<AgentWallet>();
   const [clientZkAddress, setClientZkAddress] = useState('');
+  const [activeAgentId, setActiveAgentId] = useState('');
 
   const currentWallet = useMemo(() => {
     console.log('=== currentWallet', {
@@ -49,7 +48,11 @@ export default function ChatAndWallet() {
     <div>
       <div className="grid grid-cols-3 gap-[32px] max-desktop:grid-cols-1">
         <div className="max-w-[718px] col-span-2 h-[calc(100vh-80px)] max-desktop:max-w-full max-desktop:col-span-1 max-desktop:h-[calc(100vh-64px)]">
-          <ChatBox threadId={threadId} />
+          <ChatBox
+            threadId={threadId}
+            activeAgentId={activeAgentId}
+            setActiveAgentId={setActiveAgentId}
+          />
         </div>
         {activeAgentId && <WalletInfo walletAddress={currentWallet} />}
       </div>

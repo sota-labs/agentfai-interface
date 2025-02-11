@@ -4,18 +4,19 @@ import rf from '@/services/RequestFactory';
 import { FC, FormEvent, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AgentPopup from '../agents/AgentPopup';
-import { useAgent } from '@/libs/zustand/agent';
 
 interface ChatInputI {
   agentId?: string;
   threadId?: string;
   isInitial?: boolean;
   inputValue: string;
+  canSwitchAgent?: boolean;
+  isDisabled?: boolean;
+  activeAgentId?: string;
+  setActiveAgentId?: (id: string) => void;
+  setIsSendingMessage?: (isLoading: boolean) => void;
   setInputValue: (value: SetStateAction<string>) => void;
   onSuccess?: (messageId: string) => void;
-  canSwitchAgent?: boolean;
-  setIsSendingMessage?: (isLoading: boolean) => void;
-  isDisabled?: boolean;
 }
 
 const ChatInput: FC<ChatInputI> = ({
@@ -23,14 +24,15 @@ const ChatInput: FC<ChatInputI> = ({
   threadId,
   isInitial,
   inputValue,
+  canSwitchAgent = false,
+  isDisabled,
+  activeAgentId,
+  setIsSendingMessage,
+  setActiveAgentId,
   setInputValue,
   onSuccess,
-  canSwitchAgent = false,
-  setIsSendingMessage,
-  isDisabled,
 }) => {
   const router = useRouter();
-  const { activeAgentId, setActiveAgentId } = useAgent();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -58,7 +60,7 @@ const ChatInput: FC<ChatInputI> = ({
   };
 
   useEffect(() => {
-    setActiveAgentId(agentId || '');
+    if (setActiveAgentId) setActiveAgentId(agentId || '');
   }, [agentId]);
 
   return (
@@ -69,7 +71,10 @@ const ChatInput: FC<ChatInputI> = ({
       >
         {canSwitchAgent && (
           <div className="absolute top-0 left-1">
-            <AgentPopup />
+            <AgentPopup
+              activeAgentId={activeAgentId}
+              setActiveAgentId={setActiveAgentId}
+            />
           </div>
         )}
         <AppInput
