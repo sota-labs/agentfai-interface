@@ -5,8 +5,8 @@ import AppFallbackImage from '../AppFallbackImage';
 import config from '@/config';
 
 interface AgentPopupI {
-  activeAgentId: string;
-  setActiveAgentId: (agentId: string) => void;
+  activeAgentId?: string;
+  setActiveAgentId?: (agentId: string) => void;
 }
 
 const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
@@ -16,7 +16,7 @@ const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
 
   const handleSelectAgent = (agentId: string) => {
     console.log('handleSelectAgent', agentId);
-    setActiveAgentId(agentId);
+    if (setActiveAgentId) setActiveAgentId(agentId);
     setIsPopoverAgent(false);
   };
 

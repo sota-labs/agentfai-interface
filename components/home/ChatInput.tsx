@@ -12,8 +12,8 @@ interface ChatInputI {
   inputValue: string;
   canSwitchAgent?: boolean;
   isDisabled?: boolean;
-  activeAgentId: string;
-  setActiveAgentId: (id: string) => void;
+  activeAgentId?: string;
+  setActiveAgentId?: (id: string) => void;
   setIsSendingMessage?: (isLoading: boolean) => void;
   setInputValue: (value: SetStateAction<string>) => void;
   onSuccess?: (messageId: string) => void;
@@ -60,7 +60,7 @@ const ChatInput: FC<ChatInputI> = ({
   };
 
   useEffect(() => {
-    setActiveAgentId(agentId || '');
+    if (setActiveAgentId) setActiveAgentId(agentId || '');
   }, [agentId]);
 
   return (
