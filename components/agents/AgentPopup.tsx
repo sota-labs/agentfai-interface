@@ -3,19 +3,15 @@ import { AppPopover } from '../AppPopover';
 import { useMetadata } from '@/libs/zustand/metadata';
 import AppFallbackImage from '../AppFallbackImage';
 import config from '@/config';
+import { useAgent } from '@/libs/zustand/agent';
 // import AppInput from '../AppInput';
 
-interface AgentPopupI {
-  activeAgentId: string;
-  setActiveAgentId: (agentId: string) => void;
-}
-
-const AgentPopup = ({ activeAgentId, setActiveAgentId }: AgentPopupI) => {
+const AgentPopup = () => {
   const [isPopoverAgent, setIsPopoverAgent] = useState(false);
-  const { listAgents } = useMetadata();
   const [selectedAgent, setSelectedAgent] = useState<any>(null);
 
-  // const [inputValue, setInputValue] = useState('');
+  const { listAgents } = useMetadata();
+  const { activeAgentId, setActiveAgentId } = useAgent();
 
   const handleSelectAgent = (agentId: string) => {
     console.log('handleSelectAgent', agentId);

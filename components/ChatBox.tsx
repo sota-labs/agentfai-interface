@@ -10,15 +10,14 @@ import rf from '@/services/RequestFactory';
 import { Virtuoso } from 'react-virtuoso';
 import { Oval } from 'react-loader-spinner';
 import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
+import { useAgent } from '@/libs/zustand/agent';
 
 interface ChatBoxI {
   threadId: string;
-  activeAgentId: string;
-  setActiveAgentId: (agentID: string) => void;
 }
 const MESSAGES_LIMIT = 10;
 
-const ChatBox = ({ threadId, activeAgentId, setActiveAgentId }: ChatBoxI) => {
+const ChatBox = ({ threadId }: ChatBoxI) => {
   const [thread, setThread] = useState<TThread>();
   const [messages, setMessages] = useState<TMessage[]>([]);
   const [inputValue, setInputValue] = useState('');
@@ -32,6 +31,8 @@ const ChatBox = ({ threadId, activeAgentId, setActiveAgentId }: ChatBoxI) => {
   const [hasNextPage, setHasNextPage] = useState(true);
   const [pageNumber, setPageNumber] = useState(1);
   const [lastMessage, setLastMessage] = useState<TMessage | null>(null);
+
+  const { activeAgentId, setActiveAgentId } = useAgent();
 
   useEffect(() => {
     setActiveAgentId(thread?.activeAgentId || '');

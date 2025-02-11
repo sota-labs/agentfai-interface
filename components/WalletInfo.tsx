@@ -1,5 +1,5 @@
 'use client';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useCallback, useEffect, useState } from 'react';
 import { ArrowDownIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
@@ -7,6 +7,7 @@ import moment from 'moment';
 import { fetchCoinBalances } from '@/utils/sui';
 import { TCoinMetadata } from '@/libs/wallet/type';
 import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
+import { debounce } from 'lodash';
 
 interface WalletInfoI {
   walletAddress: string;
@@ -16,31 +17,30 @@ const WalletInfo: FC<WalletInfoI> = ({ walletAddress }) => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
   const [balances, setBalances] = useState<TCoinMetadata[]>();
 
+  const getBalances = useCallback(
+    debounce(async (address: string) => {
+      if (!address) return;
+      try {
+        const balances = await fetchCoinBalances(address);
+        console.log('=== getBalances', balances, 'address', address);
+        setBalances(balances);
+      } catch (err) {
+        console.error(`Error fetching balances for ${address}:`, err);
+      }
+    }, 500),
+    [],
+  );
+
   useEffect(() => {
     if (!walletAddress) return;
-    AppBroadcast.on(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
-      getBalances(walletAddress),
-    );
-    return () => {
-      AppBroadcast.remove(BROADCAST_EVENTS.UPDATE_BALANCE, () =>
-        getBalances(walletAddress),
-      );
-    };
-    // eslint-disable-next-line
-  }, [walletAddress]);
 
-  const getBalances = async (address: string) => {
-    try {
-      const balances = await fetchCoinBalances(address);
-      console.log('=== getBalances', balances, 'address', address);
-      setBalances(balances);
-    } catch (err) {
-      console.log(
-        `fetch coins balances of address ${walletAddress} error`,
-        err,
-      );
-    }
-  };
+    const handleUpdateBalance = () => getBalances(walletAddress);
+
+    AppBroadcast.on(BROADCAST_EVENTS.UPDATE_BALANCE, handleUpdateBalance);
+    return () => {
+      AppBroadcast.remove(BROADCAST_EVENTS.UPDATE_BALANCE, handleUpdateBalance);
+    };
+  }, [walletAddress, getBalances]);
 
   useEffect(() => {
     if (!walletAddress) {

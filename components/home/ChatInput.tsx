@@ -1,9 +1,10 @@
 'use client';
 import AppInput from '@/components/AppInput';
 import rf from '@/services/RequestFactory';
-import { FC, FormEvent, SetStateAction, useEffect, useState } from 'react';
+import { FC, FormEvent, SetStateAction, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import AgentPopup from '../agents/AgentPopup';
+import { useAgent } from '@/libs/zustand/agent';
 
 interface ChatInputI {
   agentId?: string;
@@ -29,7 +30,8 @@ const ChatInput: FC<ChatInputI> = ({
   isDisabled,
 }) => {
   const router = useRouter();
-  const [activeAgentId, setActiveAgentId] = useState<string>('');
+  const { activeAgentId, setActiveAgentId } = useAgent();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (setIsSendingMessage) setIsSendingMessage(true);
@@ -67,10 +69,7 @@ const ChatInput: FC<ChatInputI> = ({
       >
         {canSwitchAgent && (
           <div className="absolute top-0 left-1">
-            <AgentPopup
-              activeAgentId={activeAgentId}
-              setActiveAgentId={setActiveAgentId}
-            />
+            <AgentPopup />
           </div>
         )}
         <AppInput
