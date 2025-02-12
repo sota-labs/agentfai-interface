@@ -86,7 +86,7 @@ export const createSocketInstance = ({
       SOCKET_EVENTS.SEND_TRANSACTION,
       (data: ISocketSendTransaction) => {
         console.log('SOCKET_EVENTS.SEND_TRANSACTION', data);
-        AppBroadcast.dispatch(BROADCAST_EVENTS.SOCKET_COMMIT_TRANSACTION, data);
+        AppBroadcast.dispatch(BROADCAST_EVENTS.SOCKET_SEND_TRANSACTION, data);
       },
     );
   });

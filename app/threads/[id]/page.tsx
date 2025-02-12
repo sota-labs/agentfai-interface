@@ -7,6 +7,9 @@ import config from '@/config';
 import rf from '@/services/RequestFactory';
 import { useAuthStore } from '@/libs/zustand/auth';
 import { AgentWallet } from '@/libs/agents/type';
+import { AppBroadcast, BROADCAST_EVENTS } from '@/libs/broadcast';
+import { Storage } from '@/libs/storage';
+import { executeTransactionBlockForZkUser } from '@/libs/zklogin/transaction';
 
 export default function ChatAndWallet() {
   const { id: threadId }: { id: string } = useParams();
@@ -14,6 +17,8 @@ export default function ChatAndWallet() {
   const [raidenXWallet, setRaidenXWallet] = useState<AgentWallet>();
   const [clientZkAddress, setClientZkAddress] = useState('');
   const [activeAgentId, setActiveAgentId] = useState('');
+
+  const zkUser = Storage.getZkpData();
 
   const currentWallet = useMemo(() => {
     console.log('=== currentWallet', {
@@ -43,6 +48,30 @@ export default function ChatAndWallet() {
 
     getRaidenXAgentWallet();
   }, [connected, activeAgentId]);
+
+  useEffect(() => {
+    AppBroadcast.on(
+      BROADCAST_EVENTS.SOCKET_SEND_TRANSACTION,
+      handleSignTransaction,
+    );
+    return () => {
+      AppBroadcast.remove(
+        BROADCAST_EVENTS.SOCKET_SEND_TRANSACTION,
+        handleSignTransaction,
+      );
+    };
+    // eslint-disable-next-line
+  }, []);
+
+  const handleSignTransaction = async (txb: any) => {
+    try {
+      const res = await executeTransactionBlockForZkUser(zkUser, txb);
+
+      console.log(res, 'res');
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
