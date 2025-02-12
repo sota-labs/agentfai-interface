@@ -1,14 +1,15 @@
 import { Transaction } from '@mysten/sui/transactions';
 import config from '@/config';
-import { Buffer } from 'buffer';
 import retry from 'async-retry';
 import { fetchZkProof, getEd25519PublicKey } from './auth';
-import { getExtendedEphemeralPublicKey, getZkLoginSignature } from '@mysten/sui/zklogin';
-import { SuiClient, SuiTransactionBlockResponse } from '@mysten/sui/client';
 import {
-  decodeSuiPrivateKey,
-} from '@mysten/sui/cryptography';
+  getExtendedEphemeralPublicKey,
+  getZkLoginSignature,
+} from '@mysten/sui/zklogin';
+import { SuiClient, SuiTransactionBlockResponse } from '@mysten/sui/client';
+import { decodeSuiPrivateKey } from '@mysten/sui/cryptography';
 import { Ed25519Keypair } from '@mysten/sui/keypairs/ed25519';
+import { zkUser } from './type';
 
 export type ZKProof = {
   proofPoints: {
@@ -26,40 +27,23 @@ export type ZKProof = {
 const suiClient = new SuiClient({ url: config.rpcUrl });
 
 export const executeTransactionBlockForZkUser = async (
-  zkUser: any,
+  zkUser: zkUser,
   txb: Transaction,
-  sponsorGasFunc: any,
 ) => {
-  if (!sponsorGasFunc) {
-    throw new Error('sponsor_gas_func_required');
-  }
-  const txBytes = await txb.build({
-    client: suiClient,
-    onlyTransactionKind: true,
-  });
-
-  const sponsoredSig = await sponsorGasFunc(
-    zkUser.zkAddress,
-    Buffer.from(txBytes).toString('base64'),
-  );
-
-  const sponsoredTx = Transaction.from(sponsoredSig.bytes);
   let resData: any = {};
-
-  let zkProof = zkUser.zkProof;
+  const { addressSeed, ephemeralPrivateKey, maxEpoch, zkProof } = zkUser;
 
   await retry(
     async () => {
       try {
         console.log('zkProof to executed', zkProof);
         resData = await signAndExecutionTransactionSponsoredWithZkLogin({
-          txBlock: sponsoredTx!,
-          addressSeed: zkUser.addressSeed!,
-          ephemeralPrivateKey: zkUser.ephemeralPrivateKey!,
-          maxEpoch: zkUser.maxEpoch!,
+          txBlock: txb!,
+          addressSeed: addressSeed!,
+          ephemeralPrivateKey: ephemeralPrivateKey!,
+          maxEpoch: maxEpoch!,
           suiClient: suiClient,
           zkProof: zkProof!,
-          sponsoredSig,
         });
       } catch (e: any) {
         if (e.message.includes('Invalid user signature')) {
@@ -70,7 +54,7 @@ export const executeTransactionBlockForZkUser = async (
           const extendedEphemeralPublicKey =
             getExtendedEphemeralPublicKey(ephemeralPublicKey);
 
-          zkProof = await fetchZkProof({
+          const zkProof = await fetchZkProof({
             maxEpoch: zkUser.maxEpoch,
             jwtRandomness: zkUser.jwtRandomness,
             extendedEphemeralPublicKey,
@@ -102,7 +86,6 @@ export async function signAndExecutionTransactionSponsoredWithZkLogin({
   addressSeed,
   maxEpoch,
   zkProof,
-  sponsoredSig,
 }: {
   txBlock: Transaction;
   ephemeralPrivateKey: string;
@@ -110,7 +93,6 @@ export async function signAndExecutionTransactionSponsoredWithZkLogin({
   addressSeed: string;
   maxEpoch: number;
   zkProof: ZKProof;
-  sponsoredSig: any;
 }): Promise<SuiTransactionBlockResponse | null> {
   // createUserSignature
   const userSignature = await createUserSignature(
@@ -134,7 +116,7 @@ export async function signAndExecutionTransactionSponsoredWithZkLogin({
 
     return await suiClient.executeTransactionBlock({
       transactionBlock: userSignature.bytes,
-      signature: [zkLoginSignature, sponsoredSig.signature],
+      signature: zkLoginSignature,
       options: {
         showEffects: true,
         showEvents: true,
