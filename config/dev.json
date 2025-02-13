@@ -12,5 +12,6 @@
   "raidenXClientId": "db850806-154b-4cc8-b91f-af6763584207",
   "defaultAgentId": "AgentFAI",
   "raidenxAgentId": "RaidenX",
-  "explorerUrl": "https://testnet.suivision.xyz/"
+  "explorerUrl": "https://testnet.suivision.xyz/",
+  "wsUrl": ""
 }

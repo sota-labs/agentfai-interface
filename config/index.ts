@@ -18,6 +18,7 @@ export interface Config {
   googleCallbackUrl: string;
   raidenXCallbackUrl: string;
   explorerUrl: string;
+  wsUrl: string;
 }
 
 export const envConfig = process.env.NEXT_PUBLIC_ENV || 'dev';

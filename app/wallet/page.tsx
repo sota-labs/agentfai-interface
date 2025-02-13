@@ -1,5 +1,5 @@
 'use client';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useMemo, useState } from 'react';
 import { ArrowDownIcon, DefaultAvatar, OpenTabIcon } from '@/assets/icons';
 import { AppPopover } from '@/components/AppPopover';
 import CardToken from '@/components/CardToken';
@@ -9,6 +9,8 @@ import AppFallbackImage from '@/components/AppFallbackImage';
 import { useWalletBalances } from '@/hooks/useBalance';
 import { useAuthStore } from '@/libs/zustand/auth';
 import CopyButton from '@/components/CopyButton';
+import { SUI_COIN_TYPE } from '@/constants';
+import { formatNumberWithComa } from '@/utils/format';
 
 const Wallet = () => {
   const [isPopoverToken, setIsPopoverToken] = useState(false);
@@ -20,6 +22,17 @@ const Wallet = () => {
   useEffect(() => {
     if (zkAddress) setClientZkAddress(zkAddress);
   }, [zkAddress]);
+
+  const suiBalance = useMemo(() => {
+    if (!activeWallet.coinBalances?.length) {
+      return 0;
+    }
+
+    return (
+      activeWallet.coinBalances.find((item) => item.coinType == SUI_COIN_TYPE)
+        ?.balance || 0
+    );
+  }, [activeWallet?.coinBalances]);
 
   return (
     <div className="border border-solid border-[#3f3f46] rounded-[8px] p-[16px] max-desktop:hidden">
@@ -41,7 +54,7 @@ const Wallet = () => {
           <div className="flex">
             <div className="px-[6px] py-[2px] bg-[#27272a] flex items-center gap-[6px] rounded-[6px]">
               <span className="text-[14px] font-medium leading-[18px]">
-                0.00
+                {formatNumberWithComa(suiBalance)}
               </span>
               <AppFallbackImage
                 src={Sui}

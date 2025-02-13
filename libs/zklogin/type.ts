@@ -48,4 +48,5 @@ export type zkUser = {
   email: string;
   avatar: string;
   name: string;
+  jwtRandomness: string;
 };
