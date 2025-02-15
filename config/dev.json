@@ -4,7 +4,7 @@
   "appUrl": "http://localhost:3000",
   "appApiUrl": "http://localhost:3000",
   "authApiUrl": "https://api-agentfai.dextrade.bot",
-  "rpcUrl": "https://fullnode.testnet.sui.io",
+  "rpcUrl": "https://rpc.ankr.com/sui_testnet/51cc7bf146a20acb3344141b079a3b6a0cfe8458b54bfd0cd3e675e08a72965f",
   "zkProofUrl": "https://zklogin-prover-sui.sotalabs.io/v1",
   "suiEpochTime": 2,
   "network": "testnet",
